@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "react": true,
+    "react-dom": true,
+    "react-redux": true,
+    "react-router": true,
+    "react-router-redux": true,
+    "redux": true,
+    "redux-thunk": true
+  }
+}
