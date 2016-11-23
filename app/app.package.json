@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@blueprintjs/core": true,
     "react": true,
     "react-dom": true,
     "react-redux": true,

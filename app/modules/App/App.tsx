@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '@blueprintjs/core/dist/blueprint.css';
 
 interface AppProps {
 
@@ -6,7 +7,9 @@ interface AppProps {
 
 class App extends React.Component<AppProps, {}> {
   render() {
-    return <div>Hello world!</div>;
+    return (
+      <div>Hello world!</div>
+    );
   }
 }
 
