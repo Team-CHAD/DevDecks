@@ -1,0 +1,11 @@
+@import '../../theme/mixins/toolbar.scss';
+
+#tb {
+  width: 188px;
+}
+
+.tb--menu {
+  display: flex;
+  width: fit-content;
+  @include toolbar-border;
+}
