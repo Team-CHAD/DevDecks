@@ -19,11 +19,11 @@ interface Plugin {
 
 const store: React.Component<{}, {}>[] = [];
 
-@connect(
-  state => ({
-    routing: state.routing
-  })
-)
+// @connect(
+//   state => ({
+//     routing: state.routing
+//   })
+// )
 
 class ToolBar extends React.Component<{}, { test: string }> {
   // NOTE: It would be better to explicitly define the type of e.
