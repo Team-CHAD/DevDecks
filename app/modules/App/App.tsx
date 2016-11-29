@@ -1,13 +1,17 @@
 import * as React from 'react';
+import '@blueprintjs/core/dist/blueprint.css';
 
-interface AppProps {
+import {
+  ToolBar
+} from '..';
 
-}
 
-class App extends React.Component<AppProps, {}> {
+class App extends React.Component<{}, {}> {
   render() {
-    return <div>Hello world!</div>;
+    return (
+      <ToolBar />
+    );
   }
 }
 
-export default App;
+export { App };

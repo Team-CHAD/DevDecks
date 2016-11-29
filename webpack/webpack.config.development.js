@@ -36,17 +36,19 @@ export default validate(merge(baseConfig, {
           'css-loader?sourceMap',
           'postcss-loader',
           'sass-loader?sourceMap'
-        ]
+        ],
+        include: /app/
       },
 
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /^((?!\.global).)*\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?sourceMap',
           'postcss-loader',
           'sass-loader?sourceMap'
-        ]
+        ],
+        include: /app/
       },
 
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
