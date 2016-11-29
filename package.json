@@ -1,5 +1,6 @@
 {
   "name": "devdecks",
+  "author": "CHAD",
   "productName": "devdecks",
   "version": "0.0.1",
   "description": "An open-source, seamless, intuitive, interactive, extensible presentational platform for developers",
@@ -92,6 +93,7 @@
     "@types/redux": "^3.6.31",
     "@types/redux-logger": "^2.6.32",
     "@types/redux-thunk": "^2.1.31",
+    "asar": "^0.12.3",
     "babel-core": "^6.18.0",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.7",
@@ -142,6 +144,7 @@
     "sinon": "^1.17.6",
     "spectron": "^3.4.0",
     "style-loader": "^0.13.1",
+    "tcomb": "^3.2.15",
     "ts-loader": "^1.2.2",
     "typescript": "^2.0.10",
     "url-loader": "^0.5.7",
