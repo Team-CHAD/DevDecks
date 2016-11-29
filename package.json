@@ -81,6 +81,7 @@
   "homepage": "https://github.com/DevDecks/devdecks#readme",
   "devDependencies": {
     "@types/dom4": "^1.5.20",
+    "@types/lodash": "^4.14.41",
     "@types/node": "^6.0.50",
     "@types/react": "^0.14.50",
     "@types/react-addons-css-transition-group": "^0.14.18",
@@ -153,6 +154,7 @@
   "dependencies": {
     "@blueprintjs/core": "^1.0.1",
     "electron-debug": "^1.0.1",
+    "lodash": "^4.17.2",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.3.2",
