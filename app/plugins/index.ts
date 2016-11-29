@@ -10,14 +10,5 @@ export default [
     name: 'TextBox',
     component: TextBox,
     icon: 'new-text-box',
-  },
-  // {
-  //   name: 'Link',
-  //   component: Link,
-  //   icon: 'link',
-  // }
+  }
 ];
-
-// icons:
-// code-block
-// media

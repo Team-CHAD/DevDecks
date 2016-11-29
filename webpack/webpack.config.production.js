@@ -33,7 +33,8 @@ const config = validate(merge(baseConfig, {
           'css-loader',
           'postcss-loader',
           'sass-loader'
-        )
+        ),
+        include: /app/
       },
 
       // Pipe other styles through css modules and apend to style.css
@@ -44,7 +45,8 @@ const config = validate(merge(baseConfig, {
           'css-loader',
           'postcss-loader',
           'sass-loader'
-        )
+        ),
+        include: /app/
       },
 
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },

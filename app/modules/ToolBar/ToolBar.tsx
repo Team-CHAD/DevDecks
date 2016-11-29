@@ -8,6 +8,7 @@ import './toolbar.scss';
 // a list of plugins available
 import plugins from '../../plugins';
 
+
 interface Plugin {
   name: string,
   // FIX: component should be of type React.Component but
@@ -18,12 +19,6 @@ interface Plugin {
 }
 
 const store: React.Component<{}, {}>[] = [];
-
-// @connect(
-//   state => ({
-//     routing: state.routing
-//   })
-// )
 
 class ToolBar extends React.Component<{}, { test: string }> {
   // NOTE: It would be better to explicitly define the type of e.

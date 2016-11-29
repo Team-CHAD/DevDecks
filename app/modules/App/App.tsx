@@ -1,17 +1,28 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import '@blueprintjs/core/dist/blueprint.css';
 
-import {
-  ToolBar
-} from '..';
+import EditView from './EditView/EditView';
+import FullscreenView from './FullscreenView/FullscreenView';
 
 
-class App extends React.Component<{}, {}> {
+class AppComponent extends React.Component<{ isFullscreen: boolean }, {}> {
   render() {
+    const { isFullscreen } = this.props;
     return (
-      <ToolBar />
+      <main id="container">
+        { isFullscreen ? <FullscreenView /> : <EditView /> }
+      </main>
     );
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    isFullscreen: state.app.isFullscreen,
+  };
+}
+
+const App = connect(mapStateToProps)(AppComponent as any);
 
 export { App };
