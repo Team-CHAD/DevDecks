@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Button from './Button/Button';
+import { Button } from '@blueprintjs/core';
 
 const actions = require('./actions');
 
@@ -18,8 +18,8 @@ class ControlPanel extends React.Component<{ addSlide?: React.MouseEventHandler<
     const { addSlide, deleteSlide } = this.props;
     return (
       <div>
-        <Button type='+' dispatch={ addSlide } />
-        <Button type='-' dispatch={ deleteSlide }/>
+        <Button className='pt-large' iconName='add' onClick={ addSlide } />
+        <Button className='pt-large' iconName='trash' onClick={ deleteSlide } />
       </div>
     );
   }
