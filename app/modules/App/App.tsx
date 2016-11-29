@@ -6,13 +6,7 @@ import EditView from './EditView/EditView';
 import FullscreenView from './FullscreenView/FullscreenView';
 
 
-@connect(
-  state => ({
-    isFullscreen: state.app.isFullscreen
-  })
-)
-
-class App extends React.Component<{ isFullscreen: boolean }, {}> {
+class AppComponent extends React.Component<{ isFullscreen: boolean }, {}> {
   render() {
     const { isFullscreen } = this.props;
     return (
@@ -22,5 +16,13 @@ class App extends React.Component<{ isFullscreen: boolean }, {}> {
     );
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    isFullscreen: state.app.isFullscreen,
+  };
+}
+
+const App = connect(mapStateToProps)(AppComponent as any);
 
 export { App };

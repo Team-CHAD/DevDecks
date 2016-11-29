@@ -4,15 +4,9 @@ import MiniSlide from './MiniSlide/MiniSlide';
 import './mini-slides-panel.scss';
 
 
-@connect(
-  state => ({
-    slides: state.app.slides
-  })
-)
-
 // TODO: find ways to import interfaces efficiently
 // like with array of slides
-class MiniSlidesPanel extends React.Component<{ slides?: any }, {}> {
+class MiniSlidesPanelComponent extends React.Component<{ slides?: any }, {}> {
   render() {
     const { slides } = this.props;
     return (
@@ -21,6 +15,14 @@ class MiniSlidesPanel extends React.Component<{ slides?: any }, {}> {
       </ul>
     );
   }
-} 
+}
+
+function mapStateToProps(state: any) {
+  return {
+    slides: state.app.slides,
+  };
+}
+
+const MiniSlidesPanel = connect(mapStateToProps)(MiniSlidesPanelComponent as any);
 
 export { MiniSlidesPanel };

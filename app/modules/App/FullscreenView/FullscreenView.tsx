@@ -12,13 +12,7 @@ interface FullscreenViewProps {
   toggleFullscreenMode?: React.MouseEventHandler<HTMLElement>,
 }
 
-@connect(
-  state => ({}),
-  dispatch => bindActionCreators(actions, dispatch)
-)
-
-
-class FullscreenView extends React.Component<FullscreenViewProps, {}> {
+class FullscreenViewComponent extends React.Component<FullscreenViewProps, {}> {
   render() {
     const { toggleFullscreenMode } = this.props;
     return (
@@ -36,5 +30,17 @@ class FullscreenView extends React.Component<FullscreenViewProps, {}> {
     );
   }
 }
+
+function mapStateToProps(state: any) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    toggleFullscreenMode: () => dispatch(actions.toggleFullscreenMode()),
+  };
+}
+
+const FullscreenView = connect(mapStateToProps, mapDispatchToProps)(FullscreenViewComponent as any);
 
 export default FullscreenView;
