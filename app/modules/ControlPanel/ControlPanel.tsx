@@ -10,14 +10,10 @@ interface ControlPanelProps {
   addSlide?: React.MouseEventHandler<HTMLElement>,
   deleteSlide?: React.MouseEventHandler<HTMLElement>,
   toggleFullscreenMode?: React.MouseEventHandler<HTMLElement>,
+  dispatch?: Function,
 }
 
-@connect(
-  state => ({}),
-  dispatch => bindActionCreators(actions, dispatch)
-)
-
-class ControlPanel extends React.Component<ControlPanelProps, {}> {
+class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
   render() {
     const { addSlide, deleteSlide, toggleFullscreenMode } = this.props;
     return (
@@ -29,5 +25,19 @@ class ControlPanel extends React.Component<ControlPanelProps, {}> {
     );
   }
 }
+
+function mapStateToProps(state: any) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    addSlide: () => dispatch(actions.addSlide()),
+    deleteSlide: () => dispatch(actions.deleteSlide()),
+    toggleFullscreenMode: () => dispatch(actions.toggleFullscreenMode()),
+  };
+}
+
+const ControlPanel = connect(mapStateToProps, mapDispatchToProps)(ControlPanelComponent as any);
 
 export { ControlPanel };
