@@ -2,7 +2,6 @@
 // Signature: import { plugin } from { location }
 
 import TextBox from './TextBox/TextBox';
-import Link from './Link/Link';
 
 // Store last line and export as array?
 export default [ 
@@ -10,14 +9,5 @@ export default [
     name: 'TextBox',
     component: TextBox,
     icon: 'new-text-box',
-  },
-  {
-    name: 'Link',
-    component: Link,
-    icon: 'link',
   }
 ];
-
-// icons:
-// code-block
-// media
