@@ -1,0 +1,102 @@
+$miniSlideViewWidth: 250px;
+
+// Enforces the scrollbar view
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+* {
+  background: white;
+  box-sizing: border-box;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+a:link visited {
+  border-color: black;
+}
+
+a:hover {
+  border-width: 4px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+// consider min hight and min width
+.container {
+  width: 100%;
+  margin: 0px auto;
+}
+
+#col-1 {
+  width: $miniSlideViewWidth;
+  float: left;
+}
+
+#col-2 {
+  margin-left: 10px;
+  float: left;
+}
+
+// Mini slides
+.mini-slide-view {
+  height: calc(100vh - 120px);
+  width: $miniSlideViewWidth;
+  overflow-y: auto;
+  border: .5px solid black;
+}
+
+.slide-control-panel {
+  position: fixed;
+  bottom: 0;
+  height: 120px;
+  width: $miniSlideViewWidth;
+  border: .5px solid black;
+}
+
+#toolbar {
+  margin-bottom: 10px;
+  width: calc(100% - $miniSlideViewWidth);
+}
+
+#edit-slide-view {
+  height: 480px;
+  width: 720px;
+  border: 1px solid black;
+}
+
+#col-4 {
+  width: 50%;
+  float: left;
+}
+
+.single-slide-views {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 120px;
+  width: calc(100% - 250px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  border: 1px solid black;
+}
+
+.mini-single-slide {
+  height: 70px;
+  width: 100px;
+  margin: 30px 0px 30px 10px;
+  border: .5px solid black;
+  display: inline-block;
+}
