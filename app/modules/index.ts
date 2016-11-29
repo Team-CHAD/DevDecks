@@ -1,3 +1,4 @@
 export * from './App/App';
-export * from './ToolBar/ToolBar';
 export * from './ControlPanel/ControlPanel';
+export * from './MiniSlidesPanel/MiniSlidesPanel';
+export * from './ToolBar/ToolBar';
