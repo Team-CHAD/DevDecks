@@ -5,7 +5,7 @@ import './fullscreen-view.scss';
 
 import Controls from './Controls/Controls';
 
-const actions = require('../../ControlPanel/actions');
+const actions = require('../actions');
 
 
 interface FullscreenViewProps {
