@@ -6,18 +6,15 @@ import { connect } from 'react-redux';
 
 interface CurrentSlideProps { currSlide?: number; slides?: any[]; }
 
-// @connect(
-//   state => ({ slides: state.app.slides, currSlide: state.app.currentSlide }),
-  
-// ) 
-  
-class CurrentSlideComponent extends React.Component<CurrentSlideProps, {}> {
-  
+class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, {}> {
+
   render() {
     const { slides, currSlide } = this.props;
     return (
-      <div>{slides[currSlide]}</div>
-    )  
+      <div>
+        { slides[currSlide].components.map((Plugin: any, key: number) => <Plugin key={key}/>)}
+      </div>
+    )
   }
 }
 
@@ -31,6 +28,8 @@ function mapStateToProps(state:any) {
 }
 
 // Connected Component
-const CurrentSlide = connect(
+const CurrentSlideView = connect(
   mapStateToProps
-)(CurrentSlideComponent as any);
+)(CurrentSlideViewComponent as any);
+
+export { CurrentSlideView };

@@ -13,7 +13,6 @@ export interface IAction {
 export function addSlide(): IAction {
   return {
     type: constants.ADD_SLIDE,
-    newSlide: { components: [] },
   };
 }
 
@@ -48,4 +47,3 @@ export function addPluginToCurrentSlide (component:any){
     component,
   }
 }
-
