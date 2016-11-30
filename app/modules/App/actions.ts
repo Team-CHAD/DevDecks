@@ -30,9 +30,22 @@ export function toggleFullscreenMode() {
   };
 }
 
+export function rightArrowNext() {
+  return {
+    type: constants.RIGHT_ARROW_NEXT,
+  };
+}
+
+export function leftArrowPrev() {
+  return {
+    type: constants.LEFT_ARROW_PREV,
+  };
+}
+
 export function addPluginToCurrentSlide (component:any){
   return {
     type: constants.ADD_PLUGIN_TO_CURRENT_SLIDE,
     component,
   }
 }
+

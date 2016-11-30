@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './edit-view.scss';
+const CurrentSlide = require('../../CurrentSlideView/currentSlide');
 
 import {
   ControlPanel,
@@ -30,6 +31,7 @@ const EditView = () => (
 
       <div id="edit-slide-view">
         Edit Slide View
+        {/*<CurrentSlide />*/}
       </div>
 
       <div className="single-slide-views">
