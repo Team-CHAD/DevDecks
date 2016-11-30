@@ -27,3 +27,15 @@ export function toggleFullscreenMode() {
     type: constants.TOGGLE_FULLSCREEN_MODE,
   };
 }
+
+export function rightArrowNext() {
+  return {
+    type: constants.RIGHT_ARROW_NEXT,
+  };
+}
+
+export function leftArrowPrev() {
+  return {
+    type: constants.LEFT_ARROW_PREV,
+  };
+}
