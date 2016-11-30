@@ -23,14 +23,14 @@ interface IState {
 const initialState: IState = {
   currentSlide: 0,
   isFullscreen: false,
-  slides: [{ components: []}],
+  slides: [ { components: [] } ],
 };
 
 const app = (state: IState = initialState, action: IAction) => {
   switch (action.type) {
     case constants.ADD_SLIDE: {
       const slides = state.slides.slice();
-      slides.push({ slide: action.newSlide });
+      slides.push({ components: [] });
       return Object.assign({}, state, { slides } );
     }
 
@@ -43,14 +43,18 @@ const app = (state: IState = initialState, action: IAction) => {
     case constants.TOGGLE_FULLSCREEN_MODE: {
       return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
     }
-      
+
     case constants.RIGHT_ARROW_NEXT: {
-      const currentSlide = state.currentSlide + 1;
+      // const currentSlide:number = state.slides[state.currentSlide + 1] ? state.currentSlide + 1 : state.currentSlide;
+      const currentSlide:number = state.currentSlide + 1;
+      console.log('inside right arrow reducer');
       return Object.assign({}, state, { currentSlide })
     }
-      
+
     case constants.LEFT_ARROW_PREV: {
-      const currentSlide = state.currentSlide - 1;
+      // const currentSlide:number = state.slides[state.currentSlide - 1] ? state.currentSlide - 1 : state.currentSlide;
+      const currentSlide:number = state.currentSlide - 1;
+      console.log('inside left arrow reducer');
       return Object.assign({}, state, { currentSlide })
     }
 
