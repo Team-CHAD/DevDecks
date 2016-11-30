@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Button } from '@blueprintjs/core';
 
-const actions = require('./actions');
+const actions = require('../App/actions');
 
 
 interface ControlPanelProps {
   addSlide?: React.MouseEventHandler<HTMLElement>,
   deleteSlide?: React.MouseEventHandler<HTMLElement>,
   toggleFullscreenMode?: React.MouseEventHandler<HTMLElement>,
-  dispatch?: Function,
 }
 
 class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {

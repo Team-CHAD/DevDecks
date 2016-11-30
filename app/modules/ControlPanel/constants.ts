@@ -1,3 +1,0 @@
-export const ADD_SLIDE = 'ADD_SLIDE';
-export const DELETE_SLIDE = 'DELETE_SLIDE';
-export const TOGGLE_FULLSCREEN_MODE = 'TOGGLE_FULLSCREEN_MODE';

@@ -1,1 +1,1 @@
-export * from './ControlPanel/reducer';
+export * from './App/reducer';

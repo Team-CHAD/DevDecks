@@ -5,13 +5,14 @@ export interface IAction {
   idxOfSlideToDelete?: number,
   isFullscreen?: boolean,
   // newSlide?: React.Component<{}, {}>,
-  newSlide?: string,
+  // TODO: how to nest object with keys
+  newSlide?: Object,
+  component?: any,
 }
 
 export function addSlide(): IAction {
   return {
     type: constants.ADD_SLIDE,
-    newSlide: 'test',
   };
 }
 
@@ -26,4 +27,23 @@ export function toggleFullscreenMode() {
   return {
     type: constants.TOGGLE_FULLSCREEN_MODE,
   };
+}
+
+export function rightArrowNext() {
+  return {
+    type: constants.RIGHT_ARROW_NEXT,
+  };
+}
+
+export function leftArrowPrev() {
+  return {
+    type: constants.LEFT_ARROW_PREV,
+  };
+}
+
+export function addPluginToCurrentSlide (component:any){
+  return {
+    type: constants.ADD_PLUGIN_TO_CURRENT_SLIDE,
+    component,
+  }
 }

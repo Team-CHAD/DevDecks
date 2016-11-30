@@ -3,6 +3,7 @@ import './edit-view.scss';
 
 import {
   ControlPanel,
+  CurrentSlideView,
   MiniSlidesPanel,
   ToolBar,
 } from '../..';
@@ -29,7 +30,7 @@ const EditView = () => (
       </div>
 
       <div id="edit-slide-view">
-        Edit Slide View
+        <CurrentSlideView />
       </div>
 
       <div className="single-slide-views">
