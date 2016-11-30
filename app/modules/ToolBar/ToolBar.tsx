@@ -7,7 +7,7 @@ import './toolbar.scss';
 // Need a way to dynamically update this file based on
 // a list of plugins available
 import plugins from '../../plugins';
-
+import * as actions from '../App/actions';
 
 interface Plugin {
   name: string,
@@ -18,9 +18,7 @@ interface Plugin {
   text?: string
 }
 
-const store: React.Component<{}, {}>[] = [];
-
-class ToolBar extends React.Component<{}, { test: string }> {
+class ToolBarComponent extends React.Component<{ addPluginToCurrentSlide: any }, {}> {
   // NOTE: It would be better to explicitly define the type of e.
   // Normally, this would just be e: React.MouseEventHandler,
   // but it's not working so need to figure this out
@@ -30,12 +28,13 @@ class ToolBar extends React.Component<{}, { test: string }> {
   // use a stateless component. Being a stateful component, redux will
   // be able to hook on onto it (?)
   private addToCurrentSlide (plugin: Plugin): void {
-    this.setState({ test: 'hello' }, () => console.log(this.state));
-    store.push(plugin.component);
+
   }
 
   public render() {
     // NOTE: text is a required prop of ToolBarItem
+
+    const { addPluginToCurrentSlide } = this.props;
     return (
       <div id="tb">
         <ToolBarMenu className='pt-large tb--menu'>
@@ -44,7 +43,7 @@ class ToolBar extends React.Component<{}, { test: string }> {
               <ToolBarItem
                 key = { key }
                 iconName = { plugin.icon }
-                onClick = { this.addToCurrentSlide.bind(this, plugin) }
+                onClick = { addPluginToCurrentSlide.bind(this, plugin.component) }
                 text = { plugin.text }
               />
             ))
@@ -54,5 +53,15 @@ class ToolBar extends React.Component<{}, { test: string }> {
     );
   }
 }
+
+const mapStateToProps = (state: any ) => { return {}};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addPluginToCurrentSlide: (component: any) => dispatch(actions.addPluginToCurrentSlide(component))
+  };
+};
+
+const ToolBar = connect(mapStateToProps, mapDispatchToProps)(ToolBarComponent as any);
 
 export { ToolBar };

@@ -1,12 +1,14 @@
+import * as _ from 'lodash';
 import * as constants from './constants';
 import { IAction } from './actions';
+
 
 // NOTE: The reducers and actions should belong in some universal app folder
 // that is shared amonst other reducers. Need to see where we can place it.
 
 interface Slide {
   // slide: React.Component<{}, {}>,
-  slide: any,
+  slide?: any,
   components?: React.Component<{}, {}>[],
   functions?: Function[],
   index?: number,
@@ -21,7 +23,7 @@ interface IState {
 const initialState: IState = {
   currentSlide: 0,
   isFullscreen: false,
-  slides: [],
+  slides: [{ components: []}],
 };
 
 const app = (state: IState = initialState, action: IAction) => {
@@ -40,6 +42,12 @@ const app = (state: IState = initialState, action: IAction) => {
 
     case constants.TOGGLE_FULLSCREEN_MODE: {
       return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
+    }
+
+    case constants.ADD_PLUGIN_TO_CURRENT_SLIDE: {
+      const slides = _.cloneDeep(state.slides);
+      slides[state.currentSlide].components.push(action.component);
+      return Object.assign({}, state, { slides });
     }
 
     default: {
