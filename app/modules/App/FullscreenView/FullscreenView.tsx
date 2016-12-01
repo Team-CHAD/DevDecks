@@ -13,7 +13,7 @@ const actions = require('../actions');
 interface FullscreenViewProps {
   slides?: any[],
   currentSlide?: number,
-  toggleFullscreenMode?: React.MouseEventHandler<HTMLElement>,
+  toggleFullscreenMode?: Function,
   rightArrowNext?: Function,
   leftArrowPrev?: Function,
 }
@@ -24,15 +24,14 @@ class FullscreenViewComponent extends React.Component<FullscreenViewProps, {}> {
     this.nextPrev = this.nextPrev.bind(this);
   }
 
-  nextPrev(event:any) {
-    if(event.keyCode == 39 && this.props.slides[this.props.currentSlide + 1] !== undefined){
-      console.log('right arrow pressed')
-      this.props.rightArrowNext();
-    }
-    else if(event.keyCode == 37 && this.props.slides[this.props.currentSlide - 1] !== undefined ){
-      console.log('left arrow pressed')
-      this.props.leftArrowPrev();
-    }
+  nextPrev(event: any) {
+    const { currentSlide, slides, leftArrowPrev, rightArrowNext, toggleFullscreenMode } = this.props;
+    const isBeginning = slides[currentSlide - 1] === undefined ? true : false;
+    const isLast = slides[currentSlide + 1] === undefined ? true : false;
+
+    if (event.keyCode === 39 && !isLast) rightArrowNext();
+    else if (event.keyCode === 37 && !isBeginning) leftArrowPrev();
+    else if (event.keyCode === 27) toggleFullscreenMode();
   }
 
   componentDidMount() {
@@ -42,15 +41,12 @@ class FullscreenViewComponent extends React.Component<FullscreenViewProps, {}> {
   componentWillUnmount() {
     window.removeEventListener('keydown', this.nextPrev);
   }
+  
 
   render() {
     const { toggleFullscreenMode, rightArrowNext, leftArrowPrev} = this.props;
     return (
       <div id="fullscreen-view">
-
-        <div className="fullscreen-controls">
-          <Controls toggleFullscreenMode={ toggleFullscreenMode }/>
-        </div>
 
         <div>
           <CurrentSlideView />

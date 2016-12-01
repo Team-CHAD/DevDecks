@@ -71,8 +71,8 @@ ul {
 }
 
 #edit-slide-view {
-  height: 480px;
-  width: 720px;
+  height: calc(100vh - 200px);
+  width: calc(100vw - 275px);
   border: 1px solid black;
 }
 

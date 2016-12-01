@@ -1,22 +1,13 @@
 import * as constants from './constants';
+import { IAppAction, ITextBoxPlugin } from './interfaces';
 
-export interface IAction {
-  type: string,
-  idxOfSlideToDelete?: number,
-  isFullscreen?: boolean,
-  // newSlide?: React.Component<{}, {}>,
-  // TODO: how to nest object with keys
-  newSlide?: Object,
-  component?: any,
-}
-
-export function addSlide(): IAction {
+export function addSlide(): IAppAction {
   return {
     type: constants.ADD_SLIDE,
   };
 }
 
-export function deleteSlide(idxOfSlideToDelete: number): IAction {
+export function deleteSlide(idxOfSlideToDelete: number): IAppAction {
   return {
     type: constants.DELETE_SLIDE,
     idxOfSlideToDelete,
@@ -41,9 +32,9 @@ export function leftArrowPrev() {
   };
 }
 
-export function addPluginToCurrentSlide (component:any){
+export function addPluginToCurrentSlide (plugin: ITextBoxPlugin){
   return {
     type: constants.ADD_PLUGIN_TO_CURRENT_SLIDE,
-    component,
+    plugin,
   }
 }
