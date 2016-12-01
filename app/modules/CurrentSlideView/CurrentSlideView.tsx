@@ -6,13 +6,18 @@ import { connect } from 'react-redux';
 
 interface CurrentSlideProps { currSlide?: number; slides?: any[]; }
 
+// Line 18: TODO: Dymically produce plugin types
 class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, {}> {
 
   render() {
     const { slides, currSlide } = this.props;
     return (
       <div>
-        { slides[currSlide].components.map((Plugin: any, key: number) => <Plugin key={key}/>)}
+        { 
+          slides[currSlide].components.map((plugin: any, key: number) => {
+            const { component: Component } = plugin;
+            return <Component key={key} slideNumber={currSlide} pluginIndex={key} />;
+        })}
       </div>
     )
   }
