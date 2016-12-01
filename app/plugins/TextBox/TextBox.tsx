@@ -1,26 +1,41 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { EditableText as TextBoxInput } from '@blueprintjs/core';
+import './textbox.scss';
 
-class TextBox extends React.Component<{}, { value: string }> {
-  constructor() {
-    super();
-    this.state = {
-      value: ''
-    }
-  }
+import * as actions from './actions';
 
-  updateValue(inputStr: string) {
-    this.setState({ value: inputStr });
-  }
+interface TextBoxProps {
+  pluginIndex: number, 
+  slideNumber: number,
+  slides?: any,
+  updateTextBoxText: any,
+}
 
-  render() {
+class TextBox extends React.Component<TextBoxProps, {}> {
+  public render() {
+    const { pluginIndex, slideNumber, slides, updateTextBoxText } = this.props;
+    const plugin = slides[slideNumber].components[pluginIndex];
     return (
       <TextBoxInput
+        className="textbox"
         multiline
-        onChange={ this.updateValue.bind(this) }
-        value={ this.state.value } />
+        onChange = { (text: string) => updateTextBoxText(text, pluginIndex) }
+        value = { plugin.value } />
     );
   }
 }
 
-export default TextBox;
+const mapStateToProps = (state: any) => {
+  return {
+    slides: state.app.slides,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    updateTextBoxText: (text: string, pluginIndex: number) => dispatch(actions.updateTextBoxText(text, pluginIndex)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextBox as any);
