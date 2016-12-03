@@ -71,8 +71,10 @@ ul {
 }
 
 #edit-slide-view {
-  height: calc(100vh - 200px);
+  min-width: 720px;
+  min-height: 480px;
   width: calc(100vw - 275px);
+  height: calc(100vh - 200px);
   border: 1px solid black;
 }
 

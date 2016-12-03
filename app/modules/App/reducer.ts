@@ -45,7 +45,19 @@ const app = (state: IAppState = initialState, action: IAppAction) => {
 
     case constants.UPDATE_TEXTBOX_TEXT: {
       const slides = _.cloneDeep(state.slides);
-      slides[state.currentSlide].components[action.pluginIndex].value = action.text;
+      slides[state.currentSlide].components[action.pluginNumber].state.value = action.text;
+      return Object.assign({}, state, { slides });
+    }
+
+    case constants.UPDATE_CURRENT_SLIDE: {
+      const slides = _.cloneDeep(state.slides);
+      const plugin = slides[state.currentSlide].components[action.pluginNumber];
+
+      // TODO: refactor
+      for (const change in action.changes) {
+        plugin.state[change] = action.changes[change];
+      }
+
       return Object.assign({}, state, { slides });
     }
 
