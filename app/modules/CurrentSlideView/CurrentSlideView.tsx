@@ -90,7 +90,7 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
                 onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, clientSize) }
                 onDragStop={ (e: any, { position }: { position: Object }) => updateCurrentSlide(key, position) }
               >
-                <Component slideNumber={ slideNumber } pluginNumber={ key } />
+                <Component width={ width } height={ height } slideNumber={ slideNumber } pluginNumber={ key } />
               </Rnd>
             );
         })}

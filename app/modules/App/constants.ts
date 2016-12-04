@@ -5,7 +5,11 @@ export const RIGHT_ARROW_NEXT = 'RIGHT_ARROW_NEXT';
 export const LEFT_ARROW_PREV = 'LEFT_ARROW_PREV';
 export const ADD_PLUGIN_TO_CURRENT_SLIDE = 'ADD_PLUGIN_TO_CURRENT_SLIDE';
 
+export const GO_TO_SLIDE = 'GO_TO_SLIDE';
+
+// TextBox plugin actions
 export const UPDATE_TEXTBOX_TEXT = 'UPDATE_TEXTBOX_TEXT';
 export const UPDATE_CURRENT_SLIDE = 'UPDATE_CURRENT_SLIDE';
 
-export const GO_TO_SLIDE = 'GO_TO_SLIDE';
+// CodeEditor plugin actions
+export const UPDATE_CODEEDITOR_CODE = 'UPDATE_CODEEDITOR_CODE';

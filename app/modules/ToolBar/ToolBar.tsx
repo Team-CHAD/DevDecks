@@ -33,7 +33,7 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                     width: 300,
                     height: 200,
                   },
-                  ...plugin, 
+                  ...plugin,
                 })}
                 text = { plugin.text }
               />

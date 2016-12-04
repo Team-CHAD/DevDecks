@@ -6,6 +6,8 @@ import './textbox.scss';
 import * as actions from './actions';
 
 interface TextBoxProps {
+  width: number;
+  height: number;
   slides?: any;
   slideNumber: number;
   pluginNumber: number;
@@ -14,7 +16,7 @@ interface TextBoxProps {
 
 class TextBox extends React.Component<TextBoxProps, {}> {
   public render() {
-    const { slides, slideNumber, pluginNumber, updateTextBoxText } = this.props;
+    const { width, height, slides, slideNumber, pluginNumber, updateTextBoxText } = this.props;
     const plugin = slides[slideNumber].components[pluginNumber];
     return (
       <TextBoxInput

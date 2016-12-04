@@ -9,7 +9,8 @@ const initialState: IAppState = {
   slides: [ { components: [] } ],
 };
 
-const app = (state: IAppState = initialState, action: IAppAction) => {
+// TODO: different actions should have different interfaces depending on what it does
+const app = (state: IAppState = initialState, action: any) => {
   switch (action.type) {
     case constants.ADD_SLIDE: {
       const slides = state.slides.slice();
@@ -65,6 +66,12 @@ const app = (state: IAppState = initialState, action: IAppAction) => {
       return Object.assign({}, state, {
         currentSlide: action.miniSlideIndex
       });
+    }
+
+    case constants.UPDATE_CODEEDITOR_CODE: {
+      const slides = _.cloneDeep(state.slides);
+      slides[state.currentSlide].components[action.pluginNumber].state.value = action.codeSnippet;
+      return Object.assign({}, state, { slides });
     }
 
     default: {
