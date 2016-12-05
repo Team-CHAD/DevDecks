@@ -11,33 +11,30 @@ interface TextBoxProps {
   slides?: any;
   slideNumber: number;
   pluginNumber: number;
+  pluginState: any;
   updateTextBoxText: any;
 }
 
 class TextBox extends React.Component<TextBoxProps, {}> {
   public render() {
-    const { width, height, slides, slideNumber, pluginNumber, updateTextBoxText } = this.props;
-    const plugin = slides[slideNumber].components[pluginNumber];
+    const { width, height, slides, slideNumber, pluginNumber, pluginState, updateTextBoxText } = this.props;
+
     return (
-      <TextBoxInput
-        className="textbox"
-        multiline
-        onChange = { (text: string) => updateTextBoxText(text, pluginNumber) }
-        value = { plugin.state.value } />
+      <div style={{ fontSize: pluginState.fontSize || 20 }}>
+        <TextBoxInput
+          className="textbox"
+          multiline
+          onChange = { (text: string) => updateTextBoxText(text, pluginNumber) }
+          value = { pluginState.value } />
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    slides: state.app.slides,
-  };
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch: Function) => {
-  return {
-    updateTextBoxText: (text: string, pluginNumber: number) => dispatch(actions.updateTextBoxText(text, pluginNumber)),
-  };
-};
+const mapDispatchToProps = (dispatch: Function) => ({
+  updateTextBoxText: (text: string, pluginNumber: number) => dispatch(actions.updateTextBoxText(text, pluginNumber)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextBox as any);

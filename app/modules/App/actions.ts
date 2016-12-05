@@ -31,3 +31,11 @@ export function leftArrowPrev() {
     type: constants.LEFT_ARROW_PREV,
   };
 }
+
+export function updateCurrentSlide(pluginNumber: number, changes: Object) {
+  return {
+    type: constants.UPDATE_CURRENT_SLIDE,
+    changes,
+    pluginNumber,
+  };
+}

@@ -11,5 +11,8 @@ export const GO_TO_SLIDE = 'GO_TO_SLIDE';
 export const UPDATE_TEXTBOX_TEXT = 'UPDATE_TEXTBOX_TEXT';
 export const UPDATE_CURRENT_SLIDE = 'UPDATE_CURRENT_SLIDE';
 
+// OptionsBar
+export const SET_NEW_ACTIVE_PLUGIN = 'SET_NEW_ACTIVE_PLUGIN';
+
 // CodeEditor plugin actions
 export const UPDATE_CODEEDITOR_CODE = 'UPDATE_CODEEDITOR_CODE';

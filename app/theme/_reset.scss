@@ -6,3 +6,7 @@
 .pt-large .pt-menu-item::before {
   margin: 0 5px;
 }
+
+.pt-transition-container {
+  z-index: 999;
+}

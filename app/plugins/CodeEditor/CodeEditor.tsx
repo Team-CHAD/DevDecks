@@ -9,7 +9,7 @@ require('brace/mode/javascript');
 require('brace/theme/monokai');
 
 
-interface ICodeEditorProps {
+interface CodeEditorProps {
   height: number;
   width: number;
   slides?: any;
@@ -18,7 +18,7 @@ interface ICodeEditorProps {
   updateCodeEditorCode: Function;
 }
 
-class CodeEditor extends React.Component<ICodeEditorProps, {}> {
+class CodeEditor extends React.Component<CodeEditorProps, {}> {
   render() {
     const { height, width, slides, pluginNumber, slideNumber, updateCodeEditorCode } = this.props;
     const codeSnippet = slides[slideNumber].components[pluginNumber].state.value;

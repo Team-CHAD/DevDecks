@@ -1,9 +1,9 @@
 import * as constants from '../../modules/App/constants';
 
-export function updateCurrentSlide(pluginNumber: number, changes: Object) {
+
+export function setNewActivePlugin(pluginNumber: number, slideNumber: number) {
   return {
-    type: constants.UPDATE_CURRENT_SLIDE,
-    changes,
-    pluginNumber,
-  }
+    type: constants.SET_NEW_ACTIVE_PLUGIN,
+    newActivePlugin: { pluginNumber, slideNumber },
+  };
 }

@@ -5,16 +5,23 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from 'react-redux';
+import { updateCurrentSlide } from '../App/actions';
 import * as actions from './actions';
 import './current-slide-view.scss';
 
 const Rnd = require('react-rnd');
 
+import {
+  OptionsBar,
+} from '..';
+
 interface CurrentSlideProps {
-  isInPresenterMode?: boolean;
   currentSlide?: any;
-  slideNumber?: number;
+  currentSelectedPlugin?: any,
+  isInPresenterMode?: boolean;
   updateCurrentSlide?: Function;
+  setNewActivePlugin?: Function;
+  slideNumber?: number;
 }
 
 // RND RESIZE
@@ -25,8 +32,6 @@ interface IDimension {
 
 // Line 18: TODO: Dymically produce plugin types
 class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { editSlideViewEl: any }> {
-  rnd: any = {};
-
   public constructor() {
     super();
     this.state = {
@@ -41,19 +46,17 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
   }
 
   public render() {
-    const { isInPresenterMode, currentSlide, slideNumber, updateCurrentSlide } = this.props;
+    const { currentSelectedPlugin, currentSlide, isInPresenterMode, updateCurrentSlide, setNewActivePlugin, slideNumber } = this.props;
+    const { editSlideViewEl } = this.state;
     return (
       <div>
         {
           currentSlide.components.map((plugin: any, key: number) => {
             const { component: Component, state: { width, height, left: x, top: y } } = plugin;
-            const { editSlideViewEl } = this.state;
-
             return (
               <Rnd
                 key={ key }
                 className='rnd'
-                ref={ (c: any) => { this.rnd = c } }
                 initial={ {
                   width,
                   height,
@@ -78,19 +81,32 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
                   bottomLeft: false,
                   topLeft: false
                 } : {
-                  top: true,
+                  top: false,
                   right: true,
                   bottom: true,
-                  left: true,
-                  topRight: true,
+                  left: false,
+                  topRight: false,
                   bottomRight: true,
-                  bottomLeft: true,
-                  topLeft: true
+                  bottomLeft: false,
+                  topLeft: false
                 } }
+                onClick={ () => setNewActivePlugin(key, slideNumber) }
                 onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, clientSize) }
                 onDragStop={ (e: any, { position }: { position: Object }) => updateCurrentSlide(key, position) }
               >
-                <Component width={ width } height={ height } slideNumber={ slideNumber } pluginNumber={ key } />
+                <OptionsBar 
+                  currentSelectedPlugin={ currentSelectedPlugin }
+                  isInPresenterMode={ isInPresenterMode }
+                  pluginNumber={ key }
+                  pluginState={ currentSlide.components[key].state } 
+                  slideNumber={ slideNumber } 
+                  updateCurrentSlide={ updateCurrentSlide } />
+                <Component 
+                  width={ width }
+                  height={ height }
+                  pluginNumber={ key }
+                  pluginState={ currentSlide.components[key].state }
+                  slideNumber={ slideNumber } />
               </Rnd>
             );
         })}
@@ -100,16 +116,17 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
 }
 
 const mapStateToProps = (state: any) => ({
-  isInPresenterMode: state.app.isFullscreen,
   currentSlide: state.app.slides[state.app.currentSlide],
+  currentSelectedPlugin: state.app.currentSelectedPlugin,
+  isInPresenterMode: state.app.isFullscreen,
   slideNumber: state.app.currentSlide,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCurrentSlide: (pluginNumber: number, changes: Object) => dispatch(actions.updateCurrentSlide(pluginNumber, changes)),
+  updateCurrentSlide: (pluginNumber: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, changes)),
+  setNewActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(actions.setNewActivePlugin(pluginNumber, slideNumber)),
 });
 
-// Connected Component
 const CurrentSlideView = connect(
   mapStateToProps,
   mapDispatchToProps

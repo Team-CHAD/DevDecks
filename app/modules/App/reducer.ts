@@ -5,6 +5,7 @@ import { IAppAction, IAppState } from './interfaces';
 
 const initialState: IAppState = {
   currentSlide: 0,
+  currentSelectedPlugin: { slideNumber: 0, pluginNumber: 0 },
   isFullscreen: false,
   slides: [ { components: [] } ],
 };
@@ -64,7 +65,7 @@ const app = (state: IAppState = initialState, action: any) => {
 
     case constants.GO_TO_SLIDE: {
       return Object.assign({}, state, {
-        currentSlide: action.miniSlideIndex
+        currentSlide: action.miniSlideIndex,
       });
     }
 
@@ -72,6 +73,13 @@ const app = (state: IAppState = initialState, action: any) => {
       const slides = _.cloneDeep(state.slides);
       slides[state.currentSlide].components[action.pluginNumber].state.value = action.codeSnippet;
       return Object.assign({}, state, { slides });
+    }
+
+    // Options Bar
+    case constants.SET_NEW_ACTIVE_PLUGIN: {
+      return Object.assign({}, state, {
+        currentSelectedPlugin: action.newActivePlugin,
+      });
     }
 
     default: {
