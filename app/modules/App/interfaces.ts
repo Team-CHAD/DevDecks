@@ -13,6 +13,7 @@ export interface IPlugin {
   component: React.ComponentClass<{}>,
   icon: string,
   text?: string,
+  state: Object,
 }
 
 export interface ITextBoxPlugin extends IPlugin {
@@ -31,7 +32,8 @@ export interface IAppAction {
   isFullscreen?: boolean,
   // Multiple plugin types
   plugin?: any,
-  pluginIndex?: number,
+  pluginNumber?: number,
   text?: string,
   miniSlideIndex?: number,
+  changes?: any,
 }

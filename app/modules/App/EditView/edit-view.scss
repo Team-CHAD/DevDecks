@@ -12,9 +12,8 @@ $miniSlideViewWidth: 250px;
 }
 
 * {
-  background: white;
+  background: transparent;
   box-sizing: border-box;
-  color: black;
   margin: 0;
   padding: 0;
 }
@@ -71,8 +70,10 @@ ul {
 }
 
 #edit-slide-view {
-  height: calc(100vh - 200px);
+  min-width: 720px;
+  min-height: 480px;
   width: calc(100vw - 275px);
+  height: calc(100vh - 200px);
   border: 1px solid black;
 }
 

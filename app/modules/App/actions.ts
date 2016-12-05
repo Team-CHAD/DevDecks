@@ -31,10 +31,3 @@ export function leftArrowPrev() {
     type: constants.LEFT_ARROW_PREV,
   };
 }
-
-export function addPluginToCurrentSlide (plugin: ITextBoxPlugin){
-  return {
-    type: constants.ADD_PLUGIN_TO_CURRENT_SLIDE,
-    plugin,
-  }
-}

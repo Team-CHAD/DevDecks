@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Menu as ToolBarMenu, MenuItem as ToolBarItem } from '@blueprintjs/core';
-import * as actions from '../App/actions';
+import * as actions from './actions';
 import { ITextBoxPlugin } from '../App/interfaces';
 import './toolbar.scss';
 
@@ -22,11 +22,19 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
       <div id="tb">
         <ToolBarMenu className='pt-large tb--menu'>
           {
+            // NOTE: Depending on plugin type, it should render different initial states
             plugins.map((plugin: any, key: number) => (
               <ToolBarItem
                 key = { key }
                 iconName = { plugin.icon }
-                onClick = { addPluginToCurrentSlide.bind(this, { value: '', ...plugin }) }
+                onClick = { addPluginToCurrentSlide.bind(this, {
+                  state: { 
+                    value: '',
+                    width: 300,
+                    height: 200,
+                  },
+                  ...plugin,
+                })}
                 text = { plugin.text }
               />
             ))
