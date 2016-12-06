@@ -1,32 +1,33 @@
-// this file will render the current slide react component
-
-// NOTE: There is no built-in method to stop drag so leaving it right now
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from 'react-redux';
-import * as actions from './actions';
+import { updateCurrentSlide } from '../../actions/slides.actions';
+import { setActivePlugin } from '../../actions/app.actions';
 import './current-slide-view.scss';
 
 const Rnd = require('react-rnd');
 
+// import {
+//   OptionsBar,
+// } from '..';
+
 interface CurrentSlideProps {
-  isInPresenterMode?: boolean;
   currentSlide?: any;
+  currentSelectedPlugin?: any,
+  isInPresenterMode?: boolean;
+  setActivePlugin?: Function;
   slideNumber?: number;
   updateCurrentSlide?: Function;
 }
 
 // RND RESIZE
 interface IDimension {
-  width: number;
   height: number;
+  width: number;
 }
 
 // Line 18: TODO: Dymically produce plugin types
 class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { editSlideViewEl: any }> {
-  rnd: any = {};
-
   public constructor() {
     super();
     this.state = {
@@ -41,19 +42,17 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
   }
 
   public render() {
-    const { isInPresenterMode, currentSlide, slideNumber, updateCurrentSlide } = this.props;
+    const { currentSelectedPlugin, currentSlide, isInPresenterMode, setActivePlugin, slideNumber, updateCurrentSlide } = this.props;
+    const { editSlideViewEl } = this.state;
     return (
       <div>
         {
-          currentSlide.components.map((plugin: any, key: number) => {
-            const { component: Component, state: { width, height, left: x, top: y } } = plugin;
-            const { editSlideViewEl } = this.state;
-
+          currentSlide.plugins.map((plugin: any, key: number) => {
+            const { component: Plugin, state: { width, height, left: x, top: y } } = plugin;
             return (
               <Rnd
                 key={ key }
                 className='rnd'
-                ref={ (c: any) => { this.rnd = c } }
                 initial={ {
                   width,
                   height,
@@ -63,10 +62,10 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
                 // Ensure the DOM is ready when switching views so have access
                 // to the edit-slide-view div
                 bounds={ editSlideViewEl ? {
-                  left: 0,
                   top: 0,
                   right: isInPresenterMode ? y : editSlideViewEl.clientWidth - width,
-                  bottom: isInPresenterMode ? x : editSlideViewEl.clientHeight - height
+                  bottom: isInPresenterMode ? x : editSlideViewEl.clientHeight - height,
+                  left: 0
                 } : { } }
                 isResizable= { isInPresenterMode ? {
                   top: false,
@@ -78,19 +77,34 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
                   bottomLeft: false,
                   topLeft: false
                 } : {
-                  top: true,
+                  top: false,
                   right: true,
                   bottom: true,
-                  left: true,
-                  topRight: true,
+                  left: false,
+                  topRight: false,
                   bottomRight: true,
-                  bottomLeft: true,
-                  topLeft: true
+                  bottomLeft: false,
+                  topLeft: false
                 } }
-                onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, clientSize) }
-                onDragStop={ (e: any, { position }: { position: Object }) => updateCurrentSlide(key, position) }
+                onClick={ () => setActivePlugin(key, slideNumber) }
+                onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, slideNumber, clientSize) }
+                onDragStop={ (e: any, { position }: { position: Object }) => updateCurrentSlide(key, slideNumber, position) }
               >
-                <Component width={ width } height={ height } slideNumber={ slideNumber } pluginNumber={ key } />
+                {/*<OptionsBar 
+                  currentSelectedPlugin={ currentSelectedPlugin }
+                  isInPresenterMode={ isInPresenterMode }
+                  pluginNumber={ key }
+                  pluginState={ currentSlide.plugins[key].state } 
+                  slideNumber={ slideNumber } 
+                  updateCurrentSlide={ updateCurrentSlide } />*/}
+                <Plugin 
+                  width={ width }
+                  height={ height }
+                  currentSlide={ currentSlide }
+                  pluginNumber={ key }
+                  pluginState={ currentSlide.plugins[key].state }
+                  slideNumber={ slideNumber }
+                  updateCurrentSlide={ updateCurrentSlide } />
               </Rnd>
             );
         })}
@@ -100,16 +114,17 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
 }
 
 const mapStateToProps = (state: any) => ({
+  currentSlide: state.slides[state.app.currentSlide],
+  currentSelectedPlugin: state.app.currentSelectedPlugin,
   isInPresenterMode: state.app.isFullscreen,
-  currentSlide: state.app.slides[state.app.currentSlide],
   slideNumber: state.app.currentSlide,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateCurrentSlide: (pluginNumber: number, changes: Object) => dispatch(actions.updateCurrentSlide(pluginNumber, changes)),
+  setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
+  updateCurrentSlide: (pluginNumber: number, slide: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, slide, changes)),
 });
 
-// Connected Component
 const CurrentSlideView = connect(
   mapStateToProps,
   mapDispatchToProps

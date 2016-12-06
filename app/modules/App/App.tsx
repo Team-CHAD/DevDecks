@@ -17,11 +17,9 @@ class AppComponent extends React.Component<{ isFullscreen: boolean }, {}> {
   }
 }
 
-function mapStateToProps(state: any) {
-  return {
-    isFullscreen: state.app.isFullscreen,
-  };
-}
+const mapStateToProps= (state: any) => ({
+  isFullscreen: state.app.isFullscreen,
+});
 
 const App = connect(mapStateToProps)(AppComponent as any);
 
