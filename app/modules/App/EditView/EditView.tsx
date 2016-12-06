@@ -33,7 +33,7 @@ const EditView = () => (
         <CurrentSlideView />
       </div>
 
-      <div className="single-slide-views">
+      {/*<div className="single-slide-views">
 
         <ul>
           <a href='#'><li className="mini-single-slide">slide1.0</li></a>
@@ -51,7 +51,7 @@ const EditView = () => (
           <a href='#'><li className="mini-single-slide">slide1.12</li></a>
         </ul>>
 
-      </div>
+      </div>*/}
 
     </div>
   </div>

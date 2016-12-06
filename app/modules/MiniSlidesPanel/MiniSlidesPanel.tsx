@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import MiniSlide from './MiniSlide/MiniSlide';
-import * as actions from './actions';
+import { goToSlide } from '../../actions/app.actions';
 import './mini-slides-panel.scss';
 
-
-// TODO: find ways to import interfaces efficiently
-// like with array of slides
-
 interface MiniSlidesPanelProps {
-  slides?: any,
-  goToSlide?: Function,
+  slides?: any;
+  goToSlide?: Function;
 }
 
 class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}> {
@@ -18,23 +14,17 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
     const { slides, goToSlide } = this.props;
     return (
       <ul className="mini-slides-panel">
-        { slides.map((slide: any, key: number) => <MiniSlide key={key} index={key} goToSlide={ goToSlide.bind(this, key) }/>)}
+        { slides.map((slide: any, key: number) => <MiniSlide slide={slides[key]} key={key} index={key} goToSlide={ goToSlide.bind(this, key) }/>)}
       </ul>
     );
   }
 }
 
-function mapStateToProps(state: any) {
-  return {
-    slides: state.app.slides,
-  };
-}
+const mapStateToProps = (state: any) => ({ slides: state.slides });
 
-function mapDispatchToProps(dispatch: any) {
-  return {
-    goToSlide: (miniSlideIndex: number) => dispatch(actions.goToSlide(miniSlideIndex)),
-  };
-}
+const mapDispatchToProps = (dispatch: any) => ({
+  goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber))
+});
 
 const MiniSlidesPanel = connect(mapStateToProps, mapDispatchToProps)(MiniSlidesPanelComponent as any);
 

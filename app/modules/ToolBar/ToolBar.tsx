@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Menu as ToolBarMenu, MenuItem as ToolBarItem } from '@blueprintjs/core';
-import * as actions from './actions';
-import { ITextBoxPlugin } from '../App/interfaces';
+import { addPluginToCurrentSlide } from '../../actions/slides.actions';
 import './toolbar.scss';
 
 // Import from plugins
@@ -10,14 +9,14 @@ import './toolbar.scss';
 // a list of plugins available
 import plugins from '../../plugins';
 
-
 interface ToolBarComponentProps {
-  addPluginToCurrentSlide: React.MouseEventHandler<HTMLElement>,
+  addPluginToCurrentSlide: React.MouseEventHandler<HTMLElement>;
+  slideNumber: number;
 }
 
 class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   public render() {
-    const { addPluginToCurrentSlide } = this.props;
+    const { addPluginToCurrentSlide, slideNumber } = this.props;
     return (
       <div id="tb">
         <ToolBarMenu className='pt-large tb--menu'>
@@ -34,7 +33,7 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                     height: 200,
                   },
                   ...plugin,
-                })}
+                }, slideNumber )}
                 text = { plugin.text }
               />
             ))
@@ -45,13 +44,11 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   }
 }
 
-const mapStateToProps = (state: any) => ({});
+const mapStateToProps = (state: any) => ({ slideNumber: state.app.currentSlide });
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addPluginToCurrentSlide: (component: any) => dispatch(actions.addPluginToCurrentSlide(component))
-  };
-};
+const mapDispatchToProps = (dispatch: any) => ({
+  addPluginToCurrentSlide: (plugin: any, slideNumber: number) => dispatch(addPluginToCurrentSlide(plugin, slideNumber)),
+});
 
 const ToolBar = connect(mapStateToProps, mapDispatchToProps)(ToolBarComponent as any);
 
