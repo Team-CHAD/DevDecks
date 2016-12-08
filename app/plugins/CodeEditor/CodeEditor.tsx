@@ -17,27 +17,34 @@ interface CodeEditorProps {
   updateCurrentSlide: Function;
 }
 
-const CodeEditor = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentSlide }: CodeEditorProps) => (
-  <div>
-    <AceEditor 
-      mode='javascript'
-      theme='monokai'
-      tabSize={2}
-      height={`${height}px`}
-      width={`${width}px`}
-      onChange={ (snippet: string) => updateCurrentSlide(pluginNumber, slideNumber, { snippet }) }
-      value={ pluginState.snippet }
-    />
-    <button
-      className="runButton"
-      onClick={() => {
-        const snippetEval: any = eval(pluginState.snippet);
-        updateCurrentSlide(pluginNumber, slideNumber, { snippetEval })
-      }}>
-      run code
-    </button>
-    <div className="terminal">{ pluginState.snippetEval }</div>
-  </div>
-);
+const CodeEditor = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentSlide }: CodeEditorProps) => {
+  const DEFAULT_FONT_SIZE = 8;
+
+  const { fontSize, snippet, snippetEval } = pluginState;
+
+  return (
+    <div>
+      <AceEditor 
+        mode='javascript'
+        theme='monokai'
+        tabSize={2}
+        fontSize={ fontSize ? DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
+        height={`${height}px`}
+        width={`${width}px`}
+        onChange={ (snippet: string) => updateCurrentSlide(pluginNumber, slideNumber, { snippet }) }
+        value={ snippet }
+      />
+      <button
+        className="runButton"
+        onClick={() => {
+          const snippetEval: any = eval(snippet);
+          updateCurrentSlide(pluginNumber, slideNumber, { snippetEval })
+        }}>
+        run code
+      </button>
+      <div className="terminal">{ snippetEval }</div>
+    </div>
+  );
+}
 
 export default CodeEditor;

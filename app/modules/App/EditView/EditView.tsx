@@ -30,7 +30,7 @@ const EditView = ({ deviceDimension }: EditViewProps) => (
         <ToolBar />
       </div>
 
-      <div id="edit-slide-view" style={{ width: deviceDimension.width, height: deviceDimension.height }}>
+      <div id="edit-slide-view">
         <CurrentSlideView />
       </div>
 
