@@ -1,3 +1,6 @@
+/* NOTE: Variables do not work within calc function */
+
+// Minislide Panel
 $miniSlideViewWidth: 250px;
 
 // Enforces the scrollbar view
@@ -18,6 +21,11 @@ $miniSlideViewWidth: 250px;
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 a:link visited {
   border-color: black;
 }
@@ -32,72 +40,68 @@ ul {
   padding: 0;
 }
 
-// consider min hight and min width
-.container {
+#container {
+  display: flex;
   width: 100%;
-  margin: 0px auto;
 }
 
-#col-1 {
-  width: $miniSlideViewWidth;
-  float: left;
-}
-
-#col-2 {
-  margin-left: 10px;
-  float: left;
-}
-
-// Mini slides
-.mini-slide-view {
-  height: calc(100vh - 120px);
-  width: $miniSlideViewWidth;
+#mini-slide-panel {
+  height: 100vh;
+  min-width: $miniSlideViewWidth;
   overflow-y: auto;
-  border: .5px solid black;
+  overflow-x: hidden;
+  border-right: .5px solid black;
 }
 
-.slide-control-panel {
-  position: fixed;
-  bottom: 0;
-  height: 120px;
-  width: $miniSlideViewWidth;
-  border: .5px solid black;
+#slide {
+  margin: 0 1em;
 }
 
 #toolbar {
+  display: flex;
   margin-bottom: 10px;
-  width: calc(100% - $miniSlideViewWidth);
+}
+
+#control-panel {
+  width: 38px;
+  opacity: 0.6;
+  position: fixed;
+  right: 0;
+  top: calc((100vh - 130px) / 2);
+
+  &:hover {
+    opacity: 1.0;
+  }
+
+  .pt-button {
+    display: block;
+  }
 }
 
 #edit-slide-view {
-  min-width: 720px;
-  min-height: 480px;
+  min-width: 768px;
+  min-height: 432px;
   width: calc(100vw - 275px);
-  height: calc(100vh - 200px);
+  padding-bottom: 56.25%;
   border: 1px solid black;
 }
 
-#col-4 {
-  width: 50%;
-  float: left;
-}
+// .single-slide-views {
+//   position: fixed;
+//   bottom: 0;
+//   right: 0;
+//   height: 120px;
+//   width: calc(100% - 250px);
+//   overflow-x: auto;
+//   overflow-y: hidden;
+//   white-space: nowrap;
+//   border: 1px solid black;
+// }
 
-.single-slide-views {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  height: 120px;
-  width: calc(100% - 250px);
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  border: 1px solid black;
-}
-
-.mini-single-slide {
-  height: 70px;
-  width: 100px;
-  margin: 30px 0px 30px 10px;
-  border: .5px solid black;
-  display: inline-block;
-}
+// .mini-single-slide {
+//   height: 70px;
+//   width: 100px;
+//   margin: 30px 0px 30px 10px;
+//   border: .5px solid black;
+//   display: inline-block;
+// }

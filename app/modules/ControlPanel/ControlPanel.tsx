@@ -4,7 +4,7 @@ import { Button } from '@blueprintjs/core';
 import { goToSlide } from '../../actions/app.actions';
 import { addSlide, deleteSlide } from '../../actions/slides.actions'; 
 import { toggleFullscreenMode } from '../../actions/app.actions'; 
-
+import './control-panel.scss';
 
 interface ControlPanelProps {
   addSlide?: any;
@@ -20,16 +20,19 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
     const { addSlide, currentSlide, deleteSlide, goToSlide, numberOfSlides, toggleFullscreenMode } = this.props;
     return (
       <div>
+        <Button
+          className="pt-large handle-vertical-custom"
+          iconName="drag-handle-vertical" />
         <Button 
-          className='pt-large'
-          iconName='add'
+          className="pt-large"
+          iconName="add"
           onClick={() => {
             addSlide(currentSlide);
             goToSlide(currentSlide + 1);
           }} />
         <Button 
-          className='pt-large'
-          iconName='trash'
+          className="pt-large"
+          iconName="trash"
           onClick={() => {
             deleteSlide(currentSlide);
 

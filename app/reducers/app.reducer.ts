@@ -1,9 +1,17 @@
 import * as constants from '../constants/app.constants';
 
+const deviceDimension = {
+  width: window.screen.width,
+  height: window.screen.height
+};
+
 const initialAppState = {
   currentSlide: 0,
   currentSelectedPlugin: { slideNumber: 0, pluginNumber: 0 },
+  deviceDimension: deviceDimension,
   isFullscreen: false,
+  slidesDimension: deviceDimension,
+  thumbnailsDimension: { width: 192, height: 108 },
 };
 
 const appReducer = (state: any = initialAppState, action: any) => {
@@ -32,6 +40,10 @@ const appReducer = (state: any = initialAppState, action: any) => {
 
     case constants.TOGGLE_FULLSCREEN_MODE: {
       return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
+    }
+
+    case constants.UPDATE_SLIDES_DIMENSION: {
+      return Object.assign({}, state, { slidesDimension: action.slidesDimension })
     }
 
     default: {

@@ -31,3 +31,10 @@ export function toggleFullscreenMode() {
     type: constants.TOGGLE_FULLSCREEN_MODE,
   };
 }
+
+export function updateSlidesDimension(slidesDimension: { width: number; height: number; }) {
+  return {
+    type: constants.UPDATE_SLIDES_DIMENSION,
+    slidesDimension,
+  };
+}

@@ -1,0 +1,14 @@
+.handle-vertical-custom {
+  background: none !important;
+  border: none;
+  box-shadow: none !important;
+  cursor: initial;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}

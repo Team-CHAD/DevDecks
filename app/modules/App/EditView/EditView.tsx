@@ -8,33 +8,56 @@ import {
   ToolBar,
 } from '../..';
 
+const Rnd = require('react-rnd');
 
-const EditView = () => (
-  <div>
-    <div id="col-1">
+interface EditViewProps {
+  deviceDimension: {
+    width: number;
+    height: number;
+  };
+}
 
-      <div className="mini-slide-view">
-        <MiniSlidesPanel />
-      </div>
+const EditView = ({ deviceDimension }: EditViewProps) => (
+  <div id="container">
 
-      <div className="slide-control-panel">
-        <ControlPanel />
-      </div>
-
+    <div id="mini-slide-panel">
+      <MiniSlidesPanel />
     </div>
 
-    <div id="col-2">
+    <div id="slide">
 
       <div id="toolbar">
         <ToolBar />
       </div>
 
-      <div id="edit-slide-view">
+      <div id="edit-slide-view" style={{ width: deviceDimension.width, height: deviceDimension.height }}>
         <CurrentSlideView />
       </div>
 
-      {/*<div className="single-slide-views">
+    </div>
 
+    <div id="control-panel">
+      <Rnd
+        isResizable={{
+          top: false,
+          right: false,
+          bottom: false,
+          left: false,
+          topRight: false,
+          bottomRight: false,
+          bottomLeft: false,
+          topLeft: false
+        }}
+        bounds={{
+          right: 0,
+          left: 0
+        }} >
+        <ControlPanel />
+      </Rnd>
+    </div>
+
+    {
+      /*<div id="single-slide-views">
         <ul>
           <a href='#'><li className="mini-single-slide">slide1.0</li></a>
           <a href='#'><li className="mini-single-slide">slide1.1</li></a>
@@ -50,10 +73,9 @@ const EditView = () => (
           <a href='#'><li className="mini-single-slide">slide1.11</li></a>
           <a href='#'><li className="mini-single-slide">slide1.12</li></a>
         </ul>>
+      </div>*/
+    }
 
-      </div>*/}
-
-    </div>
   </div>
 );
 
