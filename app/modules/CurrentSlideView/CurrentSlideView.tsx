@@ -7,9 +7,9 @@ import './current-slide-view.scss';
 
 const Rnd = require('react-rnd');
 
-// import {
-//   OptionsBar,
-// } from '..';
+import {
+  OptionsBar,
+} from '..';
 
 interface IDimension {
   width: number;
@@ -97,13 +97,16 @@ class CurrentSlideViewComponent extends React.Component<CurrentSlideProps, { edi
                 onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, slideNumber, clientSize) }
                 onDragStop={ (e: any, { position }: { position: Object }) => updateCurrentSlide(key, slideNumber, position) }
               >
-                {/*<OptionsBar 
-                  currentSelectedPlugin={ currentSelectedPlugin }
-                  isInPresenterMode={ isInPresenterMode }
-                  pluginNumber={ key }
-                  pluginState={ currentSlide.plugins[key].state } 
-                  slideNumber={ slideNumber } 
-                  updateCurrentSlide={ updateCurrentSlide } />*/}
+                {
+                  !isInPresenterMode ?
+                    <OptionsBar 
+                      currentSelectedPlugin={ currentSelectedPlugin }
+                      pluginNumber={ key }
+                      pluginState={ currentSlide.plugins[key].state } 
+                      slideNumber={ slideNumber } 
+                      updateCurrentSlide={ updateCurrentSlide } /> :
+                    null
+                }
                 <Plugin 
                   width={ width }
                   height={ height }
@@ -131,7 +134,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
-  updateCurrentSlide: (pluginNumber: number, slide: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, slide, changes)),
+  updateCurrentSlide: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, slideNumber, changes)),
 });
 
 const CurrentSlideView = connect(

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { EditableText as TextBoxInput } from '@blueprintjs/core';
-import './textbox.scss';
 
 interface TextBoxProps {
   pluginNumber: number;
@@ -10,10 +9,10 @@ interface TextBoxProps {
 }
 
 const TextBox = ({ pluginNumber, pluginState, slideNumber, updateCurrentSlide }: TextBoxProps) => {
+  console.log(pluginState.fontSize || 3);
   return (
-    <div style={{ fontSize: pluginState.fontSize || 20 }}>
+    <div style={{ fontSize: pluginState.fontSize ? `${ pluginState.fontSize / 100 }em` : '3em' }}>
       <TextBoxInput
-        className="textbox"
         multiline
         onChange = { (value: string) => updateCurrentSlide(pluginNumber, slideNumber, { value }) }
         value = { pluginState.value } />
