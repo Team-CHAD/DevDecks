@@ -1,0 +1,14 @@
+@import '../../theme/toolbar.scss';
+
+.terminal {
+  background-color: rgba(0,0,0,.8);
+  color: white;
+  display: block;
+  min-height: 20px;
+}
+
+.runButton {
+  background-color: rgba(100,100,100,.6);
+  color: blue;
+  display: block;
+}
