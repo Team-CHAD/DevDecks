@@ -82,6 +82,7 @@
   "homepage": "https://github.com/DevDecks/devdecks#readme",
   "devDependencies": {
     "@types/dom4": "^1.5.20",
+    "@types/electron": "^1.4.29",
     "@types/lodash": "^4.14.41",
     "@types/node": "^6.0.50",
     "@types/react": "^0.14.50",

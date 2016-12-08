@@ -3,7 +3,7 @@
 
 import AceEditor from './CodeEditor/CodeEditor';
 import TextBox from './TextBox/TextBox';
-// import Terminal from './Terminal/Terminal';
+import AddImage from './AddImage/AddImage';
 
 // Store last line and export as array?
 export default [
@@ -15,11 +15,11 @@ export default [
   {
     name: 'CodeEditor',
     component: AceEditor,
-    icon: 'code',
+    icon: 'code'
   },
-  // {
-  //   name: 'Terminal',
-  //   component: Terminal,
-  //   icon: 'terminal',
-  // }
+  {
+    name: 'AddImage',
+    component: AddImage,
+    icon: 'media'
+  }
 ];
