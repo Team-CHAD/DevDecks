@@ -2,16 +2,17 @@ import * as React from 'react';
 import './mini-slide.scss';
 
 interface MiniSlideProps {
+  currentSlide: number;
   goToSlide: any;
   index: number;
   scale: number;
   slide: any;
 }
 
-const MiniSlide = ({ goToSlide, index, scale, slide }: MiniSlideProps) => (
+const MiniSlide = ({ currentSlide, goToSlide, index, scale, slide }: MiniSlideProps) => (
   <div onClick={ goToSlide }>
     <span className="mini-slide-counter">{ index }</span>
-    <div className="mini-slide">
+    <div className={currentSlide === index? "mini-slide current-mini-slide" : "mini-slide"}>
       { 
         slide.plugins.map((plugin: any, key: number) => {
           const { component: Plugin, state: { width, height, left, top } } = plugin;

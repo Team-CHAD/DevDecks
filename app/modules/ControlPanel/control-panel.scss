@@ -2,7 +2,7 @@
   background: none !important;
   border: none;
   box-shadow: none !important;
-  cursor: initial;
+  cursor: -webkit-grab;
 
   &:focus {
     outline: none;
@@ -10,5 +10,9 @@
 
   &:hover {
     box-shadow: none;
+  }
+
+  &:active {
+    cursor: -webkit-grabbing;
   }
 }

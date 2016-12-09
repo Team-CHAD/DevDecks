@@ -47,10 +47,11 @@ ul {
 
 #mini-slide-panel {
   height: 100vh;
+  background-color: rgba(50, 50, 50, .5);
   min-width: $miniSlideViewWidth;
   overflow-y: auto;
   overflow-x: hidden;
-  border-right: .5px solid black;
+  // border-right: 2px solid rgba(100, 100, 100, .5);
 }
 
 #slide {
@@ -83,7 +84,7 @@ ul {
   min-height: 432px;
   width: calc(100vw - 275px);
   padding-bottom: 56.25%;
-  border: 1px solid black;
+  border: 2px dashed rgba(100, 100, 100, .5);
 }
 
 // .single-slide-views {

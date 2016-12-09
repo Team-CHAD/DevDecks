@@ -3,12 +3,21 @@
 .terminal {
   background-color: rgba(0,0,0,.8);
   color: white;
-  display: block;
-  min-height: 20px;
+  display: inline-block;
+  min-height: 30px;
+  min-width: 80%;
 }
 
 .runButton {
   background-color: rgba(100,100,100,.6);
   color: blue;
-  display: block;
+  display: inline-block;
+  margin : 0;
+  max-height: 30px;
+  min-width: 20%;
+}
+
+.spanwrap {
+  width: 100%;
+  
 }

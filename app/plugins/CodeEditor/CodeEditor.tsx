@@ -29,20 +29,22 @@ const CodeEditor = ({ height, width, pluginNumber, pluginState, slideNumber, upd
         theme='monokai'
         tabSize={2}
         fontSize={ fontSize ? DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
-        height={`${height}px`}
+        height={`${height-30}px`}
         width={`${width}px`}
         onChange={ (snippet: string) => updateCurrentSlide(pluginNumber, slideNumber, { snippet }) }
         value={ snippet }
       />
-      <button
+      <div className="spanwrap">
+        <button
         className="runButton"
         onClick={() => {
           const snippetEval: any = eval(snippet);
           updateCurrentSlide(pluginNumber, slideNumber, { snippetEval })
         }}>
-        run code
-      </button>
-      <div className="terminal">{ snippetEval }</div>
+        submit
+        </button>
+        <div className="terminal">{snippetEval}</div>
+      </div>  
     </div>
   );
 }
