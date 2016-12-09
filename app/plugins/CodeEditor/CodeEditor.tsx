@@ -23,28 +23,26 @@ const CodeEditor = ({ height, width, pluginNumber, pluginState, slideNumber, upd
   const { fontSize, snippet, snippetEval } = pluginState;
 
   return (
-    <div>
+    <div style={{ backgroundColor:"rgba(50, 50, 50, .2)"}}>
       <AceEditor 
         mode='javascript'
         theme='monokai'
         tabSize={2}
         fontSize={ fontSize ? DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
-        height={`${height-30}px`}
-        width={`${width}px`}
+        height={`${height-50}px`}
+        width={`${width-1}px`}
         onChange={ (snippet: string) => updateCurrentSlide(pluginNumber, slideNumber, { snippet }) }
         value={ snippet }
       />
-      <div className="spanwrap">
-        <button
+      <button
         className="runButton"
         onClick={() => {
           const snippetEval: any = eval(snippet);
           updateCurrentSlide(pluginNumber, slideNumber, { snippetEval })
-        }}>
+      }}>
         submit
-        </button>
-        <div className="terminal">{snippetEval}</div>
-      </div>  
+      </button>
+      <div className="terminal">{snippetEval}</div>
     </div>
   );
 }

@@ -5,19 +5,14 @@
   color: white;
   display: inline-block;
   min-height: 30px;
-  min-width: 80%;
+  min-width: 100%;
 }
 
 .runButton {
   background-color: rgba(100,100,100,.6);
-  color: blue;
+  color: black;
   display: inline-block;
   margin : 0;
-  max-height: 30px;
-  min-width: 20%;
-}
-
-.spanwrap {
-  width: 100%;
-  
+  max-height: 20px;
+  max-width: 70px;
 }

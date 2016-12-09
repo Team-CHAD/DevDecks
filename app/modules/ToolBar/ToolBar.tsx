@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Menu as ToolBarMenu, MenuItem as ToolBarItem } from '@blueprintjs/core';
-import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core';
+import {
+  Menu as ToolBarMenu,
+  MenuItem as ToolBarItem,
+  Popover,
+  PopoverInteractionKind,
+  Position
+} from '@blueprintjs/core';
 import { addPluginToCurrentSlide } from '../../actions/slides.actions';
 import './toolbar.scss';
 
@@ -24,13 +29,13 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
           {
             // NOTE: Depending on plugin type, it should render different initial states
             plugins.map((plugin: any, key: number) => (
-              <Popover content={plugins[key].name}
+              <Popover 
+                key={key}
+                content={plugins[key].name}
                 interactionKind={PopoverInteractionKind.HOVER}
-                // popoverClassName="pt-popover-content-sizing"
                 position={Position.BOTTOM_LEFT}
                 useSmartPositioning={false}>
                 <ToolBarItem
-                  key={key}
                   iconName = { plugin.icon }
                   onClick = { addPluginToCurrentSlide.bind(this, {
                     state: { 

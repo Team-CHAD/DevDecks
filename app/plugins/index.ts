@@ -8,17 +8,17 @@ import AddImage from './AddImage/AddImage';
 // Store last line and export as array?
 export default [
   {
-    name: 'TextBox',
+    name: 'Text Box',
     component: TextBox,
     icon: 'new-text-box',
   },
   {
-    name: 'CodeEditor',
+    name: 'Code Editor',
     component: AceEditor,
     icon: 'code'
   },
   {
-    name: 'AddImage',
+    name: 'Image',
     component: AddImage,
     icon: 'media'
   }
