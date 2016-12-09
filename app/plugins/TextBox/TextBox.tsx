@@ -9,7 +9,6 @@ interface TextBoxProps {
 }
 
 const TextBox = ({ pluginNumber, pluginState, slideNumber, updateCurrentSlide }: TextBoxProps) => {
-  console.log(pluginState.fontSize || 3);
   return (
     <div style={{ fontSize: pluginState.fontSize ? `${ pluginState.fontSize / 100 }em` : '3em' }}>
       <TextBoxInput

@@ -19,6 +19,13 @@ export function rightArrowNext() {
   };
 }
 
+export function saveLastSlideDimensions(dimensions: { width: number; height: number; }) {
+  return {
+    type: constants.SAVE_LAST_SLIDE_DIMENSION,
+    dimensions
+  };
+}
+
 export function setActivePlugin(pluginNumber: number, slideNumber: number) {
   return {
     type: constants.SET_ACTIVE_PLUGIN,

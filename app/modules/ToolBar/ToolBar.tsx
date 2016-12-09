@@ -17,12 +17,16 @@ import plugins from '../../plugins';
 
 interface ToolBarComponentProps {
   addPluginToCurrentSlide: React.MouseEventHandler<HTMLElement>;
+  slidesDimension: {
+    width: number;
+    height: number;
+  };
   slideNumber: number;
 }
 
 class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   public render() {
-    const { addPluginToCurrentSlide, slideNumber } = this.props;
+    const { addPluginToCurrentSlide, slidesDimension, slideNumber } = this.props;
     return (
       <div id="tb">
         <ToolBarMenu className='pt-large tb--menu'>
@@ -30,11 +34,11 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
             // NOTE: Depending on plugin type, it should render different initial states
             plugins.map((plugin: any, key: number) => (
               <Popover 
-                key={key}
-                content={plugins[key].name}
-                interactionKind={PopoverInteractionKind.HOVER}
-                position={Position.BOTTOM_LEFT}
-                useSmartPositioning={false}>
+                key={ key }
+                content={ plugins[key].name }
+                interactionKind={ PopoverInteractionKind.HOVER }
+                position={ Position.BOTTOM_LEFT }
+                useSmartPositioning={ false }>
                 <ToolBarItem
                   iconName = { plugin.icon }
                   onClick = { addPluginToCurrentSlide.bind(this, {
@@ -42,6 +46,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                       value: '',
                       width: 300,
                       height: 200,
+                      left: slidesDimension.width / 2,
+                      top: 100
                     },
                     ...plugin,
                   }, slideNumber )}
@@ -56,7 +62,10 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   }
 }
 
-const mapStateToProps = (state: any) => ({ slideNumber: state.app.currentSlide });
+const mapStateToProps = (state: any) => ({
+  slidesDimension: state.app.slidesDimension,
+  slideNumber: state.app.currentSlide
+});
 
 const mapDispatchToProps = (dispatch: any) => ({
   addPluginToCurrentSlide: (plugin: any, slideNumber: number) => dispatch(addPluginToCurrentSlide(plugin, slideNumber)),
