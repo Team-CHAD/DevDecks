@@ -63,7 +63,7 @@ const SmartSlide = ({
               } }
               onClick={() => {
                 const { pluginNumber: _pluginNumber, slideNumber: _slideNumber } = currentSelectedPlugin;
-                if (_slideNumber !== slideNumber && _pluginNumber !== key) setActivePlugin(key, slideNumber);
+                if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(key, slideNumber);
               }}
               onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, slideNumber, clientSize) }
               onDragStop={ (e: any, { position }: { position: { left: number; top: number; } }) => {
