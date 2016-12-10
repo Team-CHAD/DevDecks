@@ -41,16 +41,18 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                 useSmartPositioning={ false }>
                 <ToolBarItem
                   iconName = { plugin.icon }
-                  onClick = { addPluginToCurrentSlide.bind(this, {
-                    state: { 
-                      value: '',
-                      width: 300,
-                      height: 200,
-                      left: slidesDimension.width / 2,
-                      top: 100
-                    },
-                    ...plugin,
-                  }, slideNumber )}
+                  onClick = { 
+                    addPluginToCurrentSlide.bind(this, {
+                      ...plugin,
+                      // App default states
+                      state: {
+                        left: slidesDimension.width / 2,
+                        top: 100,
+                        // Plugin's default state
+                        ...plugin.state
+                      },
+                    }, slideNumber )
+                  }
                   text = { plugin.text }
                 />
               </Popover>
