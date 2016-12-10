@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@blueprintjs/core';
 
 const dialog = require('electron').remote.dialog;
 const fs = require('fs');
@@ -19,7 +18,7 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
     filters: [
       {
         name: 'Images',
-        extensions: ['png', 'gif', 'jpeg', 'jpg']
+        extensions: [ 'jpeg', 'jpg', 'gif', 'png' ]
       }
     ]
   };
@@ -30,25 +29,23 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
       fs.readFile(filePaths[0], (err: any, data: any) => {
         if (err) return;
         const imageBufferString: string = new Buffer(data).toString('base64');
-        updateCurrentSlide(pluginNumber, slideNumber, { imageBufferString });
+        updateCurrentSlide(pluginNumber, slideNumber, { imageBufferString, width: 355 });
       });
     });
   };
 
   return (
     <div>
-      <Button
-        iconName="folder-open"
-        text="Select Image File"
-        onClick={ selectImageFile } />
       {
         pluginState.imageBufferString ?
           <img
-            width={width}
-            height={height}
-            style={pluginState.imageBufferString ? {display: 'block'} : {display: 'none'}}
-            src={`data:image;base64,${pluginState.imageBufferString}`}
-          /> : null
+            style={{ width: '100%', height: '100%' }}
+            src={ `data:image;base64,${ pluginState.imageBufferString }` }
+          /> :
+          <span 
+            className="pt-icon pt-icon-media"
+            style={{ fontSize: 250, opacity: 0.4, margin: '-25px 0' }}
+            onClick={ selectImageFile } />
       }
     </div>
   );
