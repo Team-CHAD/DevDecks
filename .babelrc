@@ -6,8 +6,16 @@
       "presets": ["react-optimize"],
       "plugins": ["babel-plugin-dev-expression"]
     },
-    "development": {
-      "presets": ["react-hmre"]
+  "development": {
+    "plugins": [
+        ["react-transform", {
+          "transforms": [{
+            "transform": "react-transform-hmr",
+            "imports": ["react"],
+            "locals": ["module"]
+          }]
+        }]
+      ]
     },
     "test": {
       "plugins": [

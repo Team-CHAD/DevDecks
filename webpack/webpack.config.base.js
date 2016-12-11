@@ -10,24 +10,24 @@ import {
 
 export default validate({
   module: {
-    loaders: [{
-      test: /\.tsx?$/,
-      loader: 'ts-loader',
-      include: /app/
-    }, {
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }, {
-      test: /\.css$/,
-      loaders: [
-        'style-loader',
-        'css-loader'
-      ]
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
   },
 
   output: {
@@ -41,7 +41,8 @@ export default validate({
   // https://webpack.github.io/docs/configuration.html#resolve
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json', '.scss'],
-    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
+    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
+    modulesDirectories: ['app', 'plugins/node_modules', 'node_modules']
   },
 
   plugins: [],

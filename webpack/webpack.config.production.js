@@ -25,6 +25,11 @@ const config = validate(merge(baseConfig, {
 
   module: {
     loaders: [
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript',
+        include: /app/
+      },
       // Extract all .global.css to style.css as is
       {
         test: /\.global\.scss$/,
