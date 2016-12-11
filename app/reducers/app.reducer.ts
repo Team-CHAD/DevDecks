@@ -1,17 +1,23 @@
-import * as constants from '../constants/app.constants';
+import * as constants from 'constants/app.constants';
 
-const deviceDimensions = {
+const deviceDimension = {
   width: window.screen.width,
   height: window.screen.height
 };
 
 const initialAppState = {
+  deviceDimension,
   currentSlide: 0,
-  currentSelectedPlugin: { slideNumber: 0, pluginNumber: 0 },
+  currentSelectedPlugin: {
+    pluginNumber: 0,
+    slideNumber: 0
+  },
   isFullscreen: false,
-  lastSavedSlideDimensions: deviceDimensions,
-  slidesDimension: deviceDimensions,
-  thumbnailsDimension: { width: deviceDimensions.width / 10, height: deviceDimensions.height / 10 },
+  lastSavedSlideDimensions: deviceDimension,
+  slidesDimension: {
+    width: deviceDimension.width * .75,
+    height: deviceDimension.height * .75
+  },
 };
 
 const appReducer = (state: any = initialAppState, action: any) => {
@@ -42,6 +48,10 @@ const appReducer = (state: any = initialAppState, action: any) => {
 
     case constants.TOGGLE_FULLSCREEN_MODE: {
       return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
+    }
+
+    case constants.UPDATE_DEVICE_DIMENSION: {
+      return Object.assign({}, state, { deviceDimension: action.newDeviceDimension });
     }
 
     case constants.UPDATE_SLIDES_DIMENSION: {

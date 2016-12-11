@@ -1,8 +1,5 @@
 /* NOTE: Variables do not work within calc function */
 
-// Minislide Panel
-$miniSlideViewWidth: 250px;
-
 // Enforces the scrollbar view
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -45,44 +42,12 @@ ul {
   width: 100%;
 }
 
-#mini-slide-panel {
-  height: 100vh;
-  background-color: rgba(0,0,0,.2);
-  min-width: $miniSlideViewWidth;
-  overflow-y: auto;
-  overflow-x: hidden;
-  // border-right: 2px solid rgba(100, 100, 100, .5);
-}
-
-#slide {
+#main-content-wrapper {
   margin: 0 1em;
 }
 
-#toolbar {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-#control-panel {
-  width: 38px;
-  opacity: 0.6;
-  position: fixed;
-  right: 0;
-  top: calc((100vh - 130px) / 1.5);
-
-  &:hover {
-    opacity: 1.0;
-  }
-
-  .pt-button {
-    display: block;
-  }
-}
-
 #edit-slide-view {
-  min-width: 768px;
-  min-height: 432px;
-  width: calc(100vw - 275px);
+  position: relative;
   padding-bottom: 56.25%;
   border: 2px dashed rgba(100, 100, 100, .5);
 }

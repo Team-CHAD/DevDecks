@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { leftArrowPrev, rightArrowNext, toggleFullscreenMode } from '../../../actions/app.actions';
-import { Slide } from '../..';
+import { leftArrowPrev, rightArrowNext, toggleFullscreenMode } from 'actions/app.actions';
+import { Slide } from 'modules';
 import './fullscreen-view.scss';
 
 interface IDimension {

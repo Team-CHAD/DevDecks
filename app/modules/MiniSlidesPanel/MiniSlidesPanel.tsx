@@ -1,26 +1,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { goToSlide } from '../../actions/app.actions';
+import { goToSlide } from 'actions/app.actions';
 import './mini-slide-panel.scss';
 
-import { Slide } from '..';
-import { Scale } from '../../sharedComponents';
-
-interface IDimensions {
-  width: number;
-  height: number;
-}
+import { Slide } from 'modules';
+import { Scale } from 'sharedComponents';
 
 interface MiniSlidesPanelProps {
   currentSlideNumber?: number;
+  deviceDimension?: {
+    width: number;
+    height: number;
+  };
   goToSlide?: Function;
   slides?: any;
-  thumbnailsDimension?: IDimensions;
 }
 
 class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}> {
   render() {
-    const { currentSlideNumber, goToSlide, slides, thumbnailsDimension } = this.props;
+    const { currentSlideNumber, deviceDimension, goToSlide, slides } = this.props;
+
+    const thumbnailsDimension = {
+      width: deviceDimension.width / 10,
+      height: deviceDimension.height / 10
+    };
 
     const scale = Math.min(
       thumbnailsDimension.width / window.screen.width,
@@ -28,12 +31,13 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
     );
 
     return (
-      <ul id="mini-slide-panel">
+      <ul id="mini-slide-panel" style={{ minWidth: thumbnailsDimension.width + 100 }}>
         { 
           slides.map((slide: any, key: number) => (
-            <div key={ key }>
+            <li key={ key }>
               <span className="mini-slide-counter">{ key }</span>
               <div
+                style={{ width: thumbnailsDimension.width, height: thumbnailsDimension.height }}
                 className={ currentSlideNumber === key? "mini-slide current-mini-slide" : "mini-slide" }
                 onClick={ goToSlide.bind(this, key) }>
                 <Scale isFullscreen={ false } scale={ scale }>
@@ -43,7 +47,7 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
                     smart={ false } />
                 </Scale>
               </div>
-            </div>
+            </li>
           ))
         }
       </ul>
@@ -53,8 +57,8 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
 
 const mapStateToProps = (state: any, props: any) => ({
   currentSlideNumber: state.app.currentSlide,
+  deviceDimension: state.app.deviceDimension,
   slides: state.slides,
-  thumbnailsDimension: state.app.thumbnailsDimension,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

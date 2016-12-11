@@ -1,6 +1,8 @@
 @import '../../theme/toolbar.scss';
 
-#tb {
+#toolbar {
+  display: flex;
+  margin-bottom: 10px;
   width: 188px;
 }
 
