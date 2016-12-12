@@ -63,7 +63,7 @@ class SlideComponent extends React.Component<SlideProps, {}> {
 const mapStateToProps = (state: any, props: any) => ({
   currentSelectedPlugin: state.app.currentSelectedPlugin,
   deviceDimension: state.app.deviceDimension,
-  isInPresenterMode: state.app.isFullscreen,
+  isInPresenterMode: state.app.isFullScreen,
   slidesDimension: state.app.slidesDimension,
   slideNumber: state.app.currentSlide,
 });

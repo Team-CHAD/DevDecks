@@ -33,9 +33,9 @@ export function setActivePlugin(pluginNumber: number, slideNumber: number) {
   };
 }
 
-export function toggleFullscreenMode() {
+export function toggleFullScreen() {
   return {
-    type: constants.TOGGLE_FULLSCREEN_MODE,
+    type: constants.TOGGLE_FULLSCREEN,
   };
 }
 

@@ -1,3 +1,4 @@
+import { remote } from 'electron';
 import * as constants from 'constants/app.constants';
 
 const deviceDimension = {
@@ -12,7 +13,7 @@ const initialAppState = {
     pluginNumber: 0,
     slideNumber: 0
   },
-  isFullscreen: false,
+  isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
   slidesDimension: {
     width: deviceDimension.width * .75,
@@ -46,8 +47,17 @@ const appReducer = (state: any = initialAppState, action: any) => {
       return Object.assign({}, state, { currentSelectedPlugin: action.newActivePlugin });
     }
 
-    case constants.TOGGLE_FULLSCREEN_MODE: {
-      return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
+    case constants.TOGGLE_FULLSCREEN: {
+      const window = remote.getCurrentWindow();
+      if (state.isFullScreen) {
+        window.setMenuBarVisibility(true);
+        window.setFullScreen(false)
+      } else {
+        window.setMenuBarVisibility(false);
+        window.setFullScreen(true);
+      }
+
+      return Object.assign({}, state, { isFullScreen: !state.isFullScreen });
     }
 
     case constants.UPDATE_DEVICE_DIMENSION: {

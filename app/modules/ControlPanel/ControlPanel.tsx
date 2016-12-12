@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from '@blueprintjs/core';
 import { goToSlide } from 'actions/app.actions';
 import { addSlide, deleteSlide } from 'actions/slides.actions'; 
-import { saveLastSlideDimensions, toggleFullscreenMode } from 'actions/app.actions'; 
+import { saveLastSlideDimensions, toggleFullScreen } from 'actions/app.actions'; 
 import './control-panel.scss';
 
 const Rnd = require('react-rnd');
@@ -15,7 +15,7 @@ interface ControlPanelProps {
   goToSlide?: any;
   numberOfSlides?: number;
   saveLastSlideDimensions?: Function;
-  toggleFullscreenMode?: any;
+  toggleFullScreen?: any;
 }
 
 class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
@@ -27,7 +27,7 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
       goToSlide,
       numberOfSlides,
       saveLastSlideDimensions,
-      toggleFullscreenMode
+      toggleFullScreen
     } = this.props;
 
     return (
@@ -79,7 +79,7 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
               const slideElement = document.getElementById('edit-slide-view');
               const { clientWidth: width, clientHeight: height } = slideElement;
               saveLastSlideDimensions({ width, height });
-              toggleFullscreenMode();
+              toggleFullScreen();
             }} />
         </Rnd>
       </div>
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
   goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber)),
   saveLastSlideDimensions: (dimensions: { width: number; height: number }) => dispatch(saveLastSlideDimensions(dimensions)),
-  toggleFullscreenMode: () => dispatch(toggleFullscreenMode()),
+  toggleFullScreen: () => dispatch(toggleFullScreen()),
 });
 
 const ControlPanel = connect(mapStateToProps, mapDispatchToProps)(ControlPanelComponent as any);

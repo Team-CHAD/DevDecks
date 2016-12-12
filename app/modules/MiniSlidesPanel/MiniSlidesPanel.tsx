@@ -40,7 +40,7 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
                 style={{ width: thumbnailsDimension.width, height: thumbnailsDimension.height }}
                 className={ currentSlideNumber === key? "mini-slide current-mini-slide" : "mini-slide" }
                 onClick={ goToSlide.bind(this, key) }>
-                <Scale isFullscreen={ false } scale={ scale }>
+                <Scale isFullScreen={ false } scale={ scale }>
                   <Slide
                     scale={ scale }
                     slide={ slide }

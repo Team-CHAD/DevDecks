@@ -34,7 +34,7 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
         <ToolBar />
 
         <div id="edit-slide-view" style={{ width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`}}>
-          <Scale isFullscreen={ false } scale={ scale }>
+          <Scale isFullScreen={ false } scale={ scale }>
             <Slide
               scale={ scale }
               slide={ slide }

@@ -43,14 +43,13 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    minWidth: 1024,
-    minHeight: 728
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // NOTE: BOTH
   mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.maximize();
     mainWindow.show();
     mainWindow.focus();
   });
@@ -160,7 +159,7 @@ app.on('ready', async () => {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          mainWindow.send('toggleFullScreen');
         }
       }, {
         label: 'Toggle Developer Tools',
@@ -172,7 +171,7 @@ app.on('ready', async () => {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          mainWindow.send('toggleFullScreen');
         }
       }]
     }, {
@@ -243,7 +242,7 @@ app.on('ready', async () => {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          mainWindow.send('toggleFullScreen');
         }
       }, {
         label: 'Toggle &Developer Tools',
@@ -255,7 +254,7 @@ app.on('ready', async () => {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          mainWindow.send('toggleFullScreen');
         }
       }]
     }, {

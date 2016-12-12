@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ipcRenderer, screen as Screen } from 'electron';
-import { updateDeviceDimension, updateSlidesDimension } from 'actions/app.actions';
+import { ipcRenderer } from 'electron';
+import { toggleFullScreen, updateDeviceDimension, updateSlidesDimension } from 'actions/app.actions';
 import { throttle } from 'utils/helpers';
 import '@blueprintjs/core/dist/blueprint.css';
 
 import EditView from './EditView/EditView';
-import FullscreenView from './FullscreenView/FullscreenView';
+import FullScreenView from './FullScreenView/FullScreenView';
 
 interface IDimensions {
   width: number;
@@ -15,10 +15,11 @@ interface IDimensions {
 
 interface AppComponentProps {
   deviceDimension: IDimensions;
-  isFullscreen: boolean;
+  isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
   slide: any;
   slidesDimension: IDimensions;
+  toggleFullScreen: Function;
   updateDeviceDimension: Function;
   updateSlidesDimension: Function;
 }
@@ -48,7 +49,9 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
   }
 
   public componentWillMount() {
+    const { toggleFullScreen } = this.props;
     ipcRenderer.on('moved', this.handleWindowMoved);
+    ipcRenderer.on('toggleFullScreen', toggleFullScreen);
   }
 
   public componentDidMount(): void {
@@ -67,12 +70,12 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
   }
 
   public render() {
-    const { deviceDimension, isFullscreen, lastSavedSlideDimensions, slide, slidesDimension } = this.props;
+    const { deviceDimension, isFullScreen, lastSavedSlideDimensions, slide, slidesDimension } = this.props;
     return (
       <main>
         { 
-          isFullscreen ?
-            <FullscreenView /> :
+          isFullScreen ?
+            <FullScreenView /> :
             <EditView
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
@@ -86,13 +89,14 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
 
 const mapStateToProps= (state: any) => ({
   deviceDimension: state.app.deviceDimension,
-  isFullscreen: state.app.isFullscreen,
+  isFullScreen: state.app.isFullScreen,
   lastSavedSlideDimensions: state.app.lastSavedSlideDimensions,
   slide: state.slides[state.app.currentSlide],
   slidesDimension: state.app.slidesDimension,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
+  toggleFullScreen: () => dispatch(toggleFullScreen()),
   updateDeviceDimension: (newDeviceDimension: { width: number, height: number }) => dispatch(updateDeviceDimension(newDeviceDimension)),
   updateSlidesDimension: (slidesDimension: { width: number, height: number }) => dispatch(updateSlidesDimension(slidesDimension)),
 });
