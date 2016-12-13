@@ -6,9 +6,9 @@ import {
   MiniSlidesPanel,
   Slide,
   ToolBar,
-} from '../..';
+} from 'modules';
 
-import { Scale } from '../../../sharedComponents';
+import { Scale } from 'sharedComponents';
 
 interface IDimensions {
   width: number;
@@ -20,27 +20,21 @@ interface EditViewProps {
   slide: any;
   slidesDimension: IDimensions;
   thumbnailsDimension: IDimensions;
-  updateSlidesDimension: Function;
 }
 
-const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension, updateSlidesDimension }: EditViewProps) => {
+const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
   const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
-
   return (
     <div id="container">
 
-      <div id="mini-slide-panel">
-        <MiniSlidesPanel />
-      </div>
+      <MiniSlidesPanel />
 
-      <div id="slide">
+      <div id="main-content-wrapper">
+        
+        <ToolBar />
 
-        <div id="toolbar">
-          <ToolBar />
-        </div>
-
-        <div id="edit-slide-view">
-          <Scale isFullscreen={ false } scale={ scale }>
+        <div id="edit-slide-view" style={{ width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`}}>
+          <Scale isFullScreen={ false } scale={ scale }>
             <Slide
               scale={ scale }
               slide={ slide }
@@ -51,9 +45,7 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
 
       </div>
 
-      <div id="control-panel">
-        <ControlPanel />
-      </div>
+      <ControlPanel />
 
     </div>
   );

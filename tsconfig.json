@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "app",
+    "experimentalDecorators": true,
     "jsx": "react",
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
-    "experimentalDecorators": true,
     "outDir": "./build/",
     "preserveConstEnums": true,
     "removeComments": true,
     "target": "ES6"
-  }
+  },
+  "include": [
+    "app/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "app/plugins/**/*"
+  ]
 }

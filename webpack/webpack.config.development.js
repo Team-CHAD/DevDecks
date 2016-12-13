@@ -19,7 +19,6 @@ export default validate(merge(baseConfig, {
 
   entry: [
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
-    'babel-polyfill',
     './app/index'
   ],
 
@@ -30,11 +29,15 @@ export default validate(merge(baseConfig, {
   module: {
     loaders: [
       {
+        test: /\.tsx?$/,
+        loaders: ['babel', 'awesome-typescript'],
+        include: /app/
+      },
+      {
         test: /\.global\.scss$/,
         loaders: [
           'style-loader',
           'css-loader?sourceMap',
-          'postcss-loader',
           'sass-loader?sourceMap'
         ],
         include: /app/
@@ -45,7 +48,6 @@ export default validate(merge(baseConfig, {
         loaders: [
           'style-loader',
           'css-loader?sourceMap',
-          'postcss-loader',
           'sass-loader?sourceMap'
         ],
         include: /app/
@@ -74,7 +76,7 @@ export default validate(merge(baseConfig, {
     // NODE_ENV should be production so that modules do not perform certain development checks
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
   ],
 
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works

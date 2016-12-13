@@ -1,4 +1,4 @@
-import * as constants from '../constants/app.constants';
+import * as constants from 'constants/app.constants';
 
 export function goToSlide(slideNumber: number) {
   return {
@@ -33,9 +33,16 @@ export function setActivePlugin(pluginNumber: number, slideNumber: number) {
   };
 }
 
-export function toggleFullscreenMode() {
+export function toggleFullScreen() {
   return {
-    type: constants.TOGGLE_FULLSCREEN_MODE,
+    type: constants.TOGGLE_FULLSCREEN,
+  };
+}
+
+export function updateDeviceDimension(newDeviceDimension: { width: number, height: number }) {
+  return {
+    type: constants.UPDATE_DEVICE_DIMENSION,
+    newDeviceDimension,
   };
 }
 

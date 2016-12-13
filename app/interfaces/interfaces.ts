@@ -23,14 +23,14 @@ export interface ITextBoxPlugin extends IPlugin {
 export interface IAppState {
   currentSelectedPlugin: Object;
   currentSlide: number;
-  isFullscreen: boolean;
+  isFullScreen: boolean;
   slides: ISlide[];
 }
 
 export interface IAppAction {
   type: string;
   idxOfSlideToDelete?: number;
-  isFullscreen?: boolean;
+  isFullScreen?: boolean;
   // Multiple plugin types
   plugin?: any;
   pluginNumber?: number;

@@ -1,10 +1,15 @@
+#mini-slide-panel {
+  height: 100vh;
+  background-color: rgba(0,0,0,.2);
+  overflow-y: auto;
+}
+
 .mini-slide {
-  width: 192px;
-  height: 108px;
   position: relative;
   background-color: white;
   border: 2px solid #c0c0c0;
   box-shadow: 1px 1px 3px #c0c0c0;
+  box-sizing: initial;
   margin: 15px auto;
 }
 
@@ -16,6 +21,6 @@
 
 .mini-slide-counter {
   font-weight: 600;
-  margin-left: 7px;
+  margin-left: 20px;
   float: left;
 }

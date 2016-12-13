@@ -1,3 +1,19 @@
+#control-panel {
+  width: 38px;
+  opacity: 0.6;
+  position: fixed;
+  right: 0;
+  top: calc((100vh - 130px) / 1.5);
+
+  &:hover {
+    opacity: 1.0;
+  }
+
+  .pt-button {
+    display: block;
+  }
+}
+
 .handle-vertical-custom {
   background: none !important;
   border: none;

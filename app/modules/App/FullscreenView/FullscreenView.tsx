@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { leftArrowPrev, rightArrowNext, toggleFullscreenMode } from '../../../actions/app.actions';
-import { Slide } from '../..';
+import { leftArrowPrev, rightArrowNext, toggleFullScreen } from 'actions/app.actions';
+import { Slide } from 'modules';
 import './fullscreen-view.scss';
 
 interface IDimension {
@@ -9,17 +9,17 @@ interface IDimension {
   height: number;
 }
 
-interface FullscreenViewProps {
+interface FullScreenViewProps {
   currentSlideNumber?: number;
   leftArrowPrev?: Function;
   rightArrowNext?: Function;
   slide?: any;
   slides?: any[];
   slideNumber?: number;
-  toggleFullscreenMode?: Function;
+  toggleFullScreen?: Function;
 }
 
-class FullscreenView extends React.Component<FullscreenViewProps, { }> {
+class FullScreenView extends React.Component<FullScreenViewProps, { }> {
   constructor() {
     super();
     this.handleKeyBindings = this.handleKeyBindings.bind(this);
@@ -31,7 +31,7 @@ class FullscreenView extends React.Component<FullscreenViewProps, { }> {
       leftArrowPrev,
       rightArrowNext,
       slides,
-      toggleFullscreenMode
+      toggleFullScreen
     } = this.props;
 
     const isBeginning = slides[currentSlideNumber - 1] === undefined ? true : false;
@@ -39,7 +39,7 @@ class FullscreenView extends React.Component<FullscreenViewProps, { }> {
 
     if (event.keyCode === 37 && !isBeginning) leftArrowPrev();
     else if (event.keyCode === 39 && !isLast) rightArrowNext();
-    else if (event.keyCode === 27) toggleFullscreenMode();
+    else if (event.keyCode === 27) toggleFullScreen();
   }
 
   componentDidMount() {
@@ -53,11 +53,13 @@ class FullscreenView extends React.Component<FullscreenViewProps, { }> {
   render() {
     const { slide } = this.props;
     return (
-      <Slide 
-        isFullscreen={ true }
-        scale={ 1 }
-        slide={ slide }
-        smart={ false } />
+      <div id="fullscreen-view">
+        <Slide 
+          isFullScreen={ true }
+          scale={ 1 }
+          slide={ slide }
+          smart={ false } />
+      </div>
     );
   }
 }
@@ -72,7 +74,7 @@ const mapStateToProps = (state: any, props: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   leftArrowPrev: () => dispatch(leftArrowPrev()),
   rightArrowNext: () => dispatch(rightArrowNext()),
-  toggleFullscreenMode: () => dispatch(toggleFullscreenMode()),
+  toggleFullScreen: () => dispatch(toggleFullScreen()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FullscreenView as any);
+export default connect(mapStateToProps, mapDispatchToProps)(FullScreenView as any);

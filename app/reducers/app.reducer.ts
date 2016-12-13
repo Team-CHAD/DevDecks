@@ -1,17 +1,24 @@
-import * as constants from '../constants/app.constants';
+import { remote } from 'electron';
+import * as constants from 'constants/app.constants';
 
-const deviceDimensions = {
+const deviceDimension = {
   width: window.screen.width,
   height: window.screen.height
 };
 
 const initialAppState = {
+  deviceDimension,
   currentSlide: 0,
-  currentSelectedPlugin: { slideNumber: 0, pluginNumber: 0 },
-  isFullscreen: false,
-  lastSavedSlideDimensions: deviceDimensions,
-  slidesDimension: deviceDimensions,
-  thumbnailsDimension: { width: deviceDimensions.width / 10, height: deviceDimensions.height / 10 },
+  currentSelectedPlugin: {
+    pluginNumber: 0,
+    slideNumber: 0
+  },
+  isFullScreen: false,
+  lastSavedSlideDimensions: deviceDimension,
+  slidesDimension: {
+    width: deviceDimension.width * .75,
+    height: deviceDimension.height * .75
+  },
 };
 
 const appReducer = (state: any = initialAppState, action: any) => {
@@ -40,8 +47,21 @@ const appReducer = (state: any = initialAppState, action: any) => {
       return Object.assign({}, state, { currentSelectedPlugin: action.newActivePlugin });
     }
 
-    case constants.TOGGLE_FULLSCREEN_MODE: {
-      return Object.assign({}, state, { isFullscreen: !state.isFullscreen });
+    case constants.TOGGLE_FULLSCREEN: {
+      const window = remote.getCurrentWindow();
+      if (state.isFullScreen) {
+        window.setMenuBarVisibility(true);
+        window.setFullScreen(false)
+      } else {
+        window.setMenuBarVisibility(false);
+        window.setFullScreen(true);
+      }
+
+      return Object.assign({}, state, { isFullScreen: !state.isFullScreen });
+    }
+
+    case constants.UPDATE_DEVICE_DIMENSION: {
+      return Object.assign({}, state, { deviceDimension: action.newDeviceDimension });
     }
 
     case constants.UPDATE_SLIDES_DIMENSION: {
