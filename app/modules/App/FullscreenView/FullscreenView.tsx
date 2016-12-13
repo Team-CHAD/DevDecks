@@ -55,7 +55,6 @@ class FullScreenView extends React.Component<FullScreenViewProps, { }> {
     return (
       <div id="fullscreen-view">
         <Slide 
-          isFullScreen={ true }
           scale={ 1 }
           slide={ slide }
           smart={ false } />

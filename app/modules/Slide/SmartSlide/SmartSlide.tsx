@@ -1,22 +1,27 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { OptionsBar } from 'modules';
+import { setActivePlugin } from 'actions/app.actions';
+import { updateCurrentSlide } from 'actions/slides.actions';
 import './smart-slide.scss';
 
 const Rnd = require('react-rnd');
 
 interface SmartSlideProps {
-  currentSelectedPlugin: any;
-  isInPresenterMode: boolean;
+  currentSelectedPlugin?: {
+    pluginNumber: number;
+    slideNumber: number;
+  };
+  isInPresenterMode?: boolean;
   scale: number;
-  setActivePlugin: Function;
-  slide: any;
-  slidesDimension: {
+  setActivePlugin?: Function;
+  slide?: any;
+  slidesDimension?: {
     width: number;
     height: number;
   };
-  slideNumber: number;
-  updateCurrentSlide: Function;
+  slideNumber?: number;
+  updateCurrentSlide?: Function;
 }
 
 class SmartSlide extends React.Component<SmartSlideProps, {}> {
@@ -25,7 +30,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
   // This is to update the position via Rnd updatePosition API
   // Otherwise, there is a bug with slides rendering its position
   // based on the last movement of the last plugin
-  componentDidUpdate({ slideNumber: _slideNumber }: { slideNumber: number }): void {
+  public componentDidUpdate({ slideNumber: _slideNumber }: { slideNumber: number }): void {
     const { slide, slideNumber } = this.props;
     if (slideNumber === _slideNumber) return null;
     for (const key in this.rnd) {
@@ -35,7 +40,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
     }
   }
 
-  render() {
+  public render() {
     const { 
       currentSelectedPlugin,
       isInPresenterMode,
@@ -113,4 +118,17 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
   }
 }
 
-export default SmartSlide;
+const mapStateToProps = (state: any, props: any) => ({
+  currentSelectedPlugin: state.app.currentSelectedPlugin,
+  isInPresenterMode: state.app.isInPresenterMode,
+  slide: state.slides[state.app.currentSlide],
+  slideNumber: state.app.currentSlide,
+  slidesDimension: state.app.slidesDimension,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
+  updateCurrentSlide: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, slideNumber, changes)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);

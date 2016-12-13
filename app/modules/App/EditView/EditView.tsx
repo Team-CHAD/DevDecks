@@ -38,7 +38,6 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
             <Slide
               scale={ scale }
               slide={ slide }
-              slidesDimension={ slidesDimension }
               smart={ true } />
           </Scale>
         </div>
