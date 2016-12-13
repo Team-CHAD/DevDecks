@@ -19,7 +19,7 @@ interface AppComponentProps {
   lastSavedSlideDimensions: IDimensions;
   slide: any;
   slidesDimension: IDimensions;
-  toggleFullScreen: Function;
+  toggleFullScreen: any;
   updateDeviceDimension: Function;
   updateSlidesDimension: Function;
 }
