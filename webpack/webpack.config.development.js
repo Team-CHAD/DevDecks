@@ -30,7 +30,7 @@ export default validate(merge(baseConfig, {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: ['babel', 'awesome-typescript'],
+        loaders: ['babel', 'ts'],
         include: /app/
       },
       {
