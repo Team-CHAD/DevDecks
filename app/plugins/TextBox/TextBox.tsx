@@ -13,7 +13,7 @@ const TextBox = ({ pluginNumber, pluginState, slideNumber, updateCurrentPlugin }
     <div style={{ fontSize: pluginState.fontSize ? `${ pluginState.fontSize / 100 }em` : '3em' }}>
       <TextBoxInput
         multiline
-        onChange = { (value: string) => updateCurrentPlugin(pluginNumber, slideNumber, { value }) }
+        onChange = { (value: string) => updateCurrentPlugin({ value }) }
         value = { pluginState.value } />
     </div>
   );

@@ -1,35 +1,42 @@
 // Need a way to dynmically produce this file
 // Signature: import { plugin } from { location }
 
-import AceEditor from './CodeEditor/CodeEditor';
+import CodeEditor from './CodeEditor/CodeEditor';
+import Image from './AddImage/AddImage';
+
 import TextBox from './TextBox/TextBox';
-import AddImage from './AddImage/AddImage';
+import TextBoxOptions from './TextBox/OptionsMenu';
 
 // Store last line and export as array?
 export default [
   {
-    name: 'Text Box',
     component: TextBox,
     icon: 'new-text-box',
+    moduleName: 'TextBox',
+    // change to tooltip
+    name: 'Text Box',
+    optionsMenuComponent: TextBoxOptions,
     state: {
       value: '',
       width: 300,
       height: 200,
     },
   },
-  {
-    name: 'Code Editor',
-    component: AceEditor,
-    icon: 'code',
-    state: {
-      value: '',
-      width: 300,
-      height: 200,
-    },
-  },
-  {
-    name: 'Image',
-    component: AddImage,
-    icon: 'media',
-  }
+  // {
+  //   moduleName: 'CodeEditor',
+  //   name: 'Code Editor',
+  //   component: CodeEditor,
+  //   icon: 'code',
+  //   state: {
+  //     value: '',
+  //     width: 300,
+  //     height: 200,
+  //   },
+  // },
+  // {
+  //   moduleName: 'Image',
+  //   name: 'Image',
+  //   component: Image,
+  //   icon: 'media',
+  // }
 ];
