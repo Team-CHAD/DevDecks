@@ -10,10 +10,10 @@ interface AddImageProps {
   pluginNumber: number;
   pluginState: any;
   slideNumber: number;
-  updateCurrentSlide: Function;
+  updateCurrentPlugin: Function;
 }
 
-const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentSlide }: AddImageProps) => {
+const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentPlugin }: AddImageProps) => {
   const options: any = {
     filters: [
       {
@@ -29,7 +29,7 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
       fs.readFile(filePaths[0], (err: any, data: any) => {
         if (err) return;
         const imageBufferString: string = new Buffer(data).toString('base64');
-        updateCurrentSlide(pluginNumber, slideNumber, { imageBufferString, width: 355 });
+        updateCurrentPlugin(pluginNumber, slideNumber, { imageBufferString, width: 355 });
       });
     });
   };

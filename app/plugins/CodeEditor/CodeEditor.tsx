@@ -41,10 +41,10 @@ interface CodeEditorProps {
   pluginState: any;
   scale: number;
   slideNumber: number;
-  updateCurrentSlide: Function;
+  updateCurrentPlugin: Function;
 }
 
-const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumber, updateCurrentSlide }: CodeEditorProps) => {
+const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumber, updateCurrentPlugin }: CodeEditorProps) => {
   const DEFAULT_FONT_SIZE = 8;
   const DEFAULT_LANGUAGE = 'javascript';
   const DEFAULT_THEME = 'monokai';
@@ -55,7 +55,7 @@ const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumb
   if (language === 'C++') language = 'c_cpp';
 
   let updateSnippetDebounce: any;
-  if (updateCurrentSlide) updateSnippetDebounce = debounce(updateCurrentSlide, 50);
+  if (updateCurrentPlugin) updateSnippetDebounce = debounce(updateCurrentPlugin, 50);
 
   return (
     <div style={{ backgroundColor:"rgba(50, 50, 50, .2)"}}>
@@ -73,7 +73,7 @@ const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumb
         className="runButton"
         onClick={() => {
           const snippetEval: any = eval(snippet);
-          updateCurrentSlide(pluginNumber, slideNumber, { snippetEval })
+          updateCurrentPlugin(pluginNumber, slideNumber, { snippetEval })
       }}>
         submit
       </button>

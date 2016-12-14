@@ -1,10 +1,11 @@
 import * as React from "react";
 
-interface DumbSlideProps {
+interface DummySlideProps {
   slide: any;
+  slidesDimension?: any;
 }
 
-const DumbSlide = ({ slide }: DumbSlideProps) => (
+const DummySlide = ({ slide, slidesDimension }: DummySlideProps) => (
   <div>
     {
       slide.plugins.map((plugin: any, key: number) => {
@@ -23,4 +24,4 @@ const DumbSlide = ({ slide }: DumbSlideProps) => (
   </div>
 );
 
-export default DumbSlide;
+export { DummySlide };

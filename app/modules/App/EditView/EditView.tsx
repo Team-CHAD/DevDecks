@@ -4,7 +4,7 @@ import './edit-view.scss';
 import {
   ControlPanel,
   MiniSlidesPanel,
-  Slide,
+  SmartSlide,
   ToolBar,
 } from 'modules';
 
@@ -33,13 +33,14 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
         
         <ToolBar />
 
-        <div id="edit-slide-view" style={{ width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`}}>
+        <div
+          id="edit-slide-view"
+          style={{
+            width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`,
+            paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`
+          }}>
           <Scale isFullScreen={ false } scale={ scale }>
-            <Slide
-              scale={ scale }
-              slide={ slide }
-              slidesDimension={ slidesDimension }
-              smart={ true } />
+            <SmartSlide scale={ scale } />
           </Scale>
         </div>
 
