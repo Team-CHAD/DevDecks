@@ -13,6 +13,7 @@ const initialAppState = {
     pluginNumber: 0,
     slideNumber: 0
   },
+  isDragging: false,
   isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
   slidesDimension: {
@@ -60,6 +61,10 @@ const appReducer = (state: any = initialAppState, action: any) => {
       return Object.assign({}, state, { isFullScreen: !state.isFullScreen });
     }
 
+    case constants.TOGGLE_GUIDELINES: {
+      return Object.assign({}, state, { isDragging: !state.isDragging });
+    }  
+    
     case constants.UPDATE_DEVICE_DIMENSION: {
       return Object.assign({}, state, { deviceDimension: action.newDeviceDimension });
     }

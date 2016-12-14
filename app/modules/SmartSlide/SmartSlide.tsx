@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { OptionsBar } from 'modules';
-import { setActivePlugin } from 'actions/app.actions';
+import { setActivePlugin, toggleGuidelines } from 'actions/app.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
 
@@ -21,6 +21,7 @@ interface SmartSlideProps {
     height: number;
   };
   slideNumber?: number;
+  toggleGuidelines?: Function;
   updateCurrentPlugin?: Function;
 }
 
@@ -49,6 +50,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       slide,
       slidesDimension,
       slideNumber,
+      toggleGuidelines,
       updateCurrentPlugin,
     } = this.props;
     
@@ -85,16 +87,19 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   bottomLeft: false,
                   topLeft: false
                 }}
+                moveGrid={[((slidesDimension.width / scale) - state.width)/100, ((slidesDimension.height / scale) - state.height)/100]}
                 onClick={() => {
                   const { pluginNumber: _pluginNumber, slideNumber: _slideNumber } = currentSelectedPlugin;
                   if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(key, slideNumber);
                 }}
-                onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentPlugin(key, slideNumber, clientSize) }
+                onResizeStop={(direction: string, styleSize: Object, clientSize: Object) => updateCurrentPlugin(key, slideNumber, clientSize)}
+                onDragStart={toggleGuidelines}
                 onDragStop={(e: any, { position }: { position: { left: number; top: number; } }) => {
                   const { left, top } = state;
                   const deltaX = Math.abs((top - position.top) / top);
                   const deltaY = Math.abs((left - position.left) / left);
                   if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
+                  toggleGuidelines();
                 }} >
                 <OptionsBar 
                   currentSelectedPlugin={ currentSelectedPlugin }
@@ -112,7 +117,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   updateCurrentPlugin={ updateCurrentPlugin } />
               </Rnd>
             );
-        })}
+          })}
       </div>
     );
   }
@@ -128,6 +133,7 @@ const mapStateToProps = (state: any, props: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
+  toggleGuidelines: () => dispatch(toggleGuidelines()),
   updateCurrentPlugin: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentPlugin(pluginNumber, slideNumber, changes)),
 });
 

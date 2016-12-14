@@ -16,6 +16,7 @@ interface IDimensions {
 interface AppComponentProps {
   deviceDimension: IDimensions;
   goToSlide: Function;
+  isDragging: boolean;
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
   leftArrowPrev: Function;
@@ -102,6 +103,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
   public render() {
     const {
       deviceDimension,
+      isDragging,
       isFullScreen,
       lastSavedSlideDimensions,
       leftArrowPrev,
@@ -119,6 +121,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
           isFullScreen ?
             <FullScreenView slide={ slide } /> :
             <EditView
+              isDragging={ isDragging }
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
               slidesDimension={ slidesDimension }
@@ -131,6 +134,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
 
 const mapStateToProps= (state: any) => ({
   deviceDimension: state.app.deviceDimension,
+  isDragging: state.app.isDragging,
   isFullScreen: state.app.isFullScreen,
   lastSavedSlideDimensions: state.app.lastSavedSlideDimensions,
   slide: state.slides[state.app.currentSlide],
