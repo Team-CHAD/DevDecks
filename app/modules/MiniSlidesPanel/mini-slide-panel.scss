@@ -1,6 +1,6 @@
 #mini-slide-panel {
   height: 100vh;
-  background-color: rgba(0,0,0,.2);
+  background-color: #8A9BA8;
   overflow-y: auto;
 }
 
@@ -10,7 +10,7 @@
   border: 2px solid #c0c0c0;
   box-shadow: 1px 1px 3px #c0c0c0;
   box-sizing: initial;
-  margin: 15px auto;
+  margin: 5px auto 10px;
 }
 
 .current-mini-slide {
@@ -19,8 +19,13 @@
   box-shadow: 1px 1px 8px #106ba3 !important;
 }
 
+.current-mini-slide-overlay {
+  background-color: #5C7080;
+  padding: 5px 0;
+}
+
 .mini-slide-counter {
-  font-weight: 600;
-  margin-left: 20px;
   float: left;
+  font-weight: 600;
+  margin-left: 5px;
 }

@@ -1,18 +1,29 @@
 import { remote } from 'electron';
 import * as constants from 'constants/app.constants';
 
+interface IDimensions {
+  width: number;
+  height: number;
+}
+
+interface InitialAppState {
+  deviceDimension: IDimensions;
+  currentSlide: number;
+  currentSelectedPlugin: any;
+  isFullScreen: boolean;
+  lastSavedSlideDimensions: IDimensions;
+  slidesDimension: IDimensions;
+} 
+
 const deviceDimension = {
   width: window.screen.width,
   height: window.screen.height
 };
 
-const initialAppState = {
+const initialAppState: InitialAppState = {
   deviceDimension,
   currentSlide: 0,
-  currentSelectedPlugin: {
-    pluginNumber: 0,
-    slideNumber: 0
-  },
+  currentSelectedPlugin: null,
   isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
   slidesDimension: {

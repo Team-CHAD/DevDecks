@@ -26,10 +26,10 @@ export function saveLastSlideDimensions(dimensions: { width: number; height: num
   };
 }
 
-export function setActivePlugin(pluginNumber: number, slideNumber: number) {
+export function setActivePlugin(moduleName: string, pluginNumber: number, slideNumber: number) {
   return {
     type: constants.SET_ACTIVE_PLUGIN,
-    newActivePlugin: { pluginNumber, slideNumber },
+    newActivePlugin: { moduleName, pluginNumber, slideNumber },
   };
 }
 

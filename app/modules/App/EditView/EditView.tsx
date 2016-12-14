@@ -6,6 +6,7 @@ import {
   MiniSlidesPanel,
   SmartSlide,
   ToolBar,
+  UtilitiesMenu,
 } from 'modules';
 
 import { Scale } from 'sharedComponents';
@@ -23,7 +24,11 @@ interface EditViewProps {
 }
 
 const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
-  const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
+  const EDIT_VIEW_WIDTH = '100vw';
+  const UTILITIES_MENU_WIDTH = 200;
+  
+  let scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
+  
   return (
     <div id="container">
 
@@ -36,7 +41,7 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
         <div
           id="edit-slide-view"
           style={{
-            width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`,
+            width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
             paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`
           }}>
           <Scale isFullScreen={ false } scale={ scale }>
@@ -46,7 +51,7 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
 
       </div>
 
-      <ControlPanel />
+      <UtilitiesMenu styles={{ width: UTILITIES_MENU_WIDTH }}/>
 
     </div>
   );
