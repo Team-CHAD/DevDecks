@@ -16,13 +16,14 @@ interface IDimensions {
 }
 
 interface EditViewProps {
+  isDragging: boolean;
   lastSavedSlideDimensions: IDimensions;
   slide: any;
   slidesDimension: IDimensions;
   thumbnailsDimension: IDimensions;
 }
 
-const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
+const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
   const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
   return (
     <div id="container">
@@ -37,11 +38,17 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
           id="edit-slide-view"
           style={{
             width: `calc(100vw - ${thumbnailsDimension.width + 1.25 * 100}px)`,
-            paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`
+            paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`,
           }}>
           <Scale isFullScreen={ false } scale={ scale }>
             <SmartSlide scale={ scale } />
           </Scale>
+          <div
+            className={ isDragging ? 'vertical-guideline' : null }
+            style={ isDragging ? { height: slidesDimension.height } : null }></div>
+          <div
+            className={ isDragging ? 'horizontal-guideline' : null }
+            style={ isDragging ? { width: '100%' } : null }></div>
         </div>
 
       </div>

@@ -39,6 +39,12 @@ export function toggleFullScreen() {
   };
 }
 
+export function toggleGuidelines() {
+  return {
+    type: constants.TOGGLE_GUIDELINES,
+  };
+}
+
 export function updateDeviceDimension(newDeviceDimension: { width: number, height: number }) {
   return {
     type: constants.UPDATE_DEVICE_DIMENSION,
