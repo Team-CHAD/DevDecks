@@ -23,7 +23,7 @@ const slidesReducer = (state: any = initialSlidesState, action: any) => {
       return slides;
     }
     
-    case constants.UPDATE_CURRENT_SLIDE: {
+    case constants.UPDATE_CURRENT_PLUGIN: {
       const { pluginNumber, slideNumber } = action;
       const slides = cloneDeep(state);
       const plugin = slides[slideNumber].plugins[pluginNumber];

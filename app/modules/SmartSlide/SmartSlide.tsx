@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from 'react-redux';
 import { OptionsBar } from 'modules';
 import { setActivePlugin } from 'actions/app.actions';
-import { updateCurrentSlide } from 'actions/slides.actions';
+import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
 
 const Rnd = require('react-rnd');
@@ -21,7 +21,7 @@ interface SmartSlideProps {
     height: number;
   };
   slideNumber?: number;
-  updateCurrentSlide?: Function;
+  updateCurrentPlugin?: Function;
 }
 
 class SmartSlide extends React.Component<SmartSlideProps, {}> {
@@ -49,11 +49,11 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       slide,
       slidesDimension,
       slideNumber,
-      updateCurrentSlide,
+      updateCurrentPlugin,
     } = this.props;
-
+    
     return (
-      <div>
+      <div id="current-slide-view ">
         {
           slide.plugins.map((plugin: any, key: number) => {
             const { component: Plugin, state } = plugin;
@@ -89,19 +89,19 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   const { pluginNumber: _pluginNumber, slideNumber: _slideNumber } = currentSelectedPlugin;
                   if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(key, slideNumber);
                 }}
-                onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentSlide(key, slideNumber, clientSize) }
+                onResizeStop={ (direction: string, styleSize: Object, clientSize: Object) => updateCurrentPlugin(key, slideNumber, clientSize) }
                 onDragStop={(e: any, { position }: { position: { left: number; top: number; } }) => {
                   const { left, top } = state;
                   const deltaX = Math.abs((top - position.top) / top);
                   const deltaY = Math.abs((left - position.left) / left);
-                  if (deltaX > 0 || deltaY > 0) updateCurrentSlide(key, slideNumber, position);
+                  if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
                 }} >
                 <OptionsBar 
                   currentSelectedPlugin={ currentSelectedPlugin }
                   pluginNumber={ key }
                   pluginState={ state } 
                   slideNumber={ slideNumber } 
-                  updateCurrentSlide={ updateCurrentSlide } />
+                  updateCurrentPlugin={ updateCurrentPlugin } />
                 <Plugin 
                   width={ state.width }
                   height={ state.height }
@@ -109,7 +109,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   pluginNumber={ key }
                   pluginState={ state }
                   slideNumber={ slideNumber }
-                  updateCurrentSlide={ updateCurrentSlide } />
+                  updateCurrentPlugin={ updateCurrentPlugin } />
               </Rnd>
             );
         })}
@@ -128,7 +128,9 @@ const mapStateToProps = (state: any, props: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
-  updateCurrentSlide: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentSlide(pluginNumber, slideNumber, changes)),
+  updateCurrentPlugin: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentPlugin(pluginNumber, slideNumber, changes)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);
+const SmartSlideConnect = connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);
+
+export { SmartSlideConnect as SmartSlide };

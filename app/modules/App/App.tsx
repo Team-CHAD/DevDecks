@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
-import { toggleFullScreen, updateDeviceDimension, updateSlidesDimension } from 'actions/app.actions';
+import { goToSlide, leftArrowPrev, rightArrowNext, toggleFullScreen, updateDeviceDimension, updateSlidesDimension } from 'actions/app.actions';
 import { throttle } from 'utils/helpers';
 import '@blueprintjs/core/dist/blueprint.css';
 
@@ -15,9 +15,14 @@ interface IDimensions {
 
 interface AppComponentProps {
   deviceDimension: IDimensions;
+  goToSlide: Function;
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
+  leftArrowPrev: Function;
+  rightArrowNext: Function;
   slide: any;
+  slideNumber: number;
+  slides: Array<any>;
   slidesDimension: IDimensions;
   toggleFullScreen: any;
   updateDeviceDimension: Function;
@@ -27,8 +32,29 @@ interface AppComponentProps {
 class AppComponent extends React.Component<AppComponentProps, {}> {
   public constructor() {
     super();
+    this.handleSlidesTransition = this.handleSlidesTransition.bind(this);
     this.handleResize = throttle(this.handleResize.bind(this), 300);
     this.handleWindowMoved = this.handleWindowMoved.bind(this);
+  }
+
+  private handleSlidesTransition(event: any): void {
+    const {
+      isFullScreen,
+      leftArrowPrev,
+      rightArrowNext,
+      slideNumber,
+      slides,
+      toggleFullScreen
+    } = this.props;
+
+    if (!isFullScreen) return null;
+
+    const isBeginning = slides[slideNumber - 1] === undefined ? true : false;
+    const isLast = slides[slideNumber + 1] === undefined ? true : false;
+
+    if (event.keyCode === 37 && !isBeginning) leftArrowPrev();
+    else if (event.keyCode === 39 && !isLast) rightArrowNext();
+    else if (event.keyCode === 27) toggleFullScreen();
   }
   
   private handleResize(): void {
@@ -42,16 +68,19 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
   }
   
   private handleWindowMoved() {
-    const { deviceDimension: { width: _width, height: _height }, updateDeviceDimension } = this.props;
+    const { deviceDimension, goToSlide, slidesDimension, updateDeviceDimension, updateSlidesDimension } = this.props;
     const { width, height } = window.screen;
 
-    if (width !== _width || height !== height) updateDeviceDimension({ width, height });
+    if (width !== deviceDimension.width || height !== deviceDimension.height) {
+      updateDeviceDimension({ width, height });
+    }
   }
 
   public componentWillMount() {
     const { toggleFullScreen } = this.props;
     ipcRenderer.on('moved', this.handleWindowMoved);
     ipcRenderer.on('toggleFullScreen', toggleFullScreen);
+    window.addEventListener('keydown', this.handleSlidesTransition);
   }
 
   public componentDidMount(): void {
@@ -66,16 +95,29 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
 
   public componentWillUnMount() {
     ipcRenderer.removeAllListeners();
+    window.removeEventListener('keydown', this.handleSlidesTransition);
     window.removeEventListener('resize', this.handleResize);
   }
 
   public render() {
-    const { deviceDimension, isFullScreen, lastSavedSlideDimensions, slide, slidesDimension } = this.props;
+    const {
+      deviceDimension,
+      isFullScreen,
+      lastSavedSlideDimensions,
+      leftArrowPrev,
+      rightArrowNext,
+      slide,
+      slides,
+      slideNumber,
+      slidesDimension,
+      toggleFullScreen,
+    } = this.props;
+
     return (
       <main>
         { 
           isFullScreen ?
-            <FullScreenView /> :
+            <FullScreenView slide={ slide } /> :
             <EditView
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
@@ -92,10 +134,15 @@ const mapStateToProps= (state: any) => ({
   isFullScreen: state.app.isFullScreen,
   lastSavedSlideDimensions: state.app.lastSavedSlideDimensions,
   slide: state.slides[state.app.currentSlide],
+  slideNumber: state.app.currentSlide,
+  slides: state.slides,
   slidesDimension: state.app.slidesDimension,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
+  goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber)),
+  leftArrowPrev: () => dispatch(leftArrowPrev()),
+  rightArrowNext: () => dispatch(rightArrowNext()),
   toggleFullScreen: () => dispatch(toggleFullScreen()),
   updateDeviceDimension: (newDeviceDimension: { width: number, height: number }) => dispatch(updateDeviceDimension(newDeviceDimension)),
   updateSlidesDimension: (slidesDimension: { width: number, height: number }) => dispatch(updateSlidesDimension(slidesDimension)),
