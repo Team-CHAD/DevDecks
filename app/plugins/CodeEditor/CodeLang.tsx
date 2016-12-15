@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import { Menu, MenuItem, Button, Popover, Position } from "@blueprintjs/core";
 
 interface CodeLangProps {
   pluginState: any;
@@ -12,24 +12,30 @@ const CodeLang = ({ pluginState, updateCurrentPlugin }: CodeLangProps) => {
   const languages = ['C++', 'Clojure', 'django', 'Haskell', 'HTML', 'JavaScript', 'JSON', 'Perl', 'PHP', 'Python', 'Ruby', 'TypeScript'];
 
   const langSelection = (
-    <Menu>
+    <select
+      value={ pluginState.language || DEFAULT_LANGUAGE }
+      onChange={(e: any) => updateCurrentPlugin({ language: e.target.value })}>
         {
           languages.map((language, key) => (
-            <MenuItem
+            <option
               key={ key }
-              text={ language }
-              onClick={() => updateCurrentPlugin({ language: language })} />
+              value={ language } >
+              { language }
+            </option>
           ))
         }
-    </Menu>
+    </select>
   );
 
   return (
-    <Popover content={ langSelection } position={ Position.RIGHT_TOP }>
-      <button className="pt-button" type="button">
-        { pluginState.language ? pluginState.language : DEFAULT_LANGUAGE }
-      </button>
-    </Popover>
+    <li>
+      <label className="pt-label">
+        Language
+        <div className="pt-select">
+          { langSelection }
+        </div>
+      </label>
+    </li>
   );
 }
 
