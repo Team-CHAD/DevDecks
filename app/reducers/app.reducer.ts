@@ -10,10 +10,11 @@ interface InitialAppState {
   deviceDimension: IDimensions;
   currentSlide: number;
   currentSelectedPlugin: any;
+  isDragging: boolean;
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
   slidesDimension: IDimensions;
-} 
+}
 
 const deviceDimension = {
   width: window.screen.width,
@@ -24,6 +25,7 @@ const initialAppState: InitialAppState = {
   deviceDimension,
   currentSlide: 0,
   currentSelectedPlugin: null,
+  isDragging: false,
   isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
   slidesDimension: {
@@ -69,6 +71,10 @@ const appReducer = (state: any = initialAppState, action: any) => {
       }
 
       return Object.assign({}, state, { isFullScreen: !state.isFullScreen });
+    }
+
+    case constants.TOGGLE_GUIDELINES: {
+      return Object.assign({}, state, { isDragging: !state.isDragging });
     }
 
     case constants.UPDATE_DEVICE_DIMENSION: {

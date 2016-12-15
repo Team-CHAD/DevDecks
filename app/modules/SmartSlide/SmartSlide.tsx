@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import { setActivePlugin } from 'actions/app.actions';
+import { setActivePlugin, toggleGuidelines } from 'actions/app.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
 
@@ -21,6 +21,7 @@ interface SmartSlideProps {
     height: number;
   };
   slideNumber?: number;
+  toggleGuidelines?: Function;
   updateCurrentPlugin?: Function;
 }
 
@@ -49,6 +50,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       slide,
       slidesDimension,
       slideNumber,
+      toggleGuidelines,
       updateCurrentPlugin,
     } = this.props;
 
@@ -88,6 +90,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   bottomLeft: false,
                   topLeft: false
                 }}
+                moveGrid={[((slidesDimension.width / scale) - state.width)/100, ((slidesDimension.height / scale) - state.height)/100]}
                 onClick={() => {
                   if (!currentSelectedPlugin) setActivePlugin(plugin.moduleName, key, slideNumber);
                   else {
@@ -105,11 +108,13 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   styleSize: Object,
                   clientSize: Object
                 ) => updateCurrentPlugin(key, slideNumber, clientSize)}
+                onDragStart={toggleGuidelines}
                 onDragStop={(e: any, { position }: { position: { left: number; top: number; } }) => {
                   const { left, top } = state;
                   const deltaX = Math.abs((top - position.top) / top);
                   const deltaY = Math.abs((left - position.left) / left);
                   if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
+                  toggleGuidelines();
                 }} >
                 <Plugin
                   width={ state.width }
@@ -121,7 +126,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   updateCurrentPlugin={ updateCurrentPlugin.bind(this, key, slideNumber) } />
               </Rnd>
             );
-        })}
+          })}
       </div>
     );
   }
@@ -146,6 +151,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     slideNumber: number,
     changes: Object
   ) => dispatch(updateCurrentPlugin(pluginNumber, slideNumber, changes)),
+  toggleGuidelines: () => dispatch(toggleGuidelines()),
 });
 
 const SmartSlideConnect = connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);

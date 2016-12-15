@@ -17,25 +17,25 @@ interface IDimensions {
 }
 
 interface EditViewProps {
+  isDragging: boolean;
   lastSavedSlideDimensions: IDimensions;
   slide: any;
   slidesDimension: IDimensions;
   thumbnailsDimension: IDimensions;
 }
 
-const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
+const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
   const UTILITIES_MENU_WIDTH = 200;
-  
-  let scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
-  
+  const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
+
   return (
     <div id="container">
 
       <MiniSlidesPanel />
 
       <div id="main-content-wrapper">
-        
+
         <ToolBar />
 
         <div
@@ -47,6 +47,12 @@ const EditView = ({ lastSavedSlideDimensions, slide, slidesDimension, thumbnails
           <Scale isFullScreen={ false } scale={ scale }>
             <SmartSlide scale={ scale } />
           </Scale>
+          <div
+            className={ isDragging ? 'vertical-guideline' : null }
+            style={ isDragging ? { height: slidesDimension.height } : null }></div>
+          <div
+            className={ isDragging ? 'horizontal-guideline' : null }
+            style={ isDragging ? { width: '100%' } : null }></div>
         </div>
 
       </div>
