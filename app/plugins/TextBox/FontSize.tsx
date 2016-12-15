@@ -3,24 +3,22 @@ import { Menu, MenuDivider, MenuItem, Popover, Position } from "@blueprintjs/cor
 import './font-size.scss';
 
 interface FontSizeProps {
-  fontSize: number;
   pluginState: any;
   updateCurrentPlugin: Function;
 }
 
-const FontSize = ({ fontSize, pluginState, updateCurrentPlugin }: FontSizeProps) => {
+const FontSize = ({ pluginState, updateCurrentPlugin }: FontSizeProps) => {
   const DEFAULT_SIZE = 100;
   const MAGNIFIER = 3;
-
+  
   const fontSizes = [50, 75, 90, 100, 125, 150, 175, 200, 250, 275, 300];
   const fontSelection = (
     <select
-      defaultValue={ `${ fontSize / 3 }` || '100' }
-      value={ fontSize }
+      value={ pluginState.fontSize / MAGNIFIER || '100' }
       onChange={(e: any) => updateCurrentPlugin({ fontSize: e.target.value * MAGNIFIER })}>
-        { 
+        {
           fontSizes.map((fontSize, key) => (
-            <option 
+            <option
               key={ key }
               value={ fontSize } >
               { fontSize }
@@ -31,16 +29,14 @@ const FontSize = ({ fontSize, pluginState, updateCurrentPlugin }: FontSizeProps)
   );
 
   return (
-    <ul id="font-size-options-container">
-      <li>
-        <label className="pt-label">
-          Font Size
-          <div className="pt-select">
-            { fontSelection }
-          </div>
-        </label>
-      </li>
-    </ul>
+    <li>
+      <label className="pt-label">
+        Font Size
+        <div className="pt-select">
+          { fontSelection }
+        </div>
+      </label>
+    </li>
   );
 }
 

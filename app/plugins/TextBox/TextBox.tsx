@@ -10,7 +10,7 @@ interface TextBoxProps {
 
 const TextBox = ({ pluginNumber, pluginState, slideNumber, updateCurrentPlugin }: TextBoxProps) => {
   return (
-    <div style={{ fontSize: pluginState.fontSize ? `${ pluginState.fontSize / 100 }em` : '3em' }}>
+    <div style={{ fontSize: pluginState.fontSize ? `${ pluginState.fontSize / 100 }em` : '3em', fontWeight: pluginState.fontWeight ? 'bold' : 'normal', fontStyle : pluginState.fontStyle  ? 'italic' : 'normal', textDecoration : pluginState.textDecoration  ? 'underline' : 'none' }}>
       <TextBoxInput
         multiline
         onChange = { (value: string) => updateCurrentPlugin({ value }) }

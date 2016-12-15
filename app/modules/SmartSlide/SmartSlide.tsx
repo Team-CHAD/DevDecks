@@ -41,7 +41,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
   }
 
   public render() {
-    const { 
+    const {
       currentSelectedPlugin,
       isInPresenterMode,
       scale,
@@ -51,11 +51,14 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       slideNumber,
       updateCurrentPlugin,
     } = this.props;
-    
+
     return (
       <div id="current-slide-view ">
         {
           slide.plugins.map((plugin: any, key: number) => {
+            //When plugin is deleted from plugins array, their position is not removed rather the value is set to null
+            if (!plugin) return null;
+
             const { component: Plugin, state } = plugin;
             return (
               <Rnd
@@ -108,7 +111,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   const deltaY = Math.abs((left - position.left) / left);
                   if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
                 }} >
-                <Plugin 
+                <Plugin
                   width={ state.width }
                   height={ state.height }
                   isInPresenterMode={ isInPresenterMode }

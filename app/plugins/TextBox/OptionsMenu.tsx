@@ -1,5 +1,8 @@
 import * as React from 'react';
 import FontSize from './FontSize';
+import FontBold from './FontBold';
+import FontItalics from './FontItalics';
+import FontUnderline from './FontUnderline';
 
 interface OptionsMenuProps {
   moduleName: string;
@@ -20,10 +23,20 @@ class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
     } = this.props;
 
     return (
-      <FontSize
-        pluginState={ pluginState }
-        fontSize= { pluginState.fontSize }
-        updateCurrentPlugin={ updateCurrentPlugin } />
+      <ul id="font-size-options-container">
+        <FontSize
+          pluginState={ pluginState }
+          updateCurrentPlugin={ updateCurrentPlugin } />
+        <FontBold
+          pluginState={ pluginState }
+          updateCurrentPlugin={ updateCurrentPlugin } />
+        <FontItalics
+          pluginState={ pluginState }
+          updateCurrentPlugin={ updateCurrentPlugin } />
+        <FontUnderline
+          pluginState={ pluginState }
+          updateCurrentPlugin={ updateCurrentPlugin } />
+      </ul>
     );
   };
 }
