@@ -1,18 +1,30 @@
 import { remote } from 'electron';
 import * as constants from 'constants/app.constants';
 
+interface IDimensions {
+  width: number;
+  height: number;
+}
+
+interface InitialAppState {
+  deviceDimension: IDimensions;
+  currentSlide: number;
+  currentSelectedPlugin: any;
+  isDragging: boolean;
+  isFullScreen: boolean;
+  lastSavedSlideDimensions: IDimensions;
+  slidesDimension: IDimensions;
+}
+
 const deviceDimension = {
   width: window.screen.width,
   height: window.screen.height
 };
 
-const initialAppState = {
+const initialAppState: InitialAppState = {
   deviceDimension,
   currentSlide: 0,
-  currentSelectedPlugin: {
-    pluginNumber: 0,
-    slideNumber: 0
-  },
+  currentSelectedPlugin: null,
   isDragging: false,
   isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
@@ -63,8 +75,8 @@ const appReducer = (state: any = initialAppState, action: any) => {
 
     case constants.TOGGLE_GUIDELINES: {
       return Object.assign({}, state, { isDragging: !state.isDragging });
-    }  
-    
+    }
+
     case constants.UPDATE_DEVICE_DIMENSION: {
       return Object.assign({}, state, { deviceDimension: action.newDeviceDimension });
     }

@@ -15,10 +15,18 @@ export function addSlide(currentSlide: number) {
   };
 }
 
+export function deleteCurrentPlugin(pluginNumber: any, slideNumber: number) {
+  return {
+    type: constants.DELETE_CURRENT_PLUGIN,
+    pluginNumber,
+    slideNumber,
+  };
+}
+
 export function deleteSlide(slideToDelete: number) {
   return {
     type: constants.DELETE_SLIDE,
-    slideToDelete, 
+    slideToDelete,
   };
 }
 
@@ -30,4 +38,3 @@ export function updateCurrentPlugin(pluginNumber: number, slideNumber: number, c
     slideNumber,
   };
 }
-

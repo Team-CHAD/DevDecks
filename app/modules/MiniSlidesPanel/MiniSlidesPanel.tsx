@@ -20,11 +20,13 @@ interface MiniSlidesPanelProps {
 
 class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}> {
   render() {
+    const THUMBNAILS_SCALE = 15;
+
     const { currentSlideNumber, deviceDimension, goToSlide, slides, slidesDimension } = this.props;
 
     const thumbnailsDimension = {
-      width: deviceDimension.width / 10,
-      height: deviceDimension.height / 10
+      width: deviceDimension.width / THUMBNAILS_SCALE,
+      height: deviceDimension.height / THUMBNAILS_SCALE
     };
 
     const scale = Math.min(
@@ -33,14 +35,17 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
     );
 
     return (
-      <ul id="mini-slide-panel" style={{ minWidth: thumbnailsDimension.width + 100 }}>
+      <ul id="mini-slide-panel" style={{ minWidth: thumbnailsDimension.width + 50 }}>
         { 
           slides.map((slide: any, key: number) => (
-            <li key={ key }>
+            <li
+              key={ key }
+              className={ currentSlideNumber === key ? "current-mini-slide-overlay" : null }
+              >
               <span className="mini-slide-counter">{ key }</span>
               <div
                 style={{ width: thumbnailsDimension.width, height: thumbnailsDimension.height }}
-                className={ currentSlideNumber === key? "mini-slide current-mini-slide" : "mini-slide" }
+                className={ currentSlideNumber === key ? "mini-slide current-mini-slide" : "mini-slide" }
                 onClick={ goToSlide.bind(this, key) }>
                 <Scale isFullScreen={ false } scale={ scale }>
                   <DummySlide

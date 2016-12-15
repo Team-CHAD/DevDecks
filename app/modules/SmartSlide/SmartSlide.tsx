@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import { OptionsBar } from 'modules';
 import { setActivePlugin, toggleGuidelines } from 'actions/app.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
@@ -9,6 +8,7 @@ const Rnd = require('react-rnd');
 
 interface SmartSlideProps {
   currentSelectedPlugin?: {
+    moduleName: string;
     pluginNumber: number;
     slideNumber: number;
   };
@@ -42,7 +42,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
   }
 
   public render() {
-    const { 
+    const {
       currentSelectedPlugin,
       isInPresenterMode,
       scale,
@@ -53,11 +53,14 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       toggleGuidelines,
       updateCurrentPlugin,
     } = this.props;
-    
+
     return (
       <div id="current-slide-view ">
         {
           slide.plugins.map((plugin: any, key: number) => {
+            //When plugin is deleted from plugins array, their position is not removed rather the value is set to null
+            if (!plugin) return null;
+
             const { component: Plugin, state } = plugin;
             return (
               <Rnd
@@ -89,10 +92,22 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                 }}
                 moveGrid={[((slidesDimension.width / scale) - state.width)/100, ((slidesDimension.height / scale) - state.height)/100]}
                 onClick={() => {
-                  const { pluginNumber: _pluginNumber, slideNumber: _slideNumber } = currentSelectedPlugin;
-                  if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(key, slideNumber);
+                  if (!currentSelectedPlugin) setActivePlugin(plugin.moduleName, key, slideNumber);
+                  else {
+                    const {
+                      moduleName,
+                      pluginNumber: _pluginNumber,
+                      slideNumber: _slideNumber
+                    } = currentSelectedPlugin;
+
+                    if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(moduleName, key, slideNumber);
+                  }
                 }}
-                onResizeStop={(direction: string, styleSize: Object, clientSize: Object) => updateCurrentPlugin(key, slideNumber, clientSize)}
+                onResizeStop={(
+                  direction: string,
+                  styleSize: Object,
+                  clientSize: Object
+                ) => updateCurrentPlugin(key, slideNumber, clientSize)}
                 onDragStart={toggleGuidelines}
                 onDragStop={(e: any, { position }: { position: { left: number; top: number; } }) => {
                   const { left, top } = state;
@@ -101,20 +116,14 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
                   toggleGuidelines();
                 }} >
-                <OptionsBar 
-                  currentSelectedPlugin={ currentSelectedPlugin }
-                  pluginNumber={ key }
-                  pluginState={ state } 
-                  slideNumber={ slideNumber } 
-                  updateCurrentPlugin={ updateCurrentPlugin } />
-                <Plugin 
+                <Plugin
                   width={ state.width }
                   height={ state.height }
                   isInPresenterMode={ isInPresenterMode }
                   pluginNumber={ key }
                   pluginState={ state }
                   slideNumber={ slideNumber }
-                  updateCurrentPlugin={ updateCurrentPlugin } />
+                  updateCurrentPlugin={ updateCurrentPlugin.bind(this, key, slideNumber) } />
               </Rnd>
             );
           })}
@@ -132,9 +141,17 @@ const mapStateToProps = (state: any, props: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  setActivePlugin: (pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(pluginNumber, slideNumber)),
+  setActivePlugin: (
+    moduleName: string,
+    pluginNumber: number,
+    slideNumber: number
+    ) => dispatch(setActivePlugin(moduleName, pluginNumber, slideNumber)),
+  updateCurrentPlugin: (
+    pluginNumber: number,
+    slideNumber: number,
+    changes: Object
+  ) => dispatch(updateCurrentPlugin(pluginNumber, slideNumber, changes)),
   toggleGuidelines: () => dispatch(toggleGuidelines()),
-  updateCurrentPlugin: (pluginNumber: number, slideNumber: number, changes: Object) => dispatch(updateCurrentPlugin(pluginNumber, slideNumber, changes)),
 });
 
 const SmartSlideConnect = connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);
