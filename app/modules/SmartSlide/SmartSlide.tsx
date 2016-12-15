@@ -95,12 +95,11 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   if (!currentSelectedPlugin) setActivePlugin(plugin.moduleName, key, slideNumber);
                   else {
                     const {
-                      moduleName,
                       pluginNumber: _pluginNumber,
                       slideNumber: _slideNumber
                     } = currentSelectedPlugin;
 
-                    if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(moduleName, key, slideNumber);
+                    if (_slideNumber !== slideNumber || _pluginNumber !== key) setActivePlugin(plugin.moduleName, key, slideNumber);
                   }
                 }}
                 onResizeStop={(

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import { Menu, MenuItem, Button } from "@blueprintjs/core";
 
 interface CodeLangProps {
   pluginState: any;
@@ -25,11 +25,9 @@ const CodeLang = ({ pluginState, updateCurrentPlugin }: CodeLangProps) => {
   );
 
   return (
-    <Popover content={ langSelection } position={ Position.RIGHT_TOP }>
-      <button className="pt-button" type="button">
+      <Button className="pt-button" type="button">
         { pluginState.language ? pluginState.language : DEFAULT_LANGUAGE }
-      </button>
-    </Popover>
+      </Button>
   );
 }
 

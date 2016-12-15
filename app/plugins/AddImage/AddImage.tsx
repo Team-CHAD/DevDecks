@@ -29,7 +29,7 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
       fs.readFile(filePaths[0], (err: any, data: any) => {
         if (err) return;
         const imageBufferString: string = new Buffer(data).toString('base64');
-        updateCurrentPlugin(pluginNumber, slideNumber, { imageBufferString, width: 355 });
+        updateCurrentPlugin({ imageBufferString, width: 355 });
       });
     });
   };
@@ -42,7 +42,7 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
             style={{ width: '100%', height: '100%' }}
             src={ `data:image;base64,${ pluginState.imageBufferString }` }
           /> :
-          <span 
+          <span
             className="pt-icon pt-icon-media"
             style={{ fontSize: 250, opacity: 0.4, margin: '-25px 0' }}
             onClick={ selectImageFile } />
