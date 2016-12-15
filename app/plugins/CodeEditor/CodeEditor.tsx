@@ -66,14 +66,14 @@ const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumb
         fontSize={ fontSize ? DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
         height={ `${ height - 50 }px` }
         width={ `${ width - 1 }px` }
-        onChange={ (snippet: string) => updateSnippetDebounce(pluginNumber, slideNumber, { snippet }) }
+        onChange={ (snippet: string) => updateSnippetDebounce({ snippet }) }
         value={ snippet }
       />
       <button
         className="runButton"
         onClick={() => {
           const snippetEval: any = eval(snippet);
-          updateCurrentPlugin(pluginNumber, slideNumber, { snippetEval })
+          updateCurrentPlugin({ snippetEval })
       }}>
         submit
       </button>
