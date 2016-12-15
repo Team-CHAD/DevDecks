@@ -21,7 +21,8 @@ class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
     } = this.props;
 
     return (
-      <ul id="font-size-options-container">
+      <ul id="codeeditor-options-container">
+      {console.log('inside editor options')}
         <CodeLang
           pluginState={ pluginState }
           updateCurrentPlugin={ updateCurrentPlugin } />

@@ -12,24 +12,30 @@ const CodeTheme = ({ pluginState, updateCurrentPlugin }: CodeThemeProps) => {
   const themes = ['Ambiance', 'Chaos', 'Chrome', 'Clouds', 'Cobalt', 'Eclipse', 'iPlastic', 'Monokai', 'Textmate', 'Tomorrow', 'Twilight', 'XCode'];
 
   const themeSelection = (
-    <Menu>
+    <select
+      value={ pluginState.theme || DEFAULT_THEME }
+      onChange={(e: any) => updateCurrentPlugin({ theme: e.target.value })}>
         {
           themes.map((theme, key) => (
-            <MenuItem
+            <option
               key={ key }
-              text={ theme }
-              onClick={() => updateCurrentPlugin({ theme: theme })} />
+              value={ theme } >
+              { theme }
+            </option>
           ))
         }
-    </Menu>
+    </select>
   );
 
   return (
-    <Popover content={ themeSelection } position={ Position.RIGHT_TOP }>
-      <button className="pt-button" type="button">
-        { pluginState.theme ? pluginState.theme : DEFAULT_THEME }
-      </button>
-    </Popover>
+    <li>
+      <label className="pt-label">
+        Theme
+        <div className="pt-select">
+          { themeSelection }
+        </div>
+      </label>
+    </li>
   );
 }
 

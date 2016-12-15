@@ -2,7 +2,7 @@
 // Signature: import { plugin } from { location }
 
 import CodeEditor from './CodeEditor/CodeEditor';
-import CodeEditorOptions from './AddImage/OptionsMenu';
+import CodeEditorOptions from './CodeEditor/OptionsMenu';
 
 import Image from './AddImage/AddImage';
 import ImageOptions from './AddImage/OptionsMenu';

@@ -19,7 +19,7 @@ class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
     } = this.props;
 
     return (
-      <ul id="font-size-options-container">
+      <ul id="addimage-options-container">
       </ul>
     );
   };
