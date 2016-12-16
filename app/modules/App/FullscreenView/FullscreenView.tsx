@@ -7,7 +7,7 @@ interface FullScreenViewProps {
 }
 
 const FullScreenView = ({ slide }: FullScreenViewProps) => (
-  <div id="fullscreen-view">
+  <div id="fullscreen-view" style={{ backgroundColor: slide.state.backgroundColor }}>
     <DummySlide slide={ slide } />
   </div>
 );

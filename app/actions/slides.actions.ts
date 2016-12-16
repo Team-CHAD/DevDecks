@@ -38,3 +38,11 @@ export function updateCurrentPlugin(pluginNumber: number, slideNumber: number, c
     slideNumber,
   };
 }
+
+export function updateCurrentSlide(slideNumber: number, changes: Object) {
+  return {
+    type: constants.UPDATE_CURRENT_SLIDE,
+    changes,
+    slideNumber,
+  };
+}

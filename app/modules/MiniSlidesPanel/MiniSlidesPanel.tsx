@@ -45,7 +45,11 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
               >
               <span className="mini-slide-counter">{ key }</span>
               <div
-                style={{ width: thumbnailsDimension.width, height: thumbnailsDimension.height }}
+                style={{
+                  backgroundColor: slide.state.backgroundColor,
+                  width: thumbnailsDimension.width,
+                  height: thumbnailsDimension.height
+                }}
                 className={ currentSlideNumber === key ? "mini-slide-content active" : "mini-slide-content" }
                 onClick={() => {
                   goToSlide(key); 

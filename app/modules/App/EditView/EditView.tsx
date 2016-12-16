@@ -26,7 +26,7 @@ interface EditViewProps {
 
 const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
-  const UTILITIES_MENU_WIDTH = 200;
+  const UTILITIES_MENU_WIDTH = 295;
   const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
 
   return (
@@ -41,6 +41,7 @@ const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension
         <div
           id="edit-slide-view"
           style={{
+            backgroundColor: slide.state.backgroundColor,
             width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
             paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`
           }}>
