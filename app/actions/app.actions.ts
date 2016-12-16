@@ -26,7 +26,7 @@ export function saveLastSlideDimensions(dimensions: { width: number; height: num
   };
 }
 
-export function setActivePlugin(moduleName: string, pluginNumber: number, slideNumber: number) {
+export function setActivePlugin(moduleName?: string, pluginNumber?: number, slideNumber?: number) {
   const isPluginDeleted = !moduleName || pluginNumber === undefined  || slideNumber === undefined;
   return {
     type: constants.SET_ACTIVE_PLUGIN,
