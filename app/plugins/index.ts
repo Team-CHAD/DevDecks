@@ -47,8 +47,8 @@ export default [
     optionsMenuComponent: CodeEditorOptions,
     state: {
       value: '',
-      width: 300,
-      height: 200,
+      width: 800,
+      height: 420,
     },
   },
   // {

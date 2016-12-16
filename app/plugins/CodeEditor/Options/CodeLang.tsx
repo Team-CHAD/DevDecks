@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Menu, MenuItem, Button, Popover, Position } from "@blueprintjs/core";
 
 interface CodeLangProps {
   pluginState: any;

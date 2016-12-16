@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { debounce } from '../../utils/helpers';
+import { DEFAULT_FONT_SIZE, DEFAULT_LANGUAGE, DEFAULT_THEME } from './constants';
 import './codeEditor.scss';
 
 const brace = require('brace');
@@ -39,45 +38,44 @@ interface CodeEditorProps {
   width: number;
   pluginNumber: number;
   pluginState: any;
-  scale: number;
   slideNumber: number;
-  updateCurrentPlugin: Function;
+  updateCurrentPlugin: any;
 }
 
-const CodeEditor = ({ height, width, pluginNumber, pluginState, scale, slideNumber, updateCurrentPlugin }: CodeEditorProps) => {
-  const DEFAULT_FONT_SIZE = 8;
-  const DEFAULT_LANGUAGE = 'javascript';
-  const DEFAULT_THEME = 'monokai';
+const CodeEditor = ({ 
+  height,
+  width,
+  pluginNumber,
+  pluginState,
+  slideNumber,
+  updateCurrentPlugin,
+}: CodeEditorProps) => {
+  const { fontSize, isOpen, snippet, snippetEval, theme } = pluginState;
 
-  const { fontSize, snippet, snippetEval, theme } = pluginState;
   let { language } = pluginState;
-
   if (language === 'C++') language = 'c_cpp';
 
-  let updateSnippetDebounce: any;
-  if (updateCurrentPlugin) updateSnippetDebounce = debounce(updateCurrentPlugin, 50);
-
   return (
-    <div style={{ backgroundColor:"rgba(50, 50, 50, .2)"}}>
-      <AceEditor
-        mode={ language ? language.toLowerCase() : DEFAULT_LANGUAGE }
-        theme={ theme ? theme.toLowerCase() : DEFAULT_THEME }
-        tabSize={ 2 }
-        fontSize={ fontSize ? DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
-        height={ `${ height - 50 }px` }
-        width={ `${ width - 1 }px` }
-        onChange={ (snippet: string) => updateSnippetDebounce({ snippet }) }
-        value={ snippet }
-      />
-      <button
-        className="runButton"
-        onClick={() => {
-          const snippetEval: any = eval(snippet);
-          updateCurrentPlugin({ snippetEval })
-      }}>
-        submit
-      </button>
-      <div className="terminal">{ snippetEval }</div>
+    <div id="codeeditor-container" style={{ backgroundColor:"rgba(50, 50, 50, .2)"}}>
+      <div onDoubleClick={ updateCurrentPlugin ? updateCurrentPlugin.bind(this, { isOpen: true }) : () => {} }>
+        {
+          snippet
+            ? <AceEditor
+                mode={ language ? language.toLowerCase() : DEFAULT_LANGUAGE }
+                theme={ theme ? theme.toLowerCase() : DEFAULT_THEME }
+                height={ `${ height }px` }
+                width={ `${ width }px` }
+                fontSize={ fontSize ? this.DEFAULT_FONT_SIZE * (fontSize / 100) : DEFAULT_FONT_SIZE * 3 }
+                showGutter={ false }
+                showPrintMargin={ false }
+                tabSize={ 2 }
+                value={ snippet } />
+            : <span
+                className="pt-icon-standard pt-icon-code"
+                style={{ width: '100%', fontSize: '30em', textAlign: 'center', opacity: 0.7 }} >
+              </span>
+        }
+      </div>
     </div>
   );
 }

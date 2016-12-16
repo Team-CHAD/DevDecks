@@ -10,7 +10,7 @@ interface DeletePluginProps {
 const DeletePlugin = ({ deleteCurrentPlugin, setActivePlugin }: DeletePluginProps) => {
   return (
     <Button
-      className="pt-button"
+      className="pt-button reset"
       id="delete-button-devdecks"
       type="button"
       onClick={ () => {

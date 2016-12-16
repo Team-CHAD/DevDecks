@@ -58,6 +58,7 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
                   <PluginOptions
                     pluginState={ pluginState }
                     updateCurrentPlugin={ updateCurrentPlugin.bind(this, pluginNumber, slideNumber) } />
+                  <hr />
                   <DeletePlugin
                     deleteCurrentPlugin={ deleteCurrentPlugin.bind(this, pluginNumber, slideNumber) }
                     setActivePlugin={ setActivePlugin } />

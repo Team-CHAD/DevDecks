@@ -1,22 +1,26 @@
-@import '../../theme/toolbar.scss';
+#codeeditor-options-container {
+  ul {
+    text-align: center;
 
-.terminal {
-  background-color: rgba(0,0,0,.8);
-  color: white;
-  display: inline-block;
-  min-height: 30px;
-  min-width: 100%;
-}
+    li {
+      margin: 5px 0;
+    }
+  }
+} 
 
-.runButton {
-  background-color: rgba(100,100,100,.6);
-  color: black;
-  display: inline-block;
-  margin : 0;
-  max-height: 20px;
-  max-width: 70px;
-}
+// .terminal {
+//   background-color: rgba(0,0,0,.8);
+//   color: white;
+//   display: inline-block;
+//   min-height: 30px;
+//   min-width: 100%;
+// }
 
-.ace_text-input {
-  // display: none !important;
-}
+// .runButton {
+//   background-color: rgba(100,100,100,.6);
+//   color: black;
+//   display: inline-block;
+//   margin : 0;
+//   max-height: 20px;
+//   max-width: 70px;
+// }
