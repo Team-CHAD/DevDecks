@@ -1,6 +1,11 @@
 import * as React from 'react';
-import CodeLang from './CodeLang';
-import CodeTheme from './CodeTheme';
+
+import CodeEdit from './Options/CodeEdit';
+import CodeLang from './Options/CodeLang';
+import CodeSubmit from './Options/CodeSubmit';
+import CodeTheme from './Options/CodeTheme';
+import CodeImportExport from './Options/CodeImportExport';
+import ToggleConsole from './Options/ToggleConsole';
 
 interface OptionsMenuProps {
   moduleName: string;
@@ -10,28 +15,43 @@ interface OptionsMenuProps {
   updateCurrentPlugin: Function;
 }
 
-class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
-  render() {
-    const {
-      moduleName,
-      pluginNumber,
-      pluginState,
-      slideNumber,
-      updateCurrentPlugin
-    } = this.props;
+const OptionsMenu = ({
+  moduleName,
+  pluginNumber,
+  pluginState,
+  slideNumber,
+  updateCurrentPlugin
+}: OptionsMenuProps) => (
+  <ul id="codeeditor-options-container">
+    <CodeLang
+      pluginState={ pluginState }
+      updateCurrentPlugin={ updateCurrentPlugin } />
+    <CodeTheme
+      pluginState={ pluginState }
+      updateCurrentPlugin={ updateCurrentPlugin } />
+    
+    <hr />
 
-    return (
-      <ul id="codeeditor-options-container">
-      {console.log('inside editor options')}
-        <CodeLang
-          pluginState={ pluginState }
-          updateCurrentPlugin={ updateCurrentPlugin } />
-        <CodeTheme
-          pluginState={ pluginState }
-          updateCurrentPlugin={ updateCurrentPlugin } />
-      </ul>
-    );
-  };
-}
+    <ul>
+      <CodeImportExport
+        pluginState={ pluginState }
+        updateCurrentPlugin={ updateCurrentPlugin } />
+    </ul>
+
+    <hr />
+
+    <ul style={{ marginTop: '10px', maxWidth: '200px' }}>
+      <CodeEdit
+        pluginState={ pluginState }
+        updateCurrentPlugin={ updateCurrentPlugin } />
+      <CodeSubmit
+        pluginState={ pluginState }
+        updateCurrentPlugin={ updateCurrentPlugin } />
+      <ToggleConsole
+        pluginState={ pluginState }
+        updateCurrentPlugin={ updateCurrentPlugin } />
+    </ul>
+  </ul>
+);
 
 export default OptionsMenu;

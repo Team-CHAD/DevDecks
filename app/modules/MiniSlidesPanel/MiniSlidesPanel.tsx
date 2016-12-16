@@ -40,12 +40,12 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
           slides.map((slide: any, key: number) => (
             <li
               key={ key }
-              className={ currentSlideNumber === key ? "current-mini-slide-overlay" : null }
+              className={ currentSlideNumber === key ? "mini-slide-item active" : "mini-slide-item" }
               >
               <span className="mini-slide-counter">{ key }</span>
               <div
                 style={{ width: thumbnailsDimension.width, height: thumbnailsDimension.height }}
-                className={ currentSlideNumber === key ? "mini-slide current-mini-slide" : "mini-slide" }
+                className={ currentSlideNumber === key ? "mini-slide-content active" : "mini-slide-content" }
                 onClick={ goToSlide.bind(this, key) }>
                 <Scale isFullScreen={ false } scale={ scale }>
                   <DummySlide

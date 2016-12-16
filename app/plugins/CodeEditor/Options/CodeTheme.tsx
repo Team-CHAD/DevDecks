@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import { DEFAULT_THEME } from '../constants';
 
 interface CodeThemeProps {
   pluginState: any;
@@ -7,8 +7,6 @@ interface CodeThemeProps {
 }
 
 const CodeTheme = ({ pluginState, updateCurrentPlugin }: CodeThemeProps) => {
-  const DEFAULT_THEME = 'Monokai';
-
   const themes = ['Ambiance', 'Chaos', 'Chrome', 'Clouds', 'Cobalt', 'Eclipse', 'iPlastic', 'Monokai', 'Textmate', 'Tomorrow', 'Twilight', 'XCode'];
 
   const themeSelection = (
