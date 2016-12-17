@@ -13,17 +13,21 @@ interface AddImageProps {
   updateCurrentPlugin: Function;
 }
 
-const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentPlugin }: AddImageProps) => {
-  const options: any = {
-    filters: [
-      {
-        name: 'Images',
-        extensions: [ 'jpeg', 'jpg', 'gif', 'png' ]
-      }
-    ]
-  };
+const options: any = {
+  filters: [
+    {
+      name: 'Images',
+      extensions: [ 'jpeg', 'jpg', 'gif', 'png' ]
+    }
+  ]
+};
 
-  const selectImageFile: React.MouseEventHandler<HTMLElement> = () => {
+
+
+const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentPlugin }: AddImageProps) => {
+
+  const selectImageFile: any = () => {
+    console.log('inside sif');
     dialog.showOpenDialog(options, (filePaths: string[]) => {
       if (!filePaths) return;
       fs.readFile(filePaths[0], (err: any, data: any) => {
@@ -45,7 +49,7 @@ const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updat
           <span
             className="pt-icon pt-icon-media"
             style={{ fontSize: 250, opacity: 0.4, margin: '-25px 0' }}
-            onClick={ selectImageFile } />
+            onDoubleClick={ () => selectImageFile() }/>
       }
     </div>
   );
