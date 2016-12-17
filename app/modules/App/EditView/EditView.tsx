@@ -17,6 +17,7 @@ interface IDimensions {
 }
 
 interface EditViewProps {
+  deviceDimension: IDimensions;
   isDragging: boolean;
   lastSavedSlideDimensions: IDimensions;
   slide: any;
@@ -24,10 +25,10 @@ interface EditViewProps {
   thumbnailsDimension: IDimensions;
 }
 
-const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
+const EditView = ({ deviceDimension, isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
   const UTILITIES_MENU_WIDTH = 295;
-  const scale = Math.min( slidesDimension.width / window.screen.width, slidesDimension.height / window.screen.height);
+  const scale = Math.min( slidesDimension.width / deviceDimension.width, slidesDimension.height / deviceDimension.height);
 
   return (
     <div id="container">
@@ -43,7 +44,7 @@ const EditView = ({ isDragging, lastSavedSlideDimensions, slide, slidesDimension
           style={{
             backgroundColor: slide.state.backgroundColor,
             width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
-            paddingBottom: `${(window.screen.height / window.screen.width) * 100}%`
+            paddingBottom: `${(deviceDimension.height / deviceDimension.width) * 100}%`
           }}>
           <Scale isFullScreen={ false } scale={ scale }>
             <SmartSlide scale={ scale } />

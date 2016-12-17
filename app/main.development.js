@@ -59,17 +59,14 @@ app.on('ready', async () => {
   });
 
   // LISTENERS
-  const handleWindowMoved = () => mainWindow.send('moved');
 
-  // NOTE: window only listeners
-  if (process.platform === 'win32') {
-    mainWindow.on('move', handleWindowMoved);
-  }
+  // // NOTE: window only listeners
+  // if (process.platform === 'win32') {
+  // }
 
-  // NOTE: darwin only listeners
-  if (process.platform === 'darwin') {
-    mainWindow.on('moved', handleWindowMoved);
-  }
+  // // NOTE: darwin only listeners
+  // if (process.platform === 'darwin') {
+  // }
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();

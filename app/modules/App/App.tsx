@@ -35,7 +35,6 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
     super();
     this.handleSlidesTransition = this.handleSlidesTransition.bind(this);
     this.handleResize = throttle(this.handleResize.bind(this), 300);
-    this.handleWindowMoved = this.handleWindowMoved.bind(this);
   }
 
   private handleSlidesTransition(event: any): void {
@@ -67,31 +66,21 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
 
     updateSlidesDimension({ width, height });
   }
-  
-  private handleWindowMoved() {
-    const { deviceDimension, goToSlide, slidesDimension, updateDeviceDimension, updateSlidesDimension } = this.props;
-    const { width, height } = window.screen;
-
-    if (width !== deviceDimension.width || height !== deviceDimension.height) {
-      updateDeviceDimension({ width, height });
-    }
-  }
 
   public componentWillMount() {
     const { toggleFullScreen } = this.props;
-    ipcRenderer.on('moved', this.handleWindowMoved);
     ipcRenderer.on('toggleFullScreen', toggleFullScreen);
     window.addEventListener('keydown', this.handleSlidesTransition);
   }
 
   public componentDidMount(): void {
-    const { updateSlidesDimension } = this.props;
+    const { deviceDimension, updateSlidesDimension } = this.props;
     const slidesElement = document.getElementById('edit-slide-view');
     const { clientWidth, clientHeight } = slidesElement;
 
     window.addEventListener('resize', this.handleResize);
 
-    updateSlidesDimension({ width: clientWidth, height: (window.screen.height * clientWidth) / window.screen.width });
+    updateSlidesDimension({ width: clientWidth, height: (deviceDimension.height * clientWidth) / deviceDimension.width });
   }
 
   public componentWillUnMount() {
@@ -121,6 +110,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
           isFullScreen ?
             <FullScreenView slide={ slide } /> :
             <EditView
+              deviceDimension={ deviceDimension }
               isDragging={ isDragging }
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }

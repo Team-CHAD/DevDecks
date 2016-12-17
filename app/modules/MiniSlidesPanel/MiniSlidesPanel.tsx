@@ -31,8 +31,8 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
     };
 
     const scale = Math.min(
-      thumbnailsDimension.width / window.screen.width,
-      thumbnailsDimension.height / window.screen.height
+      thumbnailsDimension.width / deviceDimension.width,
+      thumbnailsDimension.height / deviceDimension.height
     );
 
     return (
