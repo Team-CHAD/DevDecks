@@ -17,8 +17,8 @@ interface InitialAppState {
 }
 
 const deviceDimension = {
-  width: window.screen.width,
-  height: window.screen.height
+  width: 1280,
+  height: 800
 };
 
 const initialAppState: InitialAppState = {

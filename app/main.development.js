@@ -59,17 +59,14 @@ app.on('ready', async () => {
   });
 
   // LISTENERS
-  const handleWindowMoved = () => mainWindow.send('moved');
 
-  // NOTE: window only listeners
-  if (process.platform === 'win32') {
-    mainWindow.on('move', handleWindowMoved);
-  }
+  // // NOTE: window only listeners
+  // if (process.platform === 'win32') {
+  // }
 
-  // NOTE: darwin only listeners
-  if (process.platform === 'darwin') {
-    mainWindow.on('moved', handleWindowMoved);
-  }
+  // // NOTE: darwin only listeners
+  // if (process.platform === 'darwin') {
+  // }
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
@@ -87,9 +84,9 @@ app.on('ready', async () => {
 
   if (process.platform === 'darwin') {
     template = [{
-      label: 'Electron',
+      label: 'DevDecks',
       submenu: [{
-        label: 'About ElectronReact',
+        label: 'About DevDecks',
         selector: 'orderFrontStandardAboutPanel:'
       }, {
         type: 'separator'
@@ -99,7 +96,7 @@ app.on('ready', async () => {
       }, {
         type: 'separator'
       }, {
-        label: 'Hide ElectronReact',
+        label: 'Hide DevDecks',
         accelerator: 'Command+H',
         selector: 'hide:'
       }, {
@@ -116,6 +113,21 @@ app.on('ready', async () => {
         accelerator: 'Command+Q',
         click() {
           app.quit();
+        }
+      }]
+    }, {
+      label: 'File',
+      submenu: [{
+        label: 'Open',
+        accelerator: 'Command+O',
+        click() {
+          mainWindow.send('openFile');
+        },
+      }, {
+        label: 'Save',
+        accelerator: 'Command+S',
+        click() {
+          mainWindow.send('saveFile');
         }
       }]
     }, {

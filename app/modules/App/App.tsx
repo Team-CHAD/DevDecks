@@ -1,7 +1,9 @@
+import * as fs from 'fs';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import { goToSlide, leftArrowPrev, rightArrowNext, toggleFullScreen, updateDeviceDimension, updateSlidesDimension } from 'actions/app.actions';
+import { openFile } from 'actions/slides.actions';
 import { throttle } from 'utils/helpers';
 import '@blueprintjs/core/dist/blueprint.css';
 
@@ -20,6 +22,7 @@ interface AppComponentProps {
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
   leftArrowPrev: Function;
+  openFile: Function;
   rightArrowNext: Function;
   slide: any;
   slideNumber: number;
@@ -33,9 +36,49 @@ interface AppComponentProps {
 class AppComponent extends React.Component<AppComponentProps, {}> {
   public constructor() {
     super();
+    this.handleOpenFile = this.handleOpenFile.bind(this);
+    this.handleSaveFile = this.handleSaveFile.bind(this);
     this.handleSlidesTransition = this.handleSlidesTransition.bind(this);
     this.handleResize = throttle(this.handleResize.bind(this), 300);
-    this.handleWindowMoved = this.handleWindowMoved.bind(this);
+  }
+
+  private handleResize(): void {
+    const slidesElement = document.getElementById('edit-slide-view');
+    if (!slidesElement) return null;
+
+    const { updateSlidesDimension } = this.props;
+    const { clientWidth: width, clientHeight: height } = slidesElement;
+
+    updateSlidesDimension({ width, height });
+  }
+
+  private handleOpenFile() {
+    const { openFile } = this.props;
+    const options: any = {
+      filters: [
+        {
+          name: 'DevDecks',
+          extensions: ['dd']
+        }
+      ]
+    };
+    remote.dialog.showOpenDialog(options, (filePaths: string[]) => {
+      if (!filePaths) return;
+      fs.readFile(filePaths[0], (err: any, data: any) => {
+        if (err) return;
+        const devdecksBufferString: string = JSON.parse(new Buffer(data).toString());
+        openFile(devdecksBufferString);
+      });
+    });
+  }
+
+  private handleSaveFile() {
+    const { slides } = this.props;
+    const data = JSON.stringify(slides);
+    remote.dialog.showSaveDialog((fileName: string) => {
+      if (!fileName) return;
+      fs.writeFile(fileName, data);
+    });
   }
 
   private handleSlidesTransition(event: any): void {
@@ -58,40 +101,22 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
     else if (event.keyCode === 27) toggleFullScreen();
   }
   
-  private handleResize(): void {
-    const slidesElement = document.getElementById('edit-slide-view');
-    if (!slidesElement) return null;
-
-    const { updateSlidesDimension } = this.props;
-    const { clientWidth: width, clientHeight: height } = slidesElement;
-
-    updateSlidesDimension({ width, height });
-  }
-  
-  private handleWindowMoved() {
-    const { deviceDimension, goToSlide, slidesDimension, updateDeviceDimension, updateSlidesDimension } = this.props;
-    const { width, height } = window.screen;
-
-    if (width !== deviceDimension.width || height !== deviceDimension.height) {
-      updateDeviceDimension({ width, height });
-    }
-  }
-
   public componentWillMount() {
     const { toggleFullScreen } = this.props;
-    ipcRenderer.on('moved', this.handleWindowMoved);
+    ipcRenderer.on('openFile', this.handleOpenFile);
+    ipcRenderer.on('saveFile', this.handleSaveFile);
     ipcRenderer.on('toggleFullScreen', toggleFullScreen);
     window.addEventListener('keydown', this.handleSlidesTransition);
   }
 
   public componentDidMount(): void {
-    const { updateSlidesDimension } = this.props;
+    const { deviceDimension, updateSlidesDimension } = this.props;
     const slidesElement = document.getElementById('edit-slide-view');
     const { clientWidth, clientHeight } = slidesElement;
 
     window.addEventListener('resize', this.handleResize);
 
-    updateSlidesDimension({ width: clientWidth, height: (window.screen.height * clientWidth) / window.screen.width });
+    updateSlidesDimension({ width: clientWidth, height: (deviceDimension.height * clientWidth) / deviceDimension.width });
   }
 
   public componentWillUnMount() {
@@ -121,6 +146,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
           isFullScreen ?
             <FullScreenView slide={ slide } /> :
             <EditView
+              deviceDimension={ deviceDimension }
               isDragging={ isDragging }
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
@@ -146,6 +172,7 @@ const mapStateToProps= (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber)),
   leftArrowPrev: () => dispatch(leftArrowPrev()),
+  openFile: (newStateFromFile: Object) => dispatch(openFile(newStateFromFile)),
   rightArrowNext: () => dispatch(rightArrowNext()),
   toggleFullScreen: () => dispatch(toggleFullScreen()),
   updateDeviceDimension: (newDeviceDimension: { width: number, height: number }) => dispatch(updateDeviceDimension(newDeviceDimension)),

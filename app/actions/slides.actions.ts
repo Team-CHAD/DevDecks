@@ -30,11 +30,26 @@ export function deleteSlide(slideToDelete: number) {
   };
 }
 
+export function openFile(newStateFromFile: Object) {
+  return {
+    type: constants.OPEN_FILE,
+    newStateFromFile,
+  };
+}
+
 export function updateCurrentPlugin(pluginNumber: number, slideNumber: number, changes: Object) {
   return {
     type: constants.UPDATE_CURRENT_PLUGIN,
     changes,
     pluginNumber,
+    slideNumber,
+  };
+}
+
+export function updateCurrentSlide(slideNumber: number, changes: Object) {
+  return {
+    type: constants.UPDATE_CURRENT_SLIDE,
+    changes,
     slideNumber,
   };
 }

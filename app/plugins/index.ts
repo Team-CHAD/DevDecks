@@ -15,7 +15,7 @@ export default [
   {
     component: TextBox,
     icon: 'new-text-box',
-    moduleName: 'TextBox',
+    moduleName: 'devdecks-textbox',
     // change to tooltip
     name: 'Text Box',
     optionsMenuComponent: TextBoxOptions,
@@ -28,7 +28,7 @@ export default [
   {
     component: Image,
     icon: 'media',
-    moduleName: 'Image',
+    moduleName: 'devdecks-image',
     // change to tooltip
     name: 'Image',
     optionsMenuComponent: ImageOptions,
@@ -41,7 +41,7 @@ export default [
   {
     component: CodeEditor,
     icon: 'code',
-    moduleName: 'CodeEditor',
+    moduleName: 'devdecks-code-editor',
     // change to tooltip
     name: 'CodeEditor',
     optionsMenuComponent: CodeEditorOptions,

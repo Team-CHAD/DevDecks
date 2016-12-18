@@ -40,7 +40,7 @@ const OptionsMenu = ({
 
     <hr />
 
-    <ul style={{ marginTop: '10px', maxWidth: '200px' }}>
+    <ul style={{ margin: '10px auto 0', maxWidth: '200px' }}>
       <CodeEdit
         pluginState={ pluginState }
         updateCurrentPlugin={ updateCurrentPlugin } />
