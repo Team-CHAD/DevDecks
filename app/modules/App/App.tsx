@@ -138,6 +138,7 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
       slideNumber,
       slidesDimension,
       toggleFullScreen,
+      updateDeviceDimension,
     } = this.props;
 
     return (
@@ -151,7 +152,8 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
               slidesDimension={ slidesDimension }
-              thumbnailsDimension = {{ width: deviceDimension.width / 10, height: deviceDimension.height/ 10 }} />
+              thumbnailsDimension ={{ width: deviceDimension.width / 10, height: deviceDimension.height/ 10 }} 
+              updateDeviceDimension={ updateDeviceDimension }/>
         }
       </main>
     );

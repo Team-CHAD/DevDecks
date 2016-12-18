@@ -47,6 +47,12 @@ ul {
   margin: 0 1em;
 }
 
+#menu-bar-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
 #edit-slide-view {
   position: relative;
   border: 2px dashed rgba(100, 100, 100, .5);
@@ -65,23 +71,3 @@ ul {
   top: 50%;
   bottom: 50%;
 }
-
-// .single-slide-views {
-//   position: fixed;
-//   bottom: 0;
-//   right: 0;
-//   height: 120px;
-//   width: calc(100% - 250px);
-//   overflow-x: auto;
-//   overflow-y: hidden;
-//   white-space: nowrap;
-//   border: 1px solid black;
-// }
-
-// .mini-single-slide {
-//   height: 70px;
-//   width: 100px;
-//   margin: 30px 0px 30px 10px;
-//   border: .5px solid black;
-//   display: inline-block;
-// }
