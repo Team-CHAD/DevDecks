@@ -45,6 +45,10 @@ const slidesReducer = (state: any = initialSlidesState, action: any) => {
       return slides;
     }
 
+    case constants.OPEN_FILE: {
+      return action.newStateFromFile;
+    }
+
     case constants.UPDATE_CURRENT_PLUGIN: {
       const { changes, pluginNumber, slideNumber } = action;
       const slides = cloneDeep(state);

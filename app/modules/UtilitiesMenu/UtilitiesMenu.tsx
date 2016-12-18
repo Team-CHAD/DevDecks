@@ -8,6 +8,15 @@ import { deleteCurrentPlugin, updateCurrentPlugin, updateCurrentSlide } from 'ac
 import plugins from 'plugins';
 import './utilities-menu.scss';
 
+const availablePlugins: any = {};
+
+plugins.forEach(plugin => {
+  availablePlugins[plugin.moduleName] = {
+    component: plugin.component,
+    optionsMenuComponent: plugin.optionsMenuComponent,
+  };
+});
+
 interface UtilitiesMenuParentProps {
   styles: Object;
 }
@@ -48,9 +57,12 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
     // For future, we will do a dynamic require
     // const PluginOptions = require(...);
     let PluginOptions: any;
-    plugins.forEach(({ moduleName: _moduleName, optionsMenuComponent }) => {
-      _moduleName === moduleName ? PluginOptions = optionsMenuComponent : null;
-    });
+    if (moduleName && pluginNumber !== undefined || slideNumber !== undefined) {
+      PluginOptions = availablePlugins[moduleName].optionsMenuComponent;
+    }
+    // plugins.forEach(({ moduleName: _moduleName }) => {
+    //   _moduleName === moduleName ? PluginOptions = availablePlugins[_moduleName] : null;
+    // });
 
     return (
       <div

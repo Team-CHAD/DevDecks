@@ -3,8 +3,18 @@ import { connect } from 'react-redux';
 import { setActivePlugin, toggleGuidelines } from 'actions/app.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
+import plugins from 'plugins';
 
 const Rnd = require('react-rnd');
+
+const availablePlugins: any = {};
+
+plugins.forEach(plugin => {
+  availablePlugins[plugin.moduleName] = {
+    component: plugin.component,
+    optionsMenuComponent: plugin.optionsMenuComponent,
+  };
+});
 
 interface SmartSlideProps {
   currentSelectedPlugin?: {
@@ -61,7 +71,9 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
             //When plugin is deleted from plugins array, their position is not removed rather the value is set to null
             if (!plugin) return null;
 
-            const { component: Plugin, state } = plugin;
+            const { moduleName, state } = plugin;
+            const Plugin = availablePlugins[moduleName].component;
+            
             return (
               <Rnd
                 key={ key }
