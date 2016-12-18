@@ -14,7 +14,7 @@ const BackgroundColor = ({ slide, updateCurrentSlide }: BackgroundColorProps) =>
       <SketchPicker
         width="220px"
         color={ slide.state.backgroundColor }
-        onChangeComplete={ (color: any) => updateCurrentSlide({ backgroundColor: color.hex })} />
+        onChangeComplete={ (color: any) => updateCurrentSlide({ backgroundColor: color.rgb })} />
     </label>
   );
 };

@@ -38,31 +38,34 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
     return (
       <ul id="mini-slide-panel" style={{ minWidth: thumbnailsDimension.width + 50 }}>
         { 
-          slides.map((slide: any, key: number) => (
-            <li
-              key={ key }
-              className={ currentSlideNumber === key ? "mini-slide-item active" : "mini-slide-item" }
-              >
-              <span className="mini-slide-counter">{ key }</span>
-              <div
-                style={{
-                  backgroundColor: slide.state.backgroundColor,
-                  width: thumbnailsDimension.width,
-                  height: thumbnailsDimension.height
-                }}
-                className={ currentSlideNumber === key ? "mini-slide-content active" : "mini-slide-content" }
-                onClick={() => {
-                  goToSlide(key); 
-                  setActivePlugin();
-                }}>
-                <Scale isFullScreen={ false } scale={ scale }>
-                  <DummySlide
-                    slide={ slide }
-                    slidesDimension={ slidesDimension } />
-                </Scale>
-              </div>
-            </li>
-          ))
+          slides.map((slide: any, key: number) => {
+            const { r, g, b, a } = slide.state.backgroundColor;
+            return (
+              <li
+                key={ key }
+                className={ currentSlideNumber === key ? "mini-slide-item active" : "mini-slide-item" }
+                >
+                <span className="mini-slide-counter">{ key }</span>
+                <div
+                  style={{
+                    backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+                    width: thumbnailsDimension.width,
+                    height: thumbnailsDimension.height
+                  }}
+                  className={ currentSlideNumber === key ? "mini-slide-content active" : "mini-slide-content" }
+                  onClick={() => {
+                    goToSlide(key); 
+                    setActivePlugin();
+                  }}>
+                  <Scale isFullScreen={ false } scale={ scale }>
+                    <DummySlide
+                      slide={ slide }
+                      slidesDimension={ slidesDimension } />
+                  </Scale>
+                </div>
+              </li>
+            );
+          })
         }
       </ul>
     );

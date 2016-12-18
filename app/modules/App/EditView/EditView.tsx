@@ -39,7 +39,9 @@ const EditView = ({
 }: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
   const UTILITIES_MENU_WIDTH = 295;
+  
   const scale = Math.min( slidesDimension.width / deviceDimension.width, slidesDimension.height / deviceDimension.height);
+  const { r, g, b, a } = slide.state.backgroundColor;
 
   return (
     <div id="container">
@@ -58,7 +60,7 @@ const EditView = ({
         <div
           id="edit-slide-view"
           style={{
-            backgroundColor: slide.state.backgroundColor,
+            backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
             width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
             paddingBottom: `${(deviceDimension.height / deviceDimension.width) * 100}%`
           }}>

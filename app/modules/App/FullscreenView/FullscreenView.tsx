@@ -10,18 +10,21 @@ interface FullScreenViewProps {
   slide: any;
 }
 
-const FullScreenView = ({ deviceDimension, slide }: FullScreenViewProps) => (
-  <div id="fullscreen-view" style={{ backgroundColor: slide.state.backgroundColor }}>
-    <div style={{
-      backgroundColor: slide.state.backgroundColor,
-      width: deviceDimension.width,
-      height: deviceDimension.height,
-      margin: '0 auto',
-      transform: `translateY(${(window.screen.height - deviceDimension.height) / 2}px)`,
-    }}>
-      <DummySlide slide={ slide } />
+const FullScreenView = ({ deviceDimension, slide }: FullScreenViewProps) => {
+  const { r, g, b, a } = slide.state.backgroundColor;
+  return (
+    <div id="fullscreen-view" style={{ backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})` }}>
+      <div style={{
+        backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+        width: deviceDimension.width,
+        height: deviceDimension.height,
+        margin: '0 auto',
+        transform: `translateY(${(window.screen.height - deviceDimension.height) / 2}px)`,
+      }}>
+        <DummySlide slide={ slide } />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default FullScreenView;
