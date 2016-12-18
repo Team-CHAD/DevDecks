@@ -13,6 +13,12 @@ export function leftArrowPrev() {
   };
 }
 
+export function resetApp() {
+  return {
+    type: constants.RESET_APP,
+  }
+}
+
 export function rightArrowNext() {
   return {
     type: constants.RIGHT_ARROW_NEXT,

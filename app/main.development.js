@@ -50,7 +50,10 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({
     icon: path.resolve('resources/icons/png/64x64.png'),
+    minWidth: 800,
+    minHeight: 600,
     show: false,
+    title: 'DevDecks',
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -69,11 +72,11 @@ app.on('ready', async () => {
   // LISTENERS
 
   // // NOTE: window only listeners
-  // if (platform === 'win32') {
+  // if (PLATFORM === 'win32') {
   // }
 
   // // NOTE: darwin only listeners
-  // if (platform === 'darwin') {
+  // if (PLATFORM === 'darwin') {
   // }
 
   if (process.env.NODE_ENV === 'development') {
@@ -90,7 +93,7 @@ app.on('ready', async () => {
     });
   }
 
-  if (platform === 'darwin') {
+  if (PLATFORM === 'darwin') {
     template = [{
       label: 'DevDecks',
       submenu: [{
@@ -136,6 +139,12 @@ app.on('ready', async () => {
         accelerator: 'Command+S',
         click() {
           mainWindow.send('saveFile');
+        }
+      }, {
+        label: 'Save As...',
+        accelerator: 'Shift+Command+S',
+        click() {
+          mainWindow.send('saveFileAs');
         }
       }]
     }, {
@@ -251,6 +260,12 @@ app.on('ready', async () => {
         accelerator: 'Ctrl+S',
         click() {
           mainWindow.send('saveFile');
+        }
+      }, {
+        label: 'Save As...',
+        accelerator: 'Ctrl+Shift+S',
+        click() {
+          mainWindow.send('saveFileAs');
         }
       }, {
         label: '&Close',

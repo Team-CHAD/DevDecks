@@ -47,6 +47,10 @@ const appReducer = (state: any = initialAppState, action: any) => {
       return Object.assign({}, state, { currentSlide });
     }
 
+    case constants.RESET_APP: {
+      console.log(initialAppState);
+    }
+
     case constants.RIGHT_ARROW_NEXT: {
       const currentSlide: number = state.currentSlide + 1;
       return Object.assign({}, state, { currentSlide });
