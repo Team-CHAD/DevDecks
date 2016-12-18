@@ -1,4 +1,7 @@
+import path from 'path';
 import { app, BrowserWindow, Menu, shell } from 'electron';
+
+const PLATFORM = process.platform;
 
 let menu;
 let template;
@@ -16,8 +19,12 @@ if (process.env.NODE_ENV === 'development') {
   require('module').globalPaths.push(p); // eslint-disable-line
 }
 
+if (PLATFORM === 'darwin') {
+  app.dock.setIcon(path.resolve('resources/icons/png/64x64.png'));
+}
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  if (PLATFORM !== 'darwin') app.quit();
 });
 
 
@@ -42,6 +49,7 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
+    icon: path.resolve('resources/icons/png/64x64.png'),
     show: false,
   });
 
@@ -61,11 +69,11 @@ app.on('ready', async () => {
   // LISTENERS
 
   // // NOTE: window only listeners
-  // if (process.platform === 'win32') {
+  // if (platform === 'win32') {
   // }
 
   // // NOTE: darwin only listeners
-  // if (process.platform === 'darwin') {
+  // if (platform === 'darwin') {
   // }
 
   if (process.env.NODE_ENV === 'development') {
@@ -82,7 +90,7 @@ app.on('ready', async () => {
     });
   }
 
-  if (process.platform === 'darwin') {
+  if (platform === 'darwin') {
     template = [{
       label: 'DevDecks',
       submenu: [{
@@ -234,7 +242,16 @@ app.on('ready', async () => {
       label: '&File',
       submenu: [{
         label: '&Open',
-        accelerator: 'Ctrl+O'
+        accelerator: 'Ctrl+O',
+        click() {
+          mainWindow.send('openFile');
+        }
+      }, {
+        label: '&Save',
+        accelerator: 'Ctrl+S',
+        click() {
+          mainWindow.send('saveFile');
+        }
       }, {
         label: '&Close',
         accelerator: 'Ctrl+W',
