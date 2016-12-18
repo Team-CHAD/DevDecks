@@ -43,8 +43,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                       ...plugin,
                       // App default states
                       state: {
-                        left: slidesDimension.width / 2,
-                        top: 100,
+                        left: 250,
+                        top: 150,
                         // Plugin's default state
                         ...plugin.state
                       },

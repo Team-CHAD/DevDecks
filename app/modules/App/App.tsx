@@ -145,7 +145,9 @@ class AppComponent extends React.Component<AppComponentProps, {}> {
       <main>
         { 
           isFullScreen ?
-            <FullScreenView slide={ slide } /> :
+            <FullScreenView
+              slide={ slide }
+              deviceDimension={ deviceDimension } /> :
             <EditView
               deviceDimension={ deviceDimension }
               isDragging={ isDragging }
