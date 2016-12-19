@@ -37,9 +37,10 @@ const initialAppState: InitialAppState = {
 const appReducer = (state: any = initialAppState, action: any) => {
   switch (action.type) {
     case constants.GO_TO_SLIDE: {
-      return Object.assign({}, state, {
-        currentSlide: action.slideNumber,
-      });
+      const { maxSlides, slideNumber } = action;
+      if (slideNumber < 1) return Object.assign({}, state, { currentSlide: 0 });
+      if (slideNumber >= maxSlides) return state;
+      return Object.assign({}, state, { currentSlide: slideNumber });
     }
 
     case constants.LEFT_ARROW_PREV: {

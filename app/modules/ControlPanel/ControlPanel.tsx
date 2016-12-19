@@ -7,27 +7,25 @@ import { saveLastSlideDimensions, setActivePlugin, toggleFullScreen } from 'acti
 import './control-panel.scss';
 
 interface ControlPanelProps {
-  addSlide?: any;
-  currentSlide?: number;
-  deleteSlide?: any;
-  goToSlide?: any;
-  numberOfSlides?: number;
-  saveLastSlideDimensions?: Function;
-  setActivePlugin: Function;
-  toggleFullScreen?: any;
+  currentSlide: number;
+  numberOfSlides: number;
+
+  addSlide: Function;
+  goToSlide: Function;
+  saveLastSlideDimensions: Function;
+  toggleFullScreen: Function;
   updateCurrentPlugin: Function;
 }
 
 class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
   render() {
     const { 
-      addSlide,
       currentSlide,
-      deleteSlide,
-      goToSlide,
       numberOfSlides,
+      
+      addSlide,
+      goToSlide,
       saveLastSlideDimensions,
-      setActivePlugin,
       toggleFullScreen,
       updateCurrentPlugin,
     } = this.props;
@@ -40,21 +38,6 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
           onClick={() => {
             addSlide(currentSlide);
             goToSlide(currentSlide + 1);
-          }} />
-        <Button 
-          className="pt-large"
-          iconName="trash"
-          onClick={() => {
-            deleteSlide(currentSlide);
-            setActivePlugin();
-            if (numberOfSlides - 1 < 1) {
-              addSlide();
-              goToSlide(0);
-            } else if (currentSlide === numberOfSlides - 1) {
-              goToSlide(currentSlide - 1);
-            } else {
-              goToSlide(currentSlide);
-            }
           }} />
         <Button 
           className='pt-large'

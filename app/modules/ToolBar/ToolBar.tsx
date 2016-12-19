@@ -25,8 +25,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   public render() {
     const { addPluginToCurrentSlide, slidesDimension, slideNumber } = this.props;
     return (
-      <div id="toolbar" style={{ width: slidesDimension.width }}>
-        <ToolBarMenu className='pt-large tb--menu'>
+      <div id="toolbar">
+        <ToolBarMenu className='pt-large'>
           {
             // NOTE: Depending on plugin type, it should render different initial states
             plugins.map((plugin: any, key: number) => (
@@ -43,8 +43,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                       ...plugin,
                       // App default states
                       state: {
-                        left: slidesDimension.width / 2,
-                        top: 100,
+                        left: 250,
+                        top: 150,
                         // Plugin's default state
                         ...plugin.state
                       },

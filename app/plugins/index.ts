@@ -21,7 +21,7 @@ export default [
     optionsMenuComponent: TextBoxOptions,
     state: {
       value: '',
-      width: 300,
+      width: 600,
       height: 200,
     },
   },

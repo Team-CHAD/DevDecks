@@ -2,9 +2,15 @@
   background-color: #293742;
   max-height: 100vh;
   overflow: auto;
+  text-align: center;
 }
 
 #options-list {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+#delete-button-devdecks {
+  width: 100%;
+  margin: 0 auto 15px;
 }

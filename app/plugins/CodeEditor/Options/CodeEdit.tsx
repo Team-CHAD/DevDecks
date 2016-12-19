@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Dialog, EditableText } from '@blueprintjs/core';
+import { Button, Dialog, EditableText, Intent } from '@blueprintjs/core';
 import { throttle } from 'utils/helpers';
 
 interface CodeEditProps {
@@ -15,6 +15,7 @@ const CodeEdit = ({ pluginState, updateCurrentPlugin }: CodeEditProps) => {
     <li>
       <Button
         text="Edit Code"
+        intent={ Intent.PRIMARY }
         onClick={ updateCurrentPlugin.bind(this, { isOpen: true }) } />
 
       <Dialog

@@ -11,6 +11,8 @@ import {
 
 import { Scale } from 'sharedComponents';
 
+import SettingsMenu from './SettingsMenu/SettingsMenu';
+
 interface IDimensions {
   width: number;
   height: number;
@@ -23,12 +25,23 @@ interface EditViewProps {
   slide: any;
   slidesDimension: IDimensions;
   thumbnailsDimension: IDimensions;
+  updateDeviceDimension: Function;
 }
 
-const EditView = ({ deviceDimension, isDragging, lastSavedSlideDimensions, slide, slidesDimension, thumbnailsDimension }: EditViewProps) => {
+const EditView = ({
+  deviceDimension,
+  isDragging,
+  lastSavedSlideDimensions,
+  slide,
+  slidesDimension,
+  thumbnailsDimension,
+  updateDeviceDimension,
+}: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
   const UTILITIES_MENU_WIDTH = 295;
+  
   const scale = Math.min( slidesDimension.width / deviceDimension.width, slidesDimension.height / deviceDimension.height);
+  const { r, g, b, a } = slide.state.backgroundColor;
 
   return (
     <div id="container">
@@ -37,12 +50,17 @@ const EditView = ({ deviceDimension, isDragging, lastSavedSlideDimensions, slide
 
       <div id="main-content-wrapper">
 
-        <ToolBar />
+        <div id="menu-bar-wrapper">
+          <ToolBar />
+          <SettingsMenu
+            deviceDimension={ deviceDimension }
+            updateDeviceDimension={ updateDeviceDimension }/>
+        </div>
 
         <div
           id="edit-slide-view"
           style={{
-            backgroundColor: slide.state.backgroundColor,
+            backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
             width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
             paddingBottom: `${(deviceDimension.height / deviceDimension.width) * 100}%`
           }}>

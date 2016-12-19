@@ -2,8 +2,8 @@
   width: 100%;
   background-color: #000;
   text-align: center;
-  margin-bottom: 30px;
-  padding: 10px 0;
+  margin-bottom: 20px;
+  padding: 6px 0;
 
   .pt-button {
     margin: 0 5px;
@@ -12,19 +12,5 @@
     &:hover {
       opacity: 1.0;
     }
-  }
-}
-
-.handle-vertical-custom {
-  background: none !important;
-  border: none;
-  box-shadow: none !important;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:hover {
-    box-shadow: none;
   }
 }

@@ -1,9 +1,10 @@
 import * as constants from 'constants/app.constants';
 
-export function goToSlide(slideNumber: number) {
+export function goToSlide(slideNumber: number, maxSlides?: number) {
   return {
     type: constants.GO_TO_SLIDE,
     slideNumber,
+    maxSlides,
   };
 }
 

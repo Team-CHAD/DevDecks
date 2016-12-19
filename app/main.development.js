@@ -1,4 +1,7 @@
+import path from 'path';
 import { app, BrowserWindow, Menu, shell } from 'electron';
+
+const PLATFORM = process.platform;
 
 let menu;
 let template;
@@ -16,8 +19,12 @@ if (process.env.NODE_ENV === 'development') {
   require('module').globalPaths.push(p); // eslint-disable-line
 }
 
+if (PLATFORM === 'darwin') {
+  app.dock.setIcon(path.resolve('resources/icons/png/64x64.png'));
+}
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  if (PLATFORM !== 'darwin') app.quit();
 });
 
 
@@ -42,14 +49,17 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
+    icon: path.resolve('resources/icons/png/64x64.png'),
+    minWidth: 800,
+    minHeight: 600,
     show: false,
+    title: 'DevDecks',
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // NOTE: BOTH
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.maximize();
     mainWindow.show();
     mainWindow.focus();
   });
@@ -61,11 +71,11 @@ app.on('ready', async () => {
   // LISTENERS
 
   // // NOTE: window only listeners
-  // if (process.platform === 'win32') {
+  // if (PLATFORM === 'win32') {
   // }
 
   // // NOTE: darwin only listeners
-  // if (process.platform === 'darwin') {
+  // if (PLATFORM === 'darwin') {
   // }
 
   if (process.env.NODE_ENV === 'development') {
@@ -82,7 +92,7 @@ app.on('ready', async () => {
     });
   }
 
-  if (process.platform === 'darwin') {
+  if (PLATFORM === 'darwin') {
     template = [{
       label: 'DevDecks',
       submenu: [{
@@ -129,6 +139,12 @@ app.on('ready', async () => {
         click() {
           mainWindow.send('saveFile');
         }
+      }, {
+        label: 'Save As...',
+        accelerator: 'Shift+Command+S',
+        click() {
+          mainWindow.send('saveFileAs');
+        }
       }]
     }, {
       label: 'Edit',
@@ -158,6 +174,27 @@ app.on('ready', async () => {
         label: 'Select All',
         accelerator: 'Command+A',
         selector: 'selectAll:'
+      }]
+    }, {
+      label: 'Slides',
+      submenu: [{
+        label: 'Add Slide',
+        accelerator: 'Command+Plus',
+        click() {
+          mainWindow.send('addSlide');
+        }
+      }, {
+        label: 'Move Current Slide Up',
+        accelerator: 'Alt+Up',
+        click() {
+          mainWindow.send('moveSlideUp');
+        }
+      }, {
+        label: 'Move Current Slide Down',
+        accelerator: 'Alt+Down',
+        click() {
+          mainWindow.send('moveSlideDown');
+        }
       }]
     }, {
       label: 'View',
@@ -234,12 +271,48 @@ app.on('ready', async () => {
       label: '&File',
       submenu: [{
         label: '&Open',
-        accelerator: 'Ctrl+O'
+        accelerator: 'Ctrl+O',
+        click() {
+          mainWindow.send('openFile');
+        }
+      }, {
+        label: '&Save',
+        accelerator: 'Ctrl+S',
+        click() {
+          mainWindow.send('saveFile');
+        }
+      }, {
+        label: 'Save As...',
+        accelerator: 'Ctrl+Shift+S',
+        click() {
+          mainWindow.send('saveFileAs');
+        }
       }, {
         label: '&Close',
         accelerator: 'Ctrl+W',
         click() {
           mainWindow.close();
+        }
+      }]
+    }, {
+      label: 'Slides',
+      submenu: [{
+        label: 'Add Slide',
+        accelerator: 'Ctrl+Plus',
+        click() {
+          mainWindow.send('addSlide');
+        }
+      }, {
+        label: 'Move Current Slide Up',
+        accelerator: 'Alt+Up',
+        click() {
+          mainWindow.send('moveSlideUp');
+        }
+      }, {
+        label: 'Move Current Slide Down',
+        accelerator: 'Alt+Down',
+        click() {
+          mainWindow.send('moveSlideDown');
         }
       }]
     }, {

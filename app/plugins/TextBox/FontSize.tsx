@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Menu, MenuDivider, MenuItem, Popover, Position } from "@blueprintjs/core";
-import './font-size.scss';
 
 interface FontSizeProps {
   pluginState: any;
@@ -9,7 +8,7 @@ interface FontSizeProps {
 
 const FontSize = ({ pluginState, updateCurrentPlugin }: FontSizeProps) => {
   const DEFAULT_SIZE = 100;
-  const MAGNIFIER = 3;
+  const MAGNIFIER = 7;
   
   const fontSizes = [50, 75, 90, 100, 125, 150, 175, 200, 250, 275, 300];
   const fontSelection = (
@@ -30,7 +29,7 @@ const FontSize = ({ pluginState, updateCurrentPlugin }: FontSizeProps) => {
 
   return (
     <li>
-      <label className="pt-label">
+      <label className="pt-label" style={{ fontSize: '1.25em' }}>
         Font Size
         <div className="pt-select">
           { fontSelection }

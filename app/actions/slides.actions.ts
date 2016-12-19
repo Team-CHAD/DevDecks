@@ -30,6 +30,20 @@ export function deleteSlide(slideToDelete: number) {
   };
 }
 
+export function moveSlideDown(slideNumber: number) {
+  return {
+    type: constants.MOVE_SLIDE_DOWN,
+    slideNumber,
+  }
+}
+
+export function moveSlideUp(slideNumber: number) {
+  return {
+    type: constants.MOVE_SLIDE_UP,
+    slideNumber,
+  }
+}
+
 export function openFile(newStateFromFile: Object) {
   return {
     type: constants.OPEN_FILE,

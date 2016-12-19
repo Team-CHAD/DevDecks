@@ -24,7 +24,7 @@ const CodeImportExport = ({ pluginState, updateCurrentPlugin }: CodeImportExport
   const selectCodeFileToExport: React.MouseEventHandler<HTMLElement> = () => {
     remote.dialog.showSaveDialog((filename: string) => {
       if (!filename) return;
-      fs.writeFile(filename, JSON.stringify(snippet, null, 2));
+      fs.writeFile(filename, snippet);
     });
   };
 

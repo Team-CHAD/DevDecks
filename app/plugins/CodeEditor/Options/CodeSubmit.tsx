@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@blueprintjs/core';
+import { Button, Intent } from '@blueprintjs/core';
 
 interface CodeSubmitProps {
   pluginState: any;
@@ -12,6 +12,7 @@ const CodeSubmit = ({ pluginState, updateCurrentPlugin }: CodeSubmitProps) => {
     <li>
       <Button
         text="Run Code"
+        intent={ Intent.WARNING }
         onClick={() => {
           const snippetEval: any = eval(snippet);
           updateCurrentPlugin({ snippetEval });
