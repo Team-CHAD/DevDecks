@@ -1,4 +1,5 @@
 import * as React from 'react';
+import FontColor from './FontColor';
 import FontSize from './FontSize';
 import FontBold from './FontBold';
 import FontItalics from './FontItalics';
@@ -23,7 +24,7 @@ class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
     } = this.props;
 
     return (
-      <ul id="font-size-options-container">
+      <ul id="font-size-options-container" style={{ textAlign: 'center'}}>
         <FontSize
           pluginState={ pluginState }
           updateCurrentPlugin={ updateCurrentPlugin } />
@@ -34,6 +35,9 @@ class OptionsMenu extends React.Component<OptionsMenuProps, {}> {
           pluginState={ pluginState }
           updateCurrentPlugin={ updateCurrentPlugin } />
         <FontUnderline
+          pluginState={ pluginState }
+          updateCurrentPlugin={ updateCurrentPlugin } />
+        <FontColor
           pluginState={ pluginState }
           updateCurrentPlugin={ updateCurrentPlugin } />
       </ul>
