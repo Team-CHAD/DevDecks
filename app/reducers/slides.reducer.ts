@@ -4,14 +4,19 @@ import * as constants from '../constants/slides.constants';
 interface Slide {
   plugins: any[];
   state: {
-    backgroundColor: string;
+    backgroundColor: {
+      r: number;
+      g: number;
+      b: number;
+      a: number;
+    };
   };
 }
 
 const initialSlideState: Slide = {
   plugins: [],
   state: {
-    backgroundColor: 'white',
+    backgroundColor: { r: 255, g: 255, b: 255, a: 100 },
   },
 };
 
@@ -20,8 +25,9 @@ const initialSlidesState: Slide[] = [ initialSlideState ];
 const slidesReducer = (state: any = initialSlidesState, action: any) => {
   switch (action.type) {
     case constants.ADD_PLUGIN_TO_CURRENT_SLIDE: {
+      const { plugin, slideNumber } = action;
       const slides = cloneDeep(state);
-      slides[action.slideNumber].plugins.push(action.plugin);
+      slides[slideNumber].plugins.push(plugin);
       return slides;
     }
 
@@ -35,13 +41,41 @@ const slidesReducer = (state: any = initialSlidesState, action: any) => {
     case constants.DELETE_CURRENT_PLUGIN: {
       const { pluginNumber, slideNumber } = action;
       const slides = cloneDeep(state);
-      slides[action.slideNumber].plugins[pluginNumber] = null;
+      slides[slideNumber].plugins[pluginNumber] = null;
       return slides;
     }
 
     case constants.DELETE_SLIDE: {
       const slides = state.slice();
       slides.splice(action.slideToDelete, 1);
+      return slides;
+    }
+
+    case constants.MOVE_SLIDE_DOWN: {
+      const { slideNumber } = action;
+      const slides = state.slice();
+
+      if (slideNumber === 0) return slides;
+
+      const currentSlide = slides[slideNumber];
+      const previousSlide = slides[slideNumber - 1];
+      slides[slideNumber] = previousSlide;
+      slides[slideNumber - 1] = currentSlide;
+
+      return slides;
+    }
+
+    case constants.MOVE_SLIDE_UP: {
+      const { slideNumber } = action;
+      const slides = state.slice();
+
+      if (slideNumber >= state.length - 1) return slides;
+
+      const currentSlide = slides[slideNumber];
+      const nextSlide = slides[slideNumber + 1];
+      slides[slideNumber] = nextSlide;
+      slides[slideNumber + 1] = currentSlide;
+
       return slides;
     }
 

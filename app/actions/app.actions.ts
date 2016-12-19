@@ -1,9 +1,10 @@
 import * as constants from 'constants/app.constants';
 
-export function goToSlide(slideNumber: number) {
+export function goToSlide(slideNumber: number, maxSlides?: number) {
   return {
     type: constants.GO_TO_SLIDE,
     slideNumber,
+    maxSlides,
   };
 }
 
@@ -11,12 +12,6 @@ export function leftArrowPrev() {
   return {
     type: constants.LEFT_ARROW_PREV,
   };
-}
-
-export function resetApp() {
-  return {
-    type: constants.RESET_APP,
-  }
 }
 
 export function rightArrowNext() {

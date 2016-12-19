@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { ipcRenderer, remote } from 'electron';
 import { throttle } from 'utils/helpers';
 import '@blueprintjs/core/dist/blueprint.css';
-import { openFile } from 'actions/slides.actions';
 
 import {
   goToSlide,
@@ -12,8 +11,15 @@ import {
   rightArrowNext,
   toggleFullScreen,
   updateDeviceDimension,
-  updateSlidesDimension
+  updateSlidesDimension,
 } from 'actions/app.actions';
+
+import {
+  addSlide,
+  moveSlideDown,
+  moveSlideUp,
+  openFile,
+} from 'actions/slides.actions';
 
 import EditView from './EditView/EditView';
 import FullScreenView from './FullScreenView/FullScreenView';
@@ -28,17 +34,22 @@ interface IDimensions {
 
 interface AppComponentProps {
   deviceDimension: IDimensions;
-  goToSlide: Function;
   isDragging: boolean;
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
+  maxSlides: number;
+  slide: Object;
+  slides: Array<any>;
+  slideNumber: number;
+  slidesDimension: IDimensions;
+
+  addSlide: Function;
+  goToSlide: Function;
   leftArrowPrev: Function;
+  moveSlideDown: Function;
+  moveSlideUp: Function;
   openFile: Function;
   rightArrowNext: Function;
-  slide: any;
-  slideNumber: number;
-  slides: Array<any>;
-  slidesDimension: IDimensions;
   toggleFullScreen: any;
   updateDeviceDimension: Function;
   updateSlidesDimension: Function;
@@ -51,6 +62,9 @@ interface AppComponentStates {
 class AppComponent extends React.Component<AppComponentProps, AppComponentStates> {
   public constructor() {
     super();
+    this.handleAddSlide = this.handleAddSlide.bind(this);
+    this.handleMoveSlideDown = this.handleMoveSlideDown.bind(this);
+    this.handleMoveSlideUp = this.handleMoveSlideUp.bind(this);
     this.handleOpenFile = this.handleOpenFile.bind(this);
     this.handleSaveDialog = this.handleSaveDialog.bind(this);
     this.handleSaveFile = this.handleSaveFile.bind(this);
@@ -60,6 +74,24 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     this.state = {
       representedFilename: '',
     }
+  }
+
+  private handleAddSlide() {
+    const { addSlide, goToSlide, slideNumber } = this.props;
+    addSlide(slideNumber);
+    goToSlide(slideNumber + 1);
+  }
+
+  private handleMoveSlideDown() {
+    const { goToSlide, slideNumber, moveSlideDown } = this.props;
+    moveSlideDown(slideNumber);
+    goToSlide(slideNumber - 1);
+  }
+
+  private handleMoveSlideUp() {
+    const { maxSlides, slideNumber, goToSlide, moveSlideUp } = this.props;
+    moveSlideUp(slideNumber);
+    goToSlide(slideNumber + 1, maxSlides);
   }
 
   private handleResize(): void {
@@ -157,6 +189,9 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
   
   public componentWillMount() {
     const { toggleFullScreen } = this.props;
+    ipcRenderer.on('addSlide', this.handleAddSlide);
+    ipcRenderer.on('moveSlideDown', this.handleMoveSlideUp);
+    ipcRenderer.on('moveSlideUp', this.handleMoveSlideDown);
     ipcRenderer.on('openFile', this.handleOpenFile);
     ipcRenderer.on('saveFile', this.handleSaveFile);
     ipcRenderer.on('saveFileAs', this.handleSaveFileAs);
@@ -222,6 +257,7 @@ const mapStateToProps= (state: any) => ({
   isDragging: state.app.isDragging,
   isFullScreen: state.app.isFullScreen,
   lastSavedSlideDimensions: state.app.lastSavedSlideDimensions,
+  maxSlides: state.slides.length,
   slide: state.slides[state.app.currentSlide],
   slideNumber: state.app.currentSlide,
   slides: state.slides,
@@ -229,7 +265,10 @@ const mapStateToProps= (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber)),
+  addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
+  goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
+  moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
+  moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
   leftArrowPrev: () => dispatch(leftArrowPrev()),
   openFile: (newStateFromFile: Object) => dispatch(openFile(newStateFromFile)),
   rightArrowNext: () => dispatch(rightArrowNext()),

@@ -176,6 +176,27 @@ app.on('ready', async () => {
         selector: 'selectAll:'
       }]
     }, {
+      label: 'Slides',
+      submenu: [{
+        label: 'Add Slide',
+        accelerator: 'Command+Plus',
+        click() {
+          mainWindow.send('addSlide');
+        }
+      }, {
+        label: 'Move Current Slide Up',
+        accelerator: 'Alt+Up',
+        click() {
+          mainWindow.send('moveSlideUp');
+        }
+      }, {
+        label: 'Move Current Slide Down',
+        accelerator: 'Alt+Down',
+        click() {
+          mainWindow.send('moveSlideDown');
+        }
+      }]
+    }, {
       label: 'View',
       submenu: (process.env.NODE_ENV === 'development') ? [{
         label: 'Reload',
@@ -271,6 +292,27 @@ app.on('ready', async () => {
         accelerator: 'Ctrl+W',
         click() {
           mainWindow.close();
+        }
+      }]
+    }, {
+      label: 'Slides',
+      submenu: [{
+        label: 'Add Slide',
+        accelerator: 'Ctrl+Plus',
+        click() {
+          mainWindow.send('addSlide');
+        }
+      }, {
+        label: 'Move Current Slide Up',
+        accelerator: 'Alt+Up',
+        click() {
+          mainWindow.send('moveSlideUp');
+        }
+      }, {
+        label: 'Move Current Slide Down',
+        accelerator: 'Alt+Down',
+        click() {
+          mainWindow.send('moveSlideDown');
         }
       }]
     }, {
