@@ -60,7 +60,6 @@ app.on('ready', async () => {
 
   // NOTE: BOTH
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.maximize();
     mainWindow.show();
     mainWindow.focus();
   });

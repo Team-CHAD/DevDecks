@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from "@blueprintjs/core";
+import { Button, Intent } from "@blueprintjs/core";
 import './delete-plugin.scss';
 
 interface DeletePluginProps {
@@ -10,9 +10,8 @@ interface DeletePluginProps {
 const DeletePlugin = ({ deleteCurrentPlugin, setActivePlugin }: DeletePluginProps) => {
   return (
     <Button
-      className="pt-button reset"
       id="delete-button-devdecks"
-      type="button"
+      intent={ Intent.DANGER }
       onClick={ () => {
         deleteCurrentPlugin();
         setActivePlugin();

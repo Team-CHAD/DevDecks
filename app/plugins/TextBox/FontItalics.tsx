@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from "@blueprintjs/core";
+import { Button, Intent } from "@blueprintjs/core";
 
 interface FontItalicsProps {
   pluginState: any;
@@ -10,10 +10,8 @@ const FontItalics = ({ pluginState, updateCurrentPlugin }: FontItalicsProps) => 
 
   return (
     <Button
-      className="pt-button"
       iconName="italic"
-      type="button"
-      style={{fontStyle : 'italic'}}
+      intent={ pluginState.fontStyle ? Intent.SUCCESS : Intent.NONE }
       onClick={() => pluginState.fontStyle  ? updateCurrentPlugin({ fontStyle: false }) : updateCurrentPlugin({ fontStyle: true })} />
   );
 }
