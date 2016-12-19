@@ -1,6 +1,7 @@
 import { cloneDeep } from '../utils/helpers';
 import * as constants from '../constants/slides.constants';
 
+const undoable = require('redux-undo').default;
 interface Slide {
   plugins: any[];
   state: {
@@ -113,4 +114,10 @@ const slidesReducer = (state: any = initialSlidesState, action: any) => {
   }
 }
 
-export { slidesReducer };
+const undoableSlidesReducer = undoable(slidesReducer, {
+  filter: function filterActions(action: any, currentState: any, previousHistory: any) {
+    return true;
+  }
+});
+
+export { undoableSlidesReducer };

@@ -73,10 +73,10 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
 }
 
 const mapStateToProps = (state: any, props: any) => ({
-  currentSlideNumber: state.app.currentSlide,
-  deviceDimension: state.app.deviceDimension,
-  slides: state.slides,
-  slidesDimension: state.app.slidesDimension,
+  currentSlideNumber: state.app.present.currentSlide,
+  deviceDimension: state.app.present.deviceDimension,
+  slides: state.slides.present,
+  slidesDimension: state.app.present.slidesDimension,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

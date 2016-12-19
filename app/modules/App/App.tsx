@@ -24,6 +24,8 @@ import {
 import EditView from './EditView/EditView';
 import FullScreenView from './FullScreenView/FullScreenView';
 
+const { ActionCreators } = require('redux-undo');
+
 const PLATFORM = process.platform;
 const TITLE = 'DevDecks';
 
@@ -53,6 +55,9 @@ interface AppComponentProps {
   toggleFullScreen: any;
   updateDeviceDimension: Function;
   updateSlidesDimension: Function;
+  redo: any;
+  undo: any;
+  clearHist: Function;
 }
 
 interface AppComponentStates {
@@ -105,7 +110,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
   }
 
   private handleOpenFile() {
-    const { goToSlide, openFile } = this.props;
+    const { clearHist, goToSlide, openFile } = this.props;
     const options: any = {
       filters: [
         {
@@ -125,8 +130,9 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
         goToSlide(0);
 
         openFile(devdecksBufferString);
-        this.setState({ representedFilename: filePaths[0] })
-        remote.getCurrentWindow().setTitle(`${filePaths[0]} - ${TITLE}`)
+        this.setState({ representedFilename: filePaths[0] });
+        remote.getCurrentWindow().setTitle(`${filePaths[0]} - ${TITLE}`);
+        clearHist();
       });
     });
   }
@@ -188,7 +194,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
   }
   
   public componentWillMount() {
-    const { toggleFullScreen } = this.props;
+    const { toggleFullScreen, redo, undo } = this.props;
     ipcRenderer.on('addSlide', this.handleAddSlide);
     ipcRenderer.on('moveSlideDown', this.handleMoveSlideUp);
     ipcRenderer.on('moveSlideUp', this.handleMoveSlideDown);
@@ -196,6 +202,8 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     ipcRenderer.on('saveFile', this.handleSaveFile);
     ipcRenderer.on('saveFileAs', this.handleSaveFileAs);
     ipcRenderer.on('toggleFullScreen', toggleFullScreen);
+    ipcRenderer.on('redo', redo);
+    ipcRenderer.on('undo', undo);
     window.addEventListener('keydown', this.handleSlidesTransition);
   }
 
@@ -228,6 +236,8 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
       slideNumber,
       slidesDimension,
       toggleFullScreen,
+      undo,
+      redo,
       updateDeviceDimension,
     } = this.props;
 
@@ -253,15 +263,15 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
 }
 
 const mapStateToProps= (state: any) => ({
-  deviceDimension: state.app.deviceDimension,
-  isDragging: state.app.isDragging,
-  isFullScreen: state.app.isFullScreen,
-  lastSavedSlideDimensions: state.app.lastSavedSlideDimensions,
-  maxSlides: state.slides.length,
-  slide: state.slides[state.app.currentSlide],
-  slideNumber: state.app.currentSlide,
-  slides: state.slides,
-  slidesDimension: state.app.slidesDimension,
+  deviceDimension: state.app.present.deviceDimension,
+  isDragging: state.app.present.isDragging,
+  isFullScreen: state.app.present.isFullScreen,
+  lastSavedSlideDimensions: state.app.present.lastSavedSlideDimensions,
+  maxSlides: state.slides.present.length,
+  slide: state.slides.present[state.app.present.currentSlide],
+  slideNumber: state.app.present.currentSlide,
+  slides: state.slides.present,
+  slidesDimension: state.app.present.slidesDimension,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -275,6 +285,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   toggleFullScreen: () => dispatch(toggleFullScreen()),
   updateDeviceDimension: (newDeviceDimension: { width: number, height: number }) => dispatch(updateDeviceDimension(newDeviceDimension)),
   updateSlidesDimension: (slidesDimension: { width: number, height: number }) => dispatch(updateSlidesDimension(slidesDimension)),
+  undo: () => dispatch(ActionCreators.undo()),
+  redo: () => dispatch(ActionCreators.redo()),
+  clearHist: () => dispatch(ActionCreators.clearHistory()),
 });
 
 const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent as any);

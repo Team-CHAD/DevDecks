@@ -9,8 +9,8 @@ class CurrentSlideViewComponent extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        currSlide: state.app.currentSlide,
-        slides: state.app.slides
+        currSlide: state.app.present.currentSlide,
+        slides: state.app.present.slides
     };
 }
 const CurrentSlideView = react_redux_1.connect(mapStateToProps)(CurrentSlideViewComponent);

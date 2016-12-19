@@ -54,8 +54,8 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
 }
 
 const mapStateToProps = (state: any) => ({ 
-  currentSlide: state.app.currentSlide,
-  numberOfSlides: state.slides.length,
+  currentSlide: state.app.present.currentSlide,
+  numberOfSlides: state.slides.present.length,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

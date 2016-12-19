@@ -151,11 +151,17 @@ app.on('ready', async () => {
       submenu: [{
         label: 'Undo',
         accelerator: 'Command+Z',
-        selector: 'undo:'
+        selector: 'undo:',
+        click() {
+          mainWindow.send('undo');
+        }, 
       }, {
         label: 'Redo',
         accelerator: 'Shift+Command+Z',
-        selector: 'redo:'
+        selector: 'redo:',
+        click() {
+          mainWindow.send('redo');
+        },
       }, {
         type: 'separator'
       }, {
@@ -293,6 +299,21 @@ app.on('ready', async () => {
         click() {
           mainWindow.close();
         }
+      }]
+    },  {
+      label: 'Edit',
+      submenu: [{
+        label: 'Undo',
+        accelerator: 'Ctrl+Z',
+        click() {
+          mainWindow.send('undo');
+        }, 
+      }, {
+        label: 'Redo',
+        accelerator: 'Shift+Ctrl+Z',
+        click() {
+          mainWindow.send('redo');
+        },
       }]
     }, {
       label: 'Slides',

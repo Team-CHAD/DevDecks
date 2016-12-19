@@ -9,12 +9,12 @@ const initialState = {
 const app = (state = initialState, action) => {
     switch (action.type) {
         case constants.ADD_SLIDE: {
-            const slides = state.slides.slice();
+            const slides = state.slides.present.slice();
             slides.push({ components: [] });
             return Object.assign({}, state, { slides });
         }
         case constants.DELETE_SLIDE: {
-            const slides = state.slides.slice();
+            const slides = state.slides.present.slice();
             slides.splice(action.idxOfSlideToDelete, 1);
             return Object.assign({}, state, { slides });
         }
@@ -32,7 +32,7 @@ const app = (state = initialState, action) => {
             return Object.assign({}, state, { currentSlide });
         }
         case constants.ADD_PLUGIN_TO_CURRENT_SLIDE: {
-            const slides = _.cloneDeep(state.slides);
+            const slides = _.cloneDeep(state.slides.present);
             slides[state.currentSlide].components.push(action.component);
             return Object.assign({}, state, { slides });
         }

@@ -62,8 +62,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
 }
 
 const mapStateToProps = (state: any) => ({
-  slidesDimension: state.app.slidesDimension,
-  slideNumber: state.app.currentSlide
+  slidesDimension: state.app.present.slidesDimension,
+  slideNumber: state.app.present.currentSlide
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

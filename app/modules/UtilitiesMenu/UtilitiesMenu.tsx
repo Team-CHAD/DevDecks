@@ -87,7 +87,6 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
     if (moduleName && pluginNumber !== undefined || slideNumber !== undefined) {
       PluginOptions = availablePlugins[moduleName].optionsMenuComponent;
     }
-
     return (
       <div
         id="utilities-menu-container"
@@ -147,21 +146,21 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
 }
 
 const mapStateToProps = (state: any, props: UtilitiesMenuParentProps) => {
-  const currentSelectedPlugin = state.app.currentSelectedPlugin;
-  const { currentSlide: currentSlideNumber } = state.app;
+  const currentSelectedPlugin = state.app.present.currentSelectedPlugin;
+  const { currentSlide: currentSlideNumber } = state.app.present;
 
   if (currentSelectedPlugin) {
     var { moduleName, pluginNumber, slideNumber } = currentSelectedPlugin;
-    var pluginState = state.slides[slideNumber].plugins[pluginNumber].state;
+    var pluginState = state.slides.present[slideNumber].plugins[pluginNumber].state;
   }
 
   return {
     currentSlideNumber,
-    maxSlides: state.slides.length,
+    maxSlides: state.slides.present.length,
     moduleName,
     pluginNumber,
     pluginState,
-    slide: state.slides[currentSlideNumber],
+    slide: state.slides.present[currentSlideNumber],
     slideNumber,
   }
 };

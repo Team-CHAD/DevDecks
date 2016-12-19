@@ -10,7 +10,6 @@ import {
 } from 'modules';
 
 import { Scale } from 'sharedComponents';
-
 import SettingsMenu from './SettingsMenu/SettingsMenu';
 
 interface IDimensions {
@@ -47,7 +46,6 @@ const EditView = ({
     <div id="container">
 
       <MiniSlidesPanel />
-
       <div id="main-content-wrapper">
 
         <div id="menu-bar-wrapper">

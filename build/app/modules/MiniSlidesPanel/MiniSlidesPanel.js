@@ -11,7 +11,7 @@ class MiniSlidesPanelComponent extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        slides: state.app.slides,
+        slides: state.app.present.slides,
     };
 }
 const MiniSlidesPanel = react_redux_1.connect(mapStateToProps)(MiniSlidesPanelComponent);

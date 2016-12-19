@@ -22,12 +22,9 @@ const options: any = {
   ]
 };
 
-
-
 const AddImage = ({ height, width, pluginNumber, pluginState, slideNumber, updateCurrentPlugin }: AddImageProps) => {
 
   const selectImageFile: any = () => {
-    console.log('inside sif');
     dialog.showOpenDialog(options, (filePaths: string[]) => {
       if (!filePaths) return;
       fs.readFile(filePaths[0], (err: any, data: any) => {
