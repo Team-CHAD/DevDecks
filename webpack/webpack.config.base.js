@@ -42,7 +42,7 @@ export default validate({
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json', '.scss'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
-    modulesDirectories: ['app', 'app/plugins/node_modules', 'node_modules']
+    modulesDirectories: ['app', 'node_modules']
   },
 
   plugins: [],

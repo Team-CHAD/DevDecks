@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import req from 'utils/requireContext';
 import { Button, Intent } from '@blueprintjs/core';
 import { ControlPanel } from 'modules';
 import DefaultOptions from './DefaultOptions/DefaultOptions';
-import plugins from 'plugins';
 import './utilities-menu.scss';
 
 import {
@@ -21,15 +21,6 @@ import {
   updateCurrentSlide
 } from 'actions/slides.actions';
 
-const availablePlugins: any = {};
-
-plugins.forEach(plugin => {
-  availablePlugins[plugin.moduleName] = {
-    component: plugin.component,
-    optionsMenuComponent: plugin.optionsMenuComponent,
-  };
-});
-
 interface UtilitiesMenuParentProps {
   styles: Object;
 }
@@ -39,7 +30,7 @@ interface UtilitiesMenuProps extends UtilitiesMenuParentProps {
   maxSlides: number;
   moduleName: string;
   pluginNumber: number;
-  pluginState: any;
+  pluginState: Object;
   slide: Object;
   slideNumber: number;
 
@@ -77,16 +68,11 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
       updateCurrentSlide,
     } = this.props;
 
-    // NOTE: temporary method to handle getting the right plugins.
-    // Ultimately, we will be able to just pull from the list of
-    // installed packages via npm
-    //
-    // For future, we will do a dynamic require
-    // const PluginOptions = require(...);
     let PluginOptions: any;
-    if (moduleName && pluginNumber !== undefined || slideNumber !== undefined) {
-      PluginOptions = availablePlugins[moduleName].optionsMenuComponent;
+    if (moduleName && pluginNumber !== undefined && slideNumber !== undefined) {
+      PluginOptions = req(moduleName).optionsMenuComponent;
     }
+
     return (
       <div
         id="utilities-menu-container"
@@ -156,13 +142,13 @@ const mapStateToProps = (state: any, props: UtilitiesMenuParentProps) => {
 
   return {
     currentSlideNumber,
-    maxSlides: state.slides.present.length,
     moduleName,
     pluginNumber,
     pluginState,
-    slide: state.slides.present[currentSlideNumber],
     slideNumber,
-  }
+    maxSlides: state.slides.present.length,
+    slide: state.slides.present[currentSlideNumber],
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -172,7 +158,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
-  setActivePlugin: (moduleName: string, pluginNumber: number, slideNumber: number) => dispatch(setActivePlugin(moduleName, pluginNumber, slideNumber)),
+  setActivePlugin: () => dispatch(setActivePlugin()),
   updateCurrentPlugin: (pluginNumber: number, pluginSlideNumber: number, changes: any) => dispatch(updateCurrentPlugin(pluginNumber, pluginSlideNumber, changes)),
   updateCurrentSlide: (slideNumber: number, changes: Object) => dispatch(updateCurrentSlide(slideNumber, changes)),
 });

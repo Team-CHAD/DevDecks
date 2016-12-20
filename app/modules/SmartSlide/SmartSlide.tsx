@@ -1,21 +1,11 @@
 import * as React from "react";
 import { connect } from 'react-redux';
+import req from 'utils/requireContext';
 import { goToSlide, setActivePlugin, toggleGuidelines } from 'actions/app.actions';
-// import { toggleGuidelines } from 'actions/notUndoable.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
-import plugins from 'plugins';
 
 const Rnd = require('react-rnd');
-
-const availablePlugins: any = {};
-
-plugins.forEach(plugin => {
-  availablePlugins[plugin.moduleName] = {
-    component: plugin.component,
-    optionsMenuComponent: plugin.optionsMenuComponent,
-  };
-});
 
 interface SmartSlideProps {
   currentSelectedPlugin?: {
@@ -86,7 +76,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
             if (!plugin) return null;
 
             const { moduleName, state } = plugin;
-            const Plugin = availablePlugins[moduleName].component;
+            const Plugin = req(moduleName).component;
             
             return (
               <Rnd
