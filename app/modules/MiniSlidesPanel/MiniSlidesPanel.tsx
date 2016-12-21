@@ -53,10 +53,7 @@ class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}>
                     height: thumbnailsDimension.height
                   }}
                   className={ currentSlideNumber === key ? "mini-slide-content active" : "mini-slide-content" }
-                  onClick={() => {
-                    goToSlide(key); 
-                    setActivePlugin();
-                  }}>
+                  onClick={() => goToSlide(key) }>
                   <Scale isFullScreen={ false } scale={ scale }>
                     <DummySlide
                       slide={ slide }

@@ -7,6 +7,7 @@ import DefaultOptions from './DefaultOptions/DefaultOptions';
 import './utilities-menu.scss';
 
 import {
+  addThemeColor,
   goToSlide,
   setActivePlugin,
 } from 'actions/app.actions';
@@ -33,7 +34,9 @@ interface UtilitiesMenuProps extends UtilitiesMenuParentProps {
   pluginState: Object;
   slide: Object;
   slideNumber: number;
+  theme: any;
 
+  addThemeColor: Function;
   addSlide: Function;
   deleteCurrentPlugin: Function;
   deleteSlide: Function;
@@ -56,7 +59,9 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
       slide,
       slideNumber,
       styles,
+      theme,
 
+      addThemeColor,
       addSlide,
       deleteCurrentPlugin,
       deleteSlide,
@@ -85,6 +90,8 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
               ? <div>
                   <PluginOptions
                     pluginState={ pluginState }
+                    theme={ theme }
+                    addThemeColor={ addThemeColor }
                     updateCurrentPlugin={ updateCurrentPlugin.bind(this, pluginNumber, slideNumber) } />
                   <hr />
                   <Button
@@ -102,6 +109,9 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
                     currentSlideNumber={ currentSlideNumber }
                     maxSlides={ maxSlides }
                     slide={ slide }
+                    theme={ theme }
+
+                    addThemeColor={ addThemeColor }
                     goToSlide={ goToSlide }
                     moveSlideDown={ moveSlideDown.bind(this, currentSlideNumber) }
                     moveSlideUp={ moveSlideUp.bind(this, currentSlideNumber) }
@@ -148,10 +158,12 @@ const mapStateToProps = (state: any, props: UtilitiesMenuParentProps) => {
     slideNumber,
     maxSlides: state.slides.present.length,
     slide: state.slides.present[currentSlideNumber],
+    theme: state.app.present.theme,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
+  addThemeColor: (color: string) => dispatch(addThemeColor(color)),
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
   deleteCurrentPlugin: (pluginNumber: number, pluginSlideNumber: number) => dispatch(deleteCurrentPlugin(pluginNumber, pluginSlideNumber)),

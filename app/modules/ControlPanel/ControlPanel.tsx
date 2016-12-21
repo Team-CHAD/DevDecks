@@ -13,6 +13,7 @@ interface ControlPanelProps {
   addSlide: Function;
   goToSlide: Function;
   saveLastSlideDimensions: Function;
+  setActivePlugin: Function;
   toggleFullScreen: Function;
   updateCurrentPlugin: Function;
 }
@@ -26,6 +27,7 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
       addSlide,
       goToSlide,
       saveLastSlideDimensions,
+      setActivePlugin,
       toggleFullScreen,
       updateCurrentPlugin,
     } = this.props;
