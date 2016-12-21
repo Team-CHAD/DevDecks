@@ -1,16 +1,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import req from 'utils/requireContext';
 import { addPluginToCurrentSlide } from 'actions/slides.actions';
-import plugins from 'plugins';
 import './toolbar.scss';
 
 import {
+  Intent,
   Menu as ToolBarMenu,
   MenuItem as ToolBarItem,
   Popover,
   PopoverInteractionKind,
   Position
 } from '@blueprintjs/core';
+
+// NOTE: Hard coded for now. This should dynamically get required
+// plugins
+const installedPlugins = [
+  'devdecks-code-editor',
+  'devdecks-image',
+  'devdecks-textbox',
+];
 
 interface ToolBarComponentProps {
   addPluginToCurrentSlide: React.MouseEventHandler<HTMLElement>;
@@ -28,32 +37,35 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
       <div id="toolbar">
         <ToolBarMenu className='pt-large'>
           {
-            // NOTE: Depending on plugin type, it should render different initial states
-            plugins.map((plugin: any, key: number) => (
-              <Popover 
-                key={ key }
-                content={ plugins[key].name }
-                interactionKind={ PopoverInteractionKind.HOVER }
-                position={ Position.BOTTOM_LEFT }
-                useSmartPositioning={ false }>
-                <ToolBarItem
-                  iconName = { plugin.icon }
-                  onClick = { 
-                    addPluginToCurrentSlide.bind(this, {
-                      ...plugin,
-                      // App default states
-                      state: {
-                        left: 250,
-                        top: 150,
-                        // Plugin's default state
-                        ...plugin.state
-                      },
-                    }, slideNumber )
-                  }
-                  text = { plugin.text }
-                />
-              </Popover>
-            ))
+            installedPlugins.map((installedPlugin: string, key: number) => {
+              const plugin = req(installedPlugin);
+              const { icon, state, text, tooltip } = plugin;
+              return (
+                <Popover 
+                  key={ key }
+                  content={ tooltip }
+                  interactionKind={ PopoverInteractionKind.HOVER }
+                  position={ Position.BOTTOM_LEFT }
+                  useSmartPositioning={ false }>
+                  <ToolBarItem
+                    iconName = { icon }
+                    onClick = { 
+                      addPluginToCurrentSlide.bind(this, {
+                        ...plugin,
+                        // App default states
+                        state: {
+                          left: 250,
+                          top: 150,
+                          // Plugin's default state
+                          ...state
+                        },
+                      }, slideNumber )
+                    }
+                    text = { text }
+                  />
+                </Popover>
+              );
+            })
           }
         </ToolBarMenu>
       </div>
