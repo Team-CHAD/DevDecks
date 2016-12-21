@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { goToSlide, setActivePlugin, toggleGuidelines } from 'actions/app.actions';
-// import { toggleGuidelines } from 'actions/notUndoable.actions';
 import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
 import plugins from 'plugins';
