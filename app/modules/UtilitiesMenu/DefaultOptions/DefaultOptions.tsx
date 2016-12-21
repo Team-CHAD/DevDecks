@@ -7,6 +7,9 @@ interface DefaultOptionsProps {
   currentSlideNumber: number;
   maxSlides: number;
   slide: any;
+  theme: Object;
+
+  addThemeColor: Function;
   goToSlide: Function;
   moveSlideDown: Function;
   moveSlideUp: Function;
@@ -17,6 +20,9 @@ const DefaultOptions = ({
   currentSlideNumber,
   maxSlides,
   slide,
+  theme,
+
+  addThemeColor,
   goToSlide,
   moveSlideDown,
   moveSlideUp,
@@ -32,6 +38,8 @@ const DefaultOptions = ({
     <hr />
     <BackgroundColor
       slide={ slide }
+      theme={ theme }
+      addThemeColor={ addThemeColor }
       updateCurrentSlide={ updateCurrentSlide } />
   </div>
 );

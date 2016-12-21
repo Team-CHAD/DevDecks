@@ -76,27 +76,40 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
             if (!plugin) return null;
 
             const { moduleName, state } = plugin;
+            const {
+              width,
+              height,
+              left,
+              top,
+              
+              isResizable,
+              forceDynamicHeight,
+              forceisResizable,
+              lockAspectRatio,
+            } = state;
+
             const Plugin = req(moduleName).component;
-            
+
             return (
               <Rnd
                 key={ key }
                 ref={ (c: any) => this.rnd[key] = c }
-                className='rnd'
+                className={ forceDynamicHeight ? 'rnd force-dynamic-height' : 'rnd' }
+                lockAspectRatio={ lockAspectRatio }
                 initial={{
-                  width: state.width,
-                  height: state.height,
-                  x: state.left,
-                  y: state.top
+                  width: width,
+                  height: '100%',
+                  x: left,
+                  y: top
                 }}
                 bounds={{
                   top: 0,
                   left: 0,
-                  right: (slidesDimension.width / scale) - state.width,
-                  bottom: (slidesDimension.height / scale) - state.height
+                  right: (slidesDimension.width / scale) - width,
+                  bottom: (slidesDimension.height / scale) - height
                 }}
                 // Resizing T, L, TR, BL, TL results in unwanted movements
-                isResizable={{
+                isResizable={ isResizable ? isResizable : {
                   top: false,
                   right: true,
                   bottom: true,
@@ -106,7 +119,7 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   bottomLeft: false,
                   topLeft: false
                 }}
-                moveGrid={[((slidesDimension.width / scale) - state.width)/100, ((slidesDimension.height / scale) - state.height)/100]}
+                moveGrid={[((slidesDimension.width / scale) - width)/100, ((slidesDimension.height / scale) - height)/100]}
                 onClick={() => {
                   if (!currentSelectedPlugin) setActivePlugin(plugin.moduleName, key, slideNumber);
                   else {
@@ -125,15 +138,12 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                 ) => updateCurrentPlugin(key, slideNumber, clientSize)}
                 onDragStart={toggleGuidelines}
                 onDragStop={(e: any, { position }: { position: { left: number; top: number; } }) => {
-                  const { left, top } = state;
                   const deltaX = Math.abs((top - position.top) / top);
                   const deltaY = Math.abs((left - position.left) / left);
                   if (deltaX > 0 || deltaY > 0) updateCurrentPlugin(key, slideNumber, position);
                   toggleGuidelines();
                 }} >
                 <Plugin
-                  width={ state.width }
-                  height={ state.height }
                   isInPresenterMode={ isInPresenterMode }
                   pluginNumber={ key }
                   pluginState={ state }

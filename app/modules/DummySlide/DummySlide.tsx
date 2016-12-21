@@ -20,9 +20,6 @@ const DummySlide = ({ slide, slidesDimension }: DummySlideProps) => (
         return (
           <div key={ key } style={{ width, height, position: 'absolute', left, top }}>
             <Plugin
-              width={ width }
-              height={ height }
-              pluginNumber={ key }
               pluginState={ slide.plugins[key].state } />
           </div>
         );

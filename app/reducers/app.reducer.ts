@@ -1,4 +1,5 @@
 import { remote } from 'electron';
+import { cloneDeep } from '../utils/helpers';
 import * as constants from 'constants/app.constants';
 
 const undoable = require('redux-undo').default;
@@ -17,6 +18,9 @@ interface InitialAppState {
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
   slidesDimension: IDimensions;
+  theme: {
+    colors: string[];
+  };
 }
 
 const deviceDimension = {
@@ -35,15 +39,33 @@ const initialAppState: InitialAppState = {
     width: deviceDimension.width * .75,
     height: deviceDimension.height * .75
   },
+  theme: {
+    colors: ['#ffeb3b', '#0062A3'],
+  }
 };
 
 const appReducer = (state: any = initialAppState, action: any) => {
   switch (action.type) {
+    case constants.ADD_THEME_COLOR: {
+      const { color } = action;
+
+      const newState = cloneDeep(state);
+      newState.theme.colors.push(color);
+
+      return newState;
+    }
+
     case constants.GO_TO_SLIDE: {
       const { maxSlides, slideNumber } = action;
-      if (slideNumber < 1) return Object.assign({}, state, { currentSlide: 0 });
+      if (slideNumber < 1) return Object.assign({}, state, {
+        currentSelectedPlugin: null,
+        currentSlide: 0,
+      });
       if (slideNumber >= maxSlides) return state;
-      return Object.assign({}, state, { currentSlide: slideNumber });
+      return Object.assign({}, state, {
+        currentSelectedPlugin: null,
+        currentSlide: slideNumber,
+      });
     }
 
     case constants.LEFT_ARROW_PREV: {

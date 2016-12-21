@@ -6,7 +6,10 @@
 }
 
 .rnd {
-  z-index: 0;
   border: 1px solid lightgray;
-}
+  z-index: 0;
 
+  &.force-dynamic-height {
+    height: 100% !important;
+  }
+}

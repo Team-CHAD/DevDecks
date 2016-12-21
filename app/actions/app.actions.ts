@@ -1,5 +1,12 @@
 import * as constants from 'constants/app.constants';
 
+export function addThemeColor(color: string) {
+  return {
+    type: constants.ADD_THEME_COLOR,
+    color,
+  };
+}
+
 export function goToSlide(slideNumber: number, maxSlides?: number) {
   return {
     type: constants.GO_TO_SLIDE,
