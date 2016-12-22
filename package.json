@@ -81,6 +81,7 @@
   ],
   "homepage": "https://github.com/DevDecks/devdecks#readme",
   "devDependencies": {
+    "@types/classnames": "0.0.32",
     "@types/dom4": "^1.5.20",
     "@types/electron": "^1.4.29",
     "@types/lodash": "^4.14.41",
@@ -157,6 +158,7 @@
   "dependencies": {
     "@blueprintjs/core": "^1.0.1",
     "brace": "^0.9.0",
+    "classnames": "^2.2.5",
     "electron-debug": "^1.0.1",
     "lodash": "^4.17.2",
     "react": "^15.3.2",

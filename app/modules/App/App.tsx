@@ -22,7 +22,7 @@ import {
 } from 'actions/slides.actions';
 
 import EditView from './EditView/EditView';
-import FullScreenView from './FullScreenView/FullScreenView';
+import FullscreenView from './FullscreenView/FullscreenView';
 
 const { ActionCreators } = require('redux-undo');
 
@@ -229,12 +229,13 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
       isDragging,
       isFullScreen,
       lastSavedSlideDimensions,
-      leftArrowPrev,
-      rightArrowNext,
       slide,
       slides,
       slideNumber,
       slidesDimension,
+
+      leftArrowPrev,
+      rightArrowNext,
       toggleFullScreen,
       undo,
       redo,
@@ -245,7 +246,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
       <main>
         { 
           isFullScreen ?
-            <FullScreenView
+            <FullscreenView
               slide={ slide }
               deviceDimension={ deviceDimension } /> :
             <EditView
