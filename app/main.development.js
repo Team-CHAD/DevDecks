@@ -154,7 +154,7 @@ app.on('ready', async () => {
         selector: 'undo:',
         click() {
           mainWindow.send('undo');
-        }, 
+        },
       }, {
         label: 'Redo',
         accelerator: 'Shift+Command+Z',
@@ -300,14 +300,14 @@ app.on('ready', async () => {
           mainWindow.close();
         }
       }]
-    },  {
+    }, {
       label: 'Edit',
       submenu: [{
         label: 'Undo',
         accelerator: 'Ctrl+Z',
         click() {
           mainWindow.send('undo');
-        }, 
+        },
       }, {
         label: 'Redo',
         accelerator: 'Shift+Ctrl+Z',
