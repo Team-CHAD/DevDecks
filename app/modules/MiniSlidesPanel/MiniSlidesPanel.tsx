@@ -11,19 +11,26 @@ interface IDimensions {
 }
 
 interface MiniSlidesPanelProps {
-  currentSlideNumber?: number;
-  deviceDimension?: IDimensions;
-  goToSlide?: Function;
+  currentSlideNumber: number;
+  deviceDimension: IDimensions;
+  slidesDimension: IDimensions;
+  slides: any;
+  goToSlide: Function;
   setActivePlugin: Function;
-  slides?: any;
-  slidesDimension?: IDimensions;
 }
 
 class MiniSlidesPanelComponent extends React.Component<MiniSlidesPanelProps, {}> {
   render() {
     const THUMBNAILS_SCALE = 15;
 
-    const { currentSlideNumber, deviceDimension, goToSlide, setActivePlugin, slides, slidesDimension } = this.props;
+    const {
+      currentSlideNumber,
+      deviceDimension,
+      slides,
+      slidesDimension,
+      goToSlide,
+      setActivePlugin,
+    } = this.props;
 
     const thumbnailsDimension = {
       width: deviceDimension.width / THUMBNAILS_SCALE,

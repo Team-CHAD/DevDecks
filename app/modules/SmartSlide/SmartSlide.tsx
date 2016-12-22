@@ -6,6 +6,7 @@ import { updateCurrentPlugin } from 'actions/slides.actions';
 import './smart-slide.scss';
 
 const Rnd = require('react-rnd');
+const classNames = require('classnames');
 
 interface SmartSlideProps {
   currentSelectedPlugin?: {
@@ -72,10 +73,12 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
       <div id="current-slide-view ">
         {
           slide.plugins.map((plugin: any, key: number) => {
-            //When plugin is deleted from plugins array, their position is not removed rather the value is set to null
+            // When plugin is deleted from plugins array, their position is not removed rather the value is set to null
             if (!plugin) return null;
 
             const { moduleName, state } = plugin;
+            const Plugin = req(moduleName).component;
+
             const {
               width,
               height,
@@ -88,16 +91,24 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
               lockAspectRatio,
             } = state;
 
-            const Plugin = req(moduleName).component;
+            const className = classNames({
+              'editing': (
+                currentSelectedPlugin !== null
+                  ? currentSelectedPlugin.pluginNumber === key && currentSelectedPlugin.slideNumber === slideNumber
+                  : false
+              ),
+              'force-dynamic-height': forceDynamicHeight,
+              'rnd': true,
+            });
 
             return (
               <Rnd
                 key={ key }
                 ref={ (c: any) => this.rnd[key] = c }
-                className={ forceDynamicHeight ? 'rnd force-dynamic-height' : 'rnd' }
+                className={ className }
                 lockAspectRatio={ lockAspectRatio }
                 initial={{
-                  width: width,
+                  width,
                   height: '100%',
                   x: left,
                   y: top
@@ -144,10 +155,8 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
                   toggleGuidelines();
                 }} >
                 <Plugin
-                  isInPresenterMode={ isInPresenterMode }
-                  pluginNumber={ key }
+                  disabled={ false }
                   pluginState={ state }
-                  slideNumber={ slideNumber }
                   updateCurrentPlugin={ updateCurrentPlugin.bind(this, key, slideNumber) } />
               </Rnd>
             );
