@@ -4,12 +4,12 @@ import './edit-view.scss';
 import {
   ControlPanel,
   MiniSlidesPanel,
+  Scale,
   SmartSlide,
   ToolBar,
   UtilitiesMenu,
 } from 'modules';
 
-import { Scale } from 'sharedComponents';
 import SettingsMenu from './SettingsMenu/SettingsMenu';
 
 interface IDimensions {
