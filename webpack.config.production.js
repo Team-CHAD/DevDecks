@@ -5,7 +5,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import validate from 'webpack-validator';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
@@ -19,8 +18,8 @@ const config = validate(merge(baseConfig, {
   ],
 
   output: {
-    path: path.join(__dirname, 'app/dist'),
-    publicPath: '../dist/'
+    path: path.join(__dirname, '/app/dist'),
+    publicPath: './dist/'
   },
 
   module: {
@@ -30,35 +29,15 @@ const config = validate(merge(baseConfig, {
         loader: 'ts',
         include: /app/
       },
-      // Extract all .global.css to style.css as is
       {
-        test: /\.global\.scss$/,
-        loader: ExtractTextPlugin.extract(
+        test: /\.scss$/,
+        loaders: [
           'style-loader',
           'css-loader',
-          'postcss-loader',
           'sass-loader'
-        ),
+        ],
         include: /app/
       },
-
-      // Pipe other styles through css modules and apend to style.css
-      {
-        test: /^((?!\.global).)*\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ),
-        include: /app/
-      },
-
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
     ]
   },
 
@@ -79,7 +58,6 @@ const config = validate(merge(baseConfig, {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
     new HtmlWebpackPlugin({
       filename: '../app.html',
       template: 'app/app.html',

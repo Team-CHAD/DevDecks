@@ -19,10 +19,6 @@ if (process.env.NODE_ENV === 'development') {
   require('module').globalPaths.push(p); // eslint-disable-line
 }
 
-if (PLATFORM === 'darwin') {
-  app.dock.setIcon(path.resolve('resources/icons/png/64x64.png'));
-}
-
 app.on('window-all-closed', () => {
   if (PLATFORM !== 'darwin') app.quit();
 });
@@ -49,7 +45,7 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
-    icon: path.resolve('resources/icons/png/64x64.png'),
+    icon: path.resolve('resources/icon.png'),
     minWidth: 800,
     minHeight: 600,
     show: false,
@@ -67,16 +63,6 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  // LISTENERS
-
-  // // NOTE: window only listeners
-  // if (PLATFORM === 'win32') {
-  // }
-
-  // // NOTE: darwin only listeners
-  // if (PLATFORM === 'darwin') {
-  // }
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
@@ -98,11 +84,6 @@ app.on('ready', async () => {
       submenu: [{
         label: 'About DevDecks',
         selector: 'orderFrontStandardAboutPanel:'
-      }, {
-        type: 'separator'
-      }, {
-        label: 'Services',
-        submenu: []
       }, {
         type: 'separator'
       }, {
@@ -190,6 +171,8 @@ app.on('ready', async () => {
           mainWindow.send('addSlide');
         }
       }, {
+        type: 'separator'
+      }, {
         label: 'Move Current Slide Up',
         accelerator: 'Alt+Up',
         click() {
@@ -223,6 +206,12 @@ app.on('ready', async () => {
           mainWindow.toggleDevTools();
         }
       }] : [{
+        label: 'Toggle Developer Tools',
+        accelerator: 'Alt+Command+I',
+        click() {
+          mainWindow.toggleDevTools();
+        }
+      }, {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
@@ -248,24 +237,9 @@ app.on('ready', async () => {
     }, {
       label: 'Help',
       submenu: [{
-        label: 'Learn More',
+        label: 'GitHub',
         click() {
-          shell.openExternal('http://electron.atom.io');
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/Team-CHAD/DevDecks');
         }
       }]
     }];
@@ -357,6 +331,12 @@ app.on('ready', async () => {
           mainWindow.toggleDevTools();
         }
       }] : [{
+        label: 'Toggle &Developer Tools',
+        accelerator: 'Alt+Ctrl+I',
+        click() {
+          mainWindow.toggleDevTools();
+        }
+      }, {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
@@ -366,24 +346,9 @@ app.on('ready', async () => {
     }, {
       label: 'Help',
       submenu: [{
-        label: 'Learn More',
+        label: 'GitHub',
         click() {
-          shell.openExternal('http://electron.atom.io');
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/Team-CHAD/DevDecks');
         }
       }]
     }];

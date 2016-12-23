@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { DummySlide } from 'modules';
-import { Scale } from 'sharedComponents';
+import { DummySlide, Scale } from 'modules';
 import { goToSlide, setActivePlugin } from 'actions/app.actions';
 import './mini-slide-panel.scss';
 

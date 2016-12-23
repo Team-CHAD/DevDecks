@@ -1,0 +1,26 @@
+{
+  "name": "devdecks",
+  "productName": "DevDecks",
+  "version": "0.1.0",
+  "description": "An open-source and extensible, standalone presentation app for developers",
+  "main": "./main.js",
+  "author": "CHAD",
+  "license": "MIT",
+  "dependencies": {
+    "@blueprintjs/core": "^1.0.1",
+    "brace": "^0.9.0",
+    "classnames": "^2.2.5",
+    "electron-debug": "^1.0.1",
+    "lodash": "^4.17.2",
+    "react": "^15.3.2",
+    "react-ace": "^4.1.0",
+    "react-addons-css-transition-group": "^15.4.1",
+    "react-color": "^2.10.0",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-rnd": "^4.2.0",
+    "redux": "^3.6.0",
+    "redux-undo": "^1.0.0-beta9-2",
+    "source-map-support": "^0.4.6"
+  }
+}

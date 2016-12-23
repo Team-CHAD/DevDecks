@@ -1,9 +1,9 @@
 {
   "name": "devdecks",
   "author": "CHAD",
-  "productName": "devdecks",
-  "version": "0.0.1",
-  "description": "An open-source, seamless, intuitive, interactive, extensible presentational platform for developers",
+  "productName": "DevDecks",
+  "version": "0.1.0",
+  "description": "An open-source and extensible, standalone presentation app for developers",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --recursive --require ./test/setup.js app/**/*.spec.js",
@@ -11,8 +11,8 @@
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --require ./test/setup.js ./test/e2e.spec.js",
     "lint": "eslint --ignore-path .gitignore --format=node_modules/eslint-formatter-pretty app test *.js",
     "hot-server": "cross-env NODE_ENV=development node -r babel-register server.js",
-    "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack/webpack.config.electron.js --progress --profile --colors",
-    "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack/webpack.config.production.js --progress --profile --colors",
+    "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
+    "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
     "build": "npm run build-main && npm run build-renderer",
     "start": "cross-env NODE_ENV=production electron ./app/",
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
@@ -68,18 +68,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevDecks/devdecks.git"
+    "url": "git+https://github.com/Team-CHAD/DevDecks.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DevDecks/devdecks/issues"
+    "url": "https://github.com/Team-CHAD/DevDecks/issues"
   },
   "keywords": [
     "electron",
     "slides",
-    "presentation"
+    "presentation",
+    "extensible",
+    "revolutionary",
+    "CHAD",
+    "DevDecks"
   ],
-  "homepage": "https://github.com/DevDecks/devdecks#readme",
+  "homepage": "https://github.com/Team-CHAD/DevDecks#readme",
   "devDependencies": {
     "@types/classnames": "0.0.32",
     "@types/dom4": "^1.5.20",
