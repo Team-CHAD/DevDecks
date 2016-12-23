@@ -12,7 +12,7 @@ An open-source, desktop presentation app for developers. Built in Electron with 
   2. Navigate to the devdecks folder then ```npm install``` the dependencies. This may take a few minutes.
   3. Open the file at ./Node_Modules/@types/node/index.d.ts
   4. Edit line 73 to read: declare var require: any;
-  5. To launch the application input command ```npm run dev```. This may take a moment. Leave Terminal open while you are working on devdecks.
+  5. To launch the application, run ```npm run dev```. This may take a moment. Leave Terminal open while you are working on devdecks.
 
 ### Getting Started
 - The two buttons on the top right allow you to add a slide and go into presentation mode.
