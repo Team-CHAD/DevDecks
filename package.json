@@ -90,6 +90,7 @@
     "@types/electron": "^1.4.29",
     "@types/lodash": "^4.14.41",
     "@types/node": "^6.0.50",
+    "@types/pure-render-decorator": "^0.2.27",
     "@types/react": "^0.14.50",
     "@types/react-addons-css-transition-group": "^0.14.18",
     "@types/react-color": "^2.3.0",
