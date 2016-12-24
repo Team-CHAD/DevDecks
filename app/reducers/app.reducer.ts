@@ -3,8 +3,6 @@ import { cloneDeep } from '../utils/helpers';
 import * as constants from 'constants/app.constants';
 
 const undoable = require('redux-undo').default;
-// const { ignoreActions } = require('redux-ignore');
-// const { excludeAction, includeAction } = require('redux-undo');
 interface IDimensions {
   width: number;
   height: number;
@@ -121,7 +119,6 @@ const ignoreActions:any = [constants.TOGGLE_GUIDELINES];
 const undoableAppReducer = undoable(appReducer, {
   filter: function filterActions(action: any, currentState: any, previousHistory: any) {
     if (action.type === 'SET_ACTIVE_PLUGIN' || action.type === 'GO_TO_SLIDE') return true;
-    // if (previousHistory.currentSlide === previousHistory.currentSelectedPlugin.slideNumber) 
     return false;
   }
 });
