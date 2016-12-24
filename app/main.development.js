@@ -109,6 +109,12 @@ app.on('ready', async () => {
     }, {
       label: 'File',
       submenu: [{
+        label: 'New',
+        accelerator: 'Command+N',
+        click() {
+          mainWindow.send('newDeck');
+        },
+      }, {
         label: 'Open',
         accelerator: 'Command+O',
         click() {
@@ -250,6 +256,12 @@ app.on('ready', async () => {
     template = [{
       label: '&File',
       submenu: [{
+        label: '&New',
+        accelerator: 'Ctrl+N',
+        click() {
+          mainWindow.send('newDeck');
+        }
+      }, {
         label: '&Open',
         accelerator: 'Ctrl+O',
         click() {

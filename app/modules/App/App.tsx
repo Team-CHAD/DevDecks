@@ -19,6 +19,7 @@ import {
   moveSlideDown,
   moveSlideUp,
   openFile,
+  openNewDeck,
 } from 'actions/slides.actions';
 
 import EditView from './EditView/EditView';
@@ -51,6 +52,7 @@ interface AppComponentProps {
   moveSlideDown: Function;
   moveSlideUp: Function;
   openFile: Function;
+  openNewDeck: Function;
   rightArrowNext: Function;
   toggleFullScreen: any;
   updateDeviceDimension: Function;
@@ -70,6 +72,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     this.handleAddSlide = this.handleAddSlide.bind(this);
     this.handleMoveSlideDown = this.handleMoveSlideDown.bind(this);
     this.handleMoveSlideUp = this.handleMoveSlideUp.bind(this);
+    this.handleNewDeck = this.handleNewDeck.bind(this);
     this.handleOpenFile = this.handleOpenFile.bind(this);
     this.handleSaveDialog = this.handleSaveDialog.bind(this);
     this.handleSaveFile = this.handleSaveFile.bind(this);
@@ -97,6 +100,34 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     const { maxSlides, slideNumber, goToSlide, moveSlideUp } = this.props;
     moveSlideUp(slideNumber);
     goToSlide(slideNumber + 1, maxSlides);
+  }
+
+  private handleNewDeck() {
+    const { goToSlide, openNewDeck, clearHist } = this.props;
+    const options: any = {
+      type: 'warning',
+      buttons: ['cancel', 'exit without save', 'save'],
+      defaultId: 2,
+      message: 'Save before exiting?',
+      cancelId: 0,
+      noLink: true,
+    }
+    remote.dialog.showMessageBox(options, (response: number) => {
+      if (response === 0) return console.log('0 pressed!!');
+      if (response === 1) { 
+        goToSlide(0);
+        openNewDeck();
+        clearHist();
+        return console.log('1 pressed!!');
+      }
+      if (response === 2) {
+        goToSlide(0);
+        this.handleSaveFile();
+        openNewDeck();
+        return console.log('2 pressed!!');
+      }
+    })
+
   }
 
   private handleResize(): void {
@@ -198,6 +229,8 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     ipcRenderer.on('addSlide', this.handleAddSlide);
     ipcRenderer.on('moveSlideDown', this.handleMoveSlideUp);
     ipcRenderer.on('moveSlideUp', this.handleMoveSlideDown);
+    ipcRenderer.on('newDeck', this.handleNewDeck);
+    ipcRenderer.on('openFile', this.handleOpenFile);
     ipcRenderer.on('openFile', this.handleOpenFile);
     ipcRenderer.on('saveFile', this.handleSaveFile);
     ipcRenderer.on('saveFileAs', this.handleSaveFileAs);
@@ -282,6 +315,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
   leftArrowPrev: () => dispatch(leftArrowPrev()),
   openFile: (newStateFromFile: Object) => dispatch(openFile(newStateFromFile)),
+  openNewDeck: () => dispatch(openNewDeck()),
   rightArrowNext: () => dispatch(rightArrowNext()),
   toggleFullScreen: () => dispatch(toggleFullScreen()),
   updateDeviceDimension: (newDeviceDimension: { width: number, height: number }) => dispatch(updateDeviceDimension(newDeviceDimension)),

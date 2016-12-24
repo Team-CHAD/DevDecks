@@ -51,6 +51,12 @@ export function openFile(newStateFromFile: Object) {
   };
 }
 
+export function openNewDeck() {
+  return {
+    type: constants.OPEN_NEW_DECK
+  };
+}
+
 export function updateCurrentPlugin(pluginNumber: number, slideNumber: number, changes: Object) {
   return {
     type: constants.UPDATE_CURRENT_PLUGIN,
