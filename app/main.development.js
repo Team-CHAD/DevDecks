@@ -177,6 +177,12 @@ app.on('ready', async () => {
           mainWindow.send('addSlide');
         }
       }, {
+        label: 'Delete Slide',
+        accelerator: 'Command+Backspace',
+        click() {
+          mainWindow.send('deleteSlide');
+        }
+      }, {
         type: 'separator'
       }, {
         label: 'Move Current Slide Up',
@@ -308,6 +314,12 @@ app.on('ready', async () => {
         accelerator: 'Ctrl+Plus',
         click() {
           mainWindow.send('addSlide');
+        }
+      }, {
+        label: 'Delete Slide',
+        accelerator: 'Ctrl+Shift+Backspace',
+        click() {
+          mainWindow.send('deleteSlide');
         }
       }, {
         label: 'Move Current Slide Up',
