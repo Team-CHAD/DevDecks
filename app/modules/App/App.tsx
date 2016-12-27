@@ -145,6 +145,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
         goToSlide(0);
         this.handleSaveFile();
         openNewDeck();
+        clearHist();
         return;
       }
     })
