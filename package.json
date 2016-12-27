@@ -171,6 +171,7 @@
     "react-ace": "^4.1.0",
     "react-addons-css-transition-group": "^15.4.1",
     "react-color": "^2.10.0",
+    "react-contenteditable": "^2.0.1",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-rnd": "^4.2.0",

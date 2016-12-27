@@ -1,15 +1,10 @@
 $mini-slides-padding: 10px 0px;
 $mini-slide-border: 2px solid #106BA3;
 
-@mixin border-shadow($border-size, $border-style, $border-color, $border-radius) {
-  border: $border-size $border-style $border-color !important;
-  border-radius: $border-radius;
-  box-shadow: $border-size $border-size $border-size $border-color !important;
-}
-
 #mini-slide-panel {
-  height: 100vh;
   background-color: #8A9BA8;
+  list-style-type: none;
+  height: 100vh;
   overflow-y: auto; 
 
   .mini-slide-item {

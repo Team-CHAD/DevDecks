@@ -13,7 +13,7 @@ interface FullScreenViewProps {
 const FullScreenView = ({ deviceDimension, slide }: FullScreenViewProps) => {
   const { r, g, b, a } = slide.state.backgroundColor;
   return (
-    <div id="fullscreen-view" style={{ backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})` }}>
+    <div id="fullscreen-view" style={{ backgroundColor: '#000' }}>
       <div style={{
         backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
         width: deviceDimension.width,

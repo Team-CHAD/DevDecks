@@ -6,11 +6,8 @@
 }
 
 .rnd {
-  z-index: 0;
-
   &.editing {
     border: 1px solid #1baee1;
-    margin: -1px;
   }
 
   &.force-dynamic-height {
