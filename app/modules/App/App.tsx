@@ -134,18 +134,19 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
       noLink: true,
     }
     remote.dialog.showMessageBox(options, (response: number) => {
-      if (response === 0) return console.log('0 pressed!!');
+      if (response === 0) return;
       if (response === 1) {
         goToSlide(0);
         openNewDeck();
         clearHist();
-        return console.log('1 pressed!!');
+        return;
       }
       if (response === 2) {
         goToSlide(0);
         this.handleSaveFile();
         openNewDeck();
-        return console.log('2 pressed!!');
+        clearHist();
+        return;
       }
     })
 
