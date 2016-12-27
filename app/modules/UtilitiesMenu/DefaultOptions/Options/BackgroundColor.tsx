@@ -13,7 +13,7 @@ const BackgroundColor = ({ slide, theme, addThemeColor, updateCurrentSlide }: Ba
   const { colors } = theme;
   return (
     <label className="pt-label">
-      Background Color
+      Slide Color
       <SketchPicker
         width="220px"
         color={ slide.state.backgroundColor }

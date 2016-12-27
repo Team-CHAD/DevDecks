@@ -1,28 +1,43 @@
 import * as React from 'react';
 import { DummySlide } from 'modules';
+import { EDirection } from 'constants/slides.enums';
 import './fullscreen-view.scss';
+
+const ReactTransitions = require('react-transitions');
+require('react-transitions/dist/animations.css');
 
 interface FullScreenViewProps {
   deviceDimension: {
     width: number;
     height: number;
   };
+  direction: EDirection;
   slide: any;
 }
 
-const FullScreenView = ({ deviceDimension, slide }: FullScreenViewProps) => {
+const FullScreenView = ({ deviceDimension, direction, slide }: FullScreenViewProps) => {
   const { r, g, b, a } = slide.state.backgroundColor;
+  const { state: { transition } } = slide;
   return (
-    <div id="fullscreen-view" style={{ backgroundColor: '#000' }}>
-      <div style={{
-        backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
-        width: deviceDimension.width,
-        height: deviceDimension.height,
-        margin: '0 auto',
-        transform: `translateY(${(window.screen.height - deviceDimension.height) / 2}px)`,
-      }}>
-        <DummySlide slide={ slide } />
-      </div>
+    <div id="fullscreen-view">
+      <ReactTransitions
+        width={ deviceDimension.width }
+        height={ deviceDimension.height }
+        transition={
+          direction === EDirection.RIGHT
+            ? transition.right
+            : transition.left
+        } >
+        <div
+          key={ Math.floor(Math.random() * 100) }
+          style={{
+            backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+            width: deviceDimension.width,
+            height: deviceDimension.height,
+        }}>
+          <DummySlide slide={ slide } />
+        </div>
+      </ReactTransitions>
     </div>
   );
 };

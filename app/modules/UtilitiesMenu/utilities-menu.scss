@@ -1,7 +1,8 @@
 #utilities-menu-container {
   background-color: #293742;
   max-height: 100vh;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   text-align: center;
 }
 

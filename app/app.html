@@ -6,15 +6,15 @@
     <script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"
     crossorigin="anonymous"></script>
     <script>
-      // (function() {
-      //   if (!process.env.HOT) {
-      //     const link = document.createElement('link');
-      //     link.rel = 'stylesheet';
-      //     link.href = './dist/style.css';
-      //     document.write(link.outerHTML);
-      //   }
-      // }());
-      Raven.config('https://2d33d28467704bb59075b9c1b7f02da8@sentry.io/123489').install();
+      (function() {
+        if (!process.env.HOT) {
+          // const link = document.createElement('link');
+          // link.rel = 'stylesheet';
+          // link.href = './dist/style.css';
+          // document.write(link.outerHTML);
+          Raven.config('https://2d33d28467704bb59075b9c1b7f02da8@sentry.io/123489').install();
+        }
+      }());
     </script>
   </head>
   <body>

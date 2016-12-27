@@ -2,6 +2,7 @@ import * as React from 'react';
 import BackgroundColor from './Options/BackgroundColor';
 import DuplicateSlide from './Options/DuplicateSlide';
 import MoveSlide from './Options/MoveSlide';
+import SelectTransitions from './Options/SelectTransitions';
 import './options.scss';
 
 interface DefaultOptionsProps {
@@ -46,10 +47,14 @@ const DefaultOptions = ({
       goToSlide={goToSlide} />
     <hr/>
     <BackgroundColor
-      slide={slide}
-      theme={theme}
-      addThemeColor={addThemeColor}
-      updateCurrentSlide={updateCurrentSlide} />
+      slide={ slide }
+      theme={ theme }
+      addThemeColor={ addThemeColor }
+      updateCurrentSlide={ updateCurrentSlide } />
+    <hr />
+    <SelectTransitions
+      slide={ slide }
+      updateCurrentSlide={ updateCurrentSlide } />
   </div>
 );
 

@@ -1,8 +1,10 @@
 import { remote } from 'electron';
-import { cloneDeep } from '../utils/helpers';
 import * as constants from 'constants/app.constants';
+import { EDirection }from 'constants/slides.enums';
 
+const cloneDeep = require('lodash.clonedeep');
 const undoable = require('redux-undo').default;
+
 interface IDimensions {
   width: number;
   height: number;
@@ -15,6 +17,7 @@ interface InitialAppState {
   isDragging: boolean;
   isFullScreen: boolean;
   lastSavedSlideDimensions: IDimensions;
+  direction: EDirection;
   slidesDimension: IDimensions;
   theme: {
     colors: string[];
@@ -33,6 +36,7 @@ const initialAppState: InitialAppState = {
   isDragging: false,
   isFullScreen: false,
   lastSavedSlideDimensions: deviceDimension,
+  direction: EDirection.RIGHT,
   slidesDimension: {
     width: deviceDimension.width * .75,
     height: deviceDimension.height * .75
@@ -68,12 +72,18 @@ const appReducer = (state: any = initialAppState, action: any) => {
 
     case constants.LEFT_ARROW_PREV: {
       const currentSlide: number = state.currentSlide - 1;
-      return Object.assign({}, state, { currentSlide });
+      return Object.assign({}, state, {
+        currentSlide,
+        direction: EDirection.LEFT
+      });
     }
 
     case constants.RIGHT_ARROW_NEXT: {
       const currentSlide: number = state.currentSlide + 1;
-      return Object.assign({}, state, { currentSlide });
+      return Object.assign({}, state, {
+        currentSlide,
+        direction: EDirection.RIGHT
+      });
     }
 
     case constants.SAVE_LAST_SLIDE_DIMENSION: {
@@ -122,6 +132,5 @@ const undoableAppReducer = undoable(appReducer, {
     return false;
   }
 });
-
 
 export { undoableAppReducer };
