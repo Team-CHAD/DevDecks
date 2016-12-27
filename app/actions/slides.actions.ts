@@ -30,18 +30,25 @@ export function deleteSlide(slideToDelete: number) {
   };
 }
 
+export function duplicateSlide(slideToDuplicate: any) {
+  return {
+    type: constants.DUPLICATE_SLIDE,
+    slideToDuplicate,
+  }
+}
+
 export function moveSlideDown(slideNumber: number) {
   return {
     type: constants.MOVE_SLIDE_DOWN,
     slideNumber,
-  }
+  };
 }
 
 export function moveSlideUp(slideNumber: number) {
   return {
     type: constants.MOVE_SLIDE_UP,
     slideNumber,
-  }
+  };
 }
 
 export function openFile(newStateFromFile: Object) {

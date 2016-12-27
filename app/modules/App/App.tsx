@@ -18,6 +18,7 @@ import {
 import {
   addSlide,
   deleteSlide,
+  duplicateSlide,
   moveSlideDown,
   moveSlideUp,
   openFile,
@@ -50,6 +51,7 @@ interface AppComponentProps {
 
   addSlide: Function;
   deleteSlide: Function;
+  duplicateSlide: Function;
   goToSlide: Function;
   leftArrowPrev: Function;
   moveSlideDown: Function;
@@ -75,6 +77,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     super();
     this.handleAddSlide = this.handleAddSlide.bind(this);
     this.handleDeleteSlide = this.handleDeleteSlide.bind(this);
+    this.handleDuplicateSlide = this.handleDuplicateSlide.bind(this);
     this.handleMoveSlideDown = this.handleMoveSlideDown.bind(this);
     this.handleMoveSlideUp = this.handleMoveSlideUp.bind(this);
     this.handleNewDeck = this.handleNewDeck.bind(this);
@@ -109,6 +112,12 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
       deleteSlide(slideNumber);
       goToSlide(slideNumber);
     }
+  }
+
+  private handleDuplicateSlide() {
+    const { maxSlides, slide, duplicateSlide, goToSlide } = this.props;
+    duplicateSlide(slide);
+    goToSlide(maxSlides);
   }
 
   private handleMoveSlideDown() {
@@ -250,6 +259,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     const { toggleFullScreen, redo, undo } = this.props;
     ipcRenderer.on('addSlide', this.handleAddSlide);
     ipcRenderer.on('deleteSlide', this.handleDeleteSlide);
+    ipcRenderer.on('duplicateSlide', this.handleDuplicateSlide);
     ipcRenderer.on('moveSlideDown', this.handleMoveSlideUp);
     ipcRenderer.on('moveSlideUp', this.handleMoveSlideDown);
     ipcRenderer.on('newDeck', this.handleNewDeck);
@@ -334,6 +344,7 @@ const mapStateToProps= (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
+  duplicateSlide: (slideToDuplicate: Object) => dispatch(duplicateSlide(slideToDuplicate)),
   goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),

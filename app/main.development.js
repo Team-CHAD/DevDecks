@@ -183,6 +183,12 @@ app.on('ready', async () => {
           mainWindow.send('deleteSlide');
         }
       }, {
+        label: 'Duplicate Slide',
+        accelerator: 'Command+D',
+        click() {
+          mainWindow.send('duplicateSlide');
+        }
+      }, {
         type: 'separator'
       }, {
         label: 'Move Current Slide Up',
@@ -321,6 +327,14 @@ app.on('ready', async () => {
         click() {
           mainWindow.send('deleteSlide');
         }
+      }, {
+        label: 'Duplicate Slide',
+        accelerator: 'Ctrl+D',
+        click() {
+          mainWindow.send('duplicateSlide');
+        }
+      }, {
+        type: 'separator'
       }, {
         label: 'Move Current Slide Up',
         accelerator: 'Alt+Up',

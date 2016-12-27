@@ -16,6 +16,7 @@ import {
   addSlide,
   deleteCurrentPlugin,
   deleteSlide,
+  duplicateSlide,
   moveSlideDown,
   moveSlideUp,
   updateCurrentPlugin,
@@ -40,6 +41,7 @@ interface UtilitiesMenuProps extends UtilitiesMenuParentProps {
   addSlide: Function;
   deleteCurrentPlugin: Function;
   deleteSlide: Function;
+  duplicateSlide: Function;
   goToSlide: Function;
   moveSlideDown: Function;
   moveSlideUp: Function;
@@ -65,6 +67,7 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
       addSlide,
       deleteCurrentPlugin,
       deleteSlide,
+      duplicateSlide,
       goToSlide,
       moveSlideDown,
       moveSlideUp,
@@ -112,6 +115,7 @@ class UtilitiesMenu extends React.Component<UtilitiesMenuProps, {}> {
                     theme={ theme }
 
                     addThemeColor={ addThemeColor }
+                    duplicateSlide={ duplicateSlide }
                     goToSlide={ goToSlide }
                     moveSlideDown={ moveSlideDown.bind(this, currentSlideNumber) }
                     moveSlideUp={ moveSlideUp.bind(this, currentSlideNumber) }
@@ -167,6 +171,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
   deleteCurrentPlugin: (pluginNumber: number, pluginSlideNumber: number) => dispatch(deleteCurrentPlugin(pluginNumber, pluginSlideNumber)),
+  duplicateSlide: (slideToDuplicate: Object) => dispatch(duplicateSlide(slideToDuplicate)),
   goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
