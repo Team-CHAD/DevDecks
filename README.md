@@ -3,6 +3,9 @@ An open-source, desktop presentation app for developers. Built in Electron with 
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/19983603/21447068/afc30ec2-c883-11e6-9dbb-16fa8d702f7a.png)
 
+### Docs & Help
+  * [Guides and API docs](docs/README.md)
+
 ### Installation
 - To install the application for use:
   1. download at: www.devdecks.io
@@ -10,10 +13,13 @@ An open-source, desktop presentation app for developers. Built in Electron with 
 - To contribute to Devdecks development:
   1. Create a local copy of devdecks (forked, cloned, or downloaded).
   2. Navigate to the devdecks folder then ```npm install``` the dependencies. This may take a few minutes.
-  3. Open the file at ./Node_Modules/@types/node/index.d.ts
-  4. Edit line 73 to read: declare var require: any;
-  5. To launch the application, run ```npm run dev```. This may take a moment. Leave Terminal open while you are working on devdecks.
+  3. To launch the application, run ```npm run dev```. This may take a moment. Leave Terminal open while you are working on devdecks.
 
+- To create your own installation file
+  - ```npm run package``` for macs
+  - ```npm run package-win``` for windows
+  - ```npm run package-linux``` for linux
+  
 ### Getting Started
 - The two buttons on the top right allow you to add a slide and go into presentation mode.
 - To add content to a slide, use the three buttons above the main slide container. Currently text, image, and code content can be added to slide decks.
@@ -29,3 +35,8 @@ An open-source, desktop presentation app for developers. Built in Electron with 
 
 ### User Feedback
 [Report bugs or request features](https://goo.gl/forms/W3b5t1DeYldvA8dO2) email: chad.devdecks@gmail.com  Your feedback will be greatly appreciated!
+
+### Upcoming Features
+Feel free to work on any of these features!
+- Allowing 3rd party plugins to be downloaded and consumed
+- Shapes
