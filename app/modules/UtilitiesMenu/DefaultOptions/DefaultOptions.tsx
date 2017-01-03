@@ -33,6 +33,8 @@ const DefaultOptions = ({
   updateCurrentSlide
 }: DefaultOptionsProps) => (
   <div id="utilities-menu-default-options">
+    <h4>Slide Options</h4>
+    <hr />
     <MoveSlide
       currentSlideNumber={currentSlideNumber}
       maxSlides={maxSlides}
