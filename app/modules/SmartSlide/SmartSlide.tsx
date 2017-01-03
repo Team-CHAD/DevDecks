@@ -87,7 +87,6 @@ class SmartSlide extends React.Component<SmartSlideProps, {}> {
               
               isResizable,
               forceDynamicHeight,
-              forceisResizable,
               lockAspectRatio,
             } = state;
 

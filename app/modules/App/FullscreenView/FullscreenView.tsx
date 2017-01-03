@@ -12,17 +12,23 @@ interface FullScreenViewProps {
     height: number;
   };
   direction: EDirection;
+  isFullscreen: boolean;
   slide: any;
 }
 
-const FullScreenView = ({ deviceDimension, direction, slide }: FullScreenViewProps) => {
+const FullScreenView = ({
+  deviceDimension,
+  direction,
+  isFullscreen,
+  slide
+}: FullScreenViewProps) => {
   const { r, g, b, a } = slide.state.backgroundColor;
   const { state: { transition } } = slide;
   return (
     <div id="fullscreen-view">
       <ReactTransitions
-        width={ deviceDimension.width }
-        height={ deviceDimension.height }
+        width={deviceDimension.width}
+        height={deviceDimension.height}
         transition={
           direction === EDirection.RIGHT
             ? transition.right
@@ -35,7 +41,9 @@ const FullScreenView = ({ deviceDimension, direction, slide }: FullScreenViewPro
             width: deviceDimension.width,
             height: deviceDimension.height,
         }}>
-          <DummySlide slide={ slide } />
+          <DummySlide
+            isFullscreen={isFullscreen}
+            slide={slide} />
         </div>
       </ReactTransitions>
     </div>

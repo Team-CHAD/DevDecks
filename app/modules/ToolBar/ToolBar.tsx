@@ -16,9 +16,9 @@ import {
 // NOTE: Hard coded for now. This should dynamically get required
 // plugins
 const installedPlugins = [
-  'devdecks-code-editor',
-  'devdecks-image',
   'devdecks-textbox',
+  'devdecks-image',
+  'devdecks-code-editor',
 ];
 
 interface ToolBarComponentProps {
@@ -54,8 +54,8 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                         ...plugin,
                         // App default states
                         state: {
-                          left: 250,
-                          top: 150,
+                          left: 0,
+                          top: 0,
                           // Plugin's default state
                           ...state
                         },
