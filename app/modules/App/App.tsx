@@ -255,7 +255,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     else if (event.keyCode === 39 && !isLast) rightArrowNext();
     else if (event.keyCode === 27) toggleFullScreen();
   }
-  
+
   public componentWillMount() {
     const { toggleFullScreen, redo, undo } = this.props;
     ipcRenderer.on('addSlide', this.handleAddSlide);
@@ -264,7 +264,6 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     ipcRenderer.on('moveSlideDown', this.handleMoveSlideUp);
     ipcRenderer.on('moveSlideUp', this.handleMoveSlideDown);
     ipcRenderer.on('newDeck', this.handleNewDeck);
-    ipcRenderer.on('openFile', this.handleOpenFile);
     ipcRenderer.on('openFile', this.handleOpenFile);
     ipcRenderer.on('saveFile', this.handleSaveFile);
     ipcRenderer.on('saveFileAs', this.handleSaveFileAs);
@@ -312,11 +311,11 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
 
     return (
       <main>
-        { 
+        {
           isFullScreen ?
             <FullscreenView
               deviceDimension={ deviceDimension }
-              direction={ direction } 
+              direction={ direction }
               isFullscreen={ isFullScreen }
               slide={ slide } /> :
             <EditView
@@ -325,7 +324,7 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
               lastSavedSlideDimensions={ lastSavedSlideDimensions }
               slide={ slide }
               slidesDimension={ slidesDimension }
-              thumbnailsDimension ={{ width: deviceDimension.width / 10, height: deviceDimension.height/ 10 }} 
+              thumbnailsDimension ={{ width: deviceDimension.width / 10, height: deviceDimension.height/ 10 }}
               updateDeviceDimension={ updateDeviceDimension }/>
         }
       </main>
