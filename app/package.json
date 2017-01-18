@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "description": "An open-source and extensible, standalone presentation app for developers",
   "main": "./main.js",
-  "author": "CHAD",
+  "author": {
+    "name": "CHAD",
+    "email": "chad.devdecks@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "@blueprintjs/core": "^1.0.1",

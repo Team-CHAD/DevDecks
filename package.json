@@ -1,6 +1,9 @@
 {
   "name": "devdecks",
-  "author": "CHAD",
+  "author": {
+    "name": "CHAD",
+    "email": "chad.devdecks@gmail.com"
+  },
   "productName": "DevDecks",
   "version": "0.1.0",
   "description": "An open-source and extensible, standalone presentation app for developers",
