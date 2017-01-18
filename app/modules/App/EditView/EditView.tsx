@@ -2,7 +2,6 @@ import * as React from 'react';
 import './edit-view.scss';
 
 import {
-  ControlPanel,
   MiniSlidesPanel,
   Scale,
   SmartSlide,
