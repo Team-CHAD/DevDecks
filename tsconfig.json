@@ -10,7 +10,12 @@
     "outDir": "./build/",
     "preserveConstEnums": true,
     "removeComments": true,
-    "target": "ES6"
+    "target": "ES6",
+    "types": [
+      "node",
+      "mocha",
+      "chai"
+    ]
   },
   "include": [
     "app/**/*"
