@@ -27,12 +27,12 @@ const initialSlideState: Slide = {
       right: 'rotate-push-left-move-from-right',
       left: 'rotate-push-right-move-from-left',
     }
-  },
+  }
 };
 
 const initialSlidesState: Slide[] = [ initialSlideState ];
 
-const slidesReducer = (state: any = initialSlidesState, action: any) => {
+export const slidesReducer = (state: any = initialSlidesState, action: any) => {
   const slides = cloneDeep(state);
 
   switch (action.type) {
