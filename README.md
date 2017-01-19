@@ -1,7 +1,7 @@
 # DevDecks
 An open-source, desktop presentation app for developers. Built in Electron with React-Redux/TypeScript.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/19983603/21447068/afc30ec2-c883-11e6-9dbb-16fa8d702f7a.png)
+![Code Highlighting](http://i.giphy.com/26xBAr6CtQO0USZQA.gif)
 
 ### Docs & Help
   * [Guides and API docs](docs/README.md)
