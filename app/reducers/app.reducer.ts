@@ -87,7 +87,9 @@ const appReducer = (state: any = initialAppState, action: any) => {
     }
 
     case constants.SAVE_LAST_SLIDE_DIMENSION: {
-      return Object.assign({}, state, { lastSavedSlideDimensions: action.dimensions });
+      const slideElement = document.getElementById('edit-slide-view');
+      const { clientWidth: width, clientHeight: height } = slideElement;
+      return Object.assign({}, state, { lastSavedSlideDimensions: { width, height } });
     }
 
     case constants.SET_ACTIVE_PLUGIN: {

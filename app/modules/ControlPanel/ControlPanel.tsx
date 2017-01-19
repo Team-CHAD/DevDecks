@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@blueprintjs/core';
-import { goToSlide } from 'actions/app.actions';
-import { addSlide, deleteSlide } from 'actions/slides.actions'; 
-import { saveLastSlideDimensions, setActivePlugin, toggleFullScreen } from 'actions/app.actions';
+import {
+  goToSlide,
+  saveLastSlideDimensions,
+  toggleFullScreen,
+} from 'actions/app.actions';
+import { addSlide } from 'actions/slides.actions'; 
 import './control-panel.scss';
 
 interface ControlPanelProps {
@@ -13,12 +16,10 @@ interface ControlPanelProps {
   addSlide: Function;
   goToSlide: Function;
   saveLastSlideDimensions: Function;
-  setActivePlugin: Function;
   toggleFullScreen: Function;
-  updateCurrentPlugin: Function;
 }
 
-class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
+export class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
   render() {
     const { 
       currentSlide,
@@ -27,9 +28,7 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
       addSlide,
       goToSlide,
       saveLastSlideDimensions,
-      setActivePlugin,
       toggleFullScreen,
-      updateCurrentPlugin,
     } = this.props;
 
     return (
@@ -45,9 +44,7 @@ class ControlPanelComponent extends React.Component<ControlPanelProps, {}> {
           className='pt-large'
           iconName='fullscreen'
           onClick={() => {
-            const slideElement = document.getElementById('edit-slide-view');
-            const { clientWidth: width, clientHeight: height } = slideElement;
-            saveLastSlideDimensions({ width, height });
+            saveLastSlideDimensions();
             toggleFullScreen();
           }} />
       </div>
@@ -62,10 +59,8 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
-  deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
   goToSlide: (slideNumber: number) => dispatch(goToSlide(slideNumber)),
-  saveLastSlideDimensions: (dimensions: { width: number; height: number }) => dispatch(saveLastSlideDimensions(dimensions)),
-  setActivePlugin: () => dispatch(setActivePlugin()),
+  saveLastSlideDimensions: () => dispatch(saveLastSlideDimensions()),
   toggleFullScreen: () => dispatch(toggleFullScreen()),
 });
 

@@ -27,10 +27,9 @@ export function rightArrowNext() {
   };
 }
 
-export function saveLastSlideDimensions(dimensions: { width: number; height: number; }) {
+export function saveLastSlideDimensions() {
   return {
     type: constants.SAVE_LAST_SLIDE_DIMENSION,
-    dimensions
   };
 }
 
