@@ -19,7 +19,7 @@
     "promise/catch-or-return": 2,
     "promise/no-native": 0,
     "react/jsx-no-bind": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".ts", ".tsx"] }],
     "react/prefer-stateless-function": "off"
   },
   "plugins": [

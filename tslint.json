@@ -1,0 +1,11 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    "curly": true,
+    "jsx-no-lambda": true,
+    "no-var-requires": false
+  },
+  "jsRules": {
+    "curly": true
+  }
+}
