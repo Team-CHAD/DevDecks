@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { slidesReducer } from '../../../app/reducers';
-import addSlideReducerSpec from './specs/addSlide-spec';
+import addSlideSpec from './actions/addSlide-spec';
+import deleteSlideSpec from './actions/deleteSlide-spec';
 
 const slide: any = {
   plugins: [],
@@ -19,5 +20,6 @@ describe('Slides Reducer', () => {
   it('should return the initial state', () => {
     expect(slidesReducer(undefined, {})).to.deep.equal(initialState);
   });
-  addSlideReducerSpec(initialState, slidesReducer, slide);
+  addSlideSpec(initialState, slidesReducer, slide);
+  deleteSlideSpec(initialState, slidesReducer, slide);
 });
