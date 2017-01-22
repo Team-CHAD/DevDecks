@@ -1,7 +1,9 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { expect } from 'chai';
 import { slidesReducer } from '../../../app/reducers';
-import addSlideSpec from './actions/addSlide-spec';
-import deleteSlideSpec from './actions/deleteSlide-spec';
+
+const files = fs.readdirSync(path.join(__dirname, './actions'));
 
 const slide: any = {
   plugins: [],
@@ -20,6 +22,8 @@ describe('Slides Reducer', () => {
   it('should return the initial state', () => {
     expect(slidesReducer(undefined, {})).to.deep.equal(initialState);
   });
-  addSlideSpec(initialState, slidesReducer, slide);
-  deleteSlideSpec(initialState, slidesReducer, slide);
+
+  files.forEach(test => {
+    require(`./actions/${test}`).default(initialState, slidesReducer, slide);
+  });
 });
