@@ -171,7 +171,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
   deleteCurrentPlugin: (pluginNumber: number, pluginSlideNumber: number) => dispatch(deleteCurrentPlugin(pluginNumber, pluginSlideNumber)),
-  duplicateSlide: (slideToDuplicate: Object) => dispatch(duplicateSlide(slideToDuplicate)),
+  duplicateSlide: (slideToDuplicate: number) => dispatch(duplicateSlide(slideToDuplicate)),
   goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),

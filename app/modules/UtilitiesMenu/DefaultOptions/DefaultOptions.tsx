@@ -43,8 +43,8 @@ const DefaultOptions = ({
       moveSlideUp={moveSlideUp} />
     <hr />
     <DuplicateSlide
+      currentSlideNumber={currentSlideNumber}
       maxSlides={maxSlides}
-      slide={slide}
       duplicateSlide={duplicateSlide}
       goToSlide={goToSlide} />
     <hr/>

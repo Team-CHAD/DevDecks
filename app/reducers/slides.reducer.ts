@@ -61,8 +61,8 @@ export const slidesReducer = (state: any = initialSlidesState, action: any) => {
 
     case constants.DUPLICATE_SLIDE: {
       const { slideToDuplicate } = action;
-      const dupedSlide = cloneDeep(slideToDuplicate);
-      slides.push(dupedSlide);
+      const dupedSlide = cloneDeep(slides[slideToDuplicate]);
+      slides.splice(slideToDuplicate + 1, 0, dupedSlide);
       return slides;
     }
 

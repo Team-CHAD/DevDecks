@@ -117,9 +117,9 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
   }
 
   private handleDuplicateSlide() {
-    const { maxSlides, slide, duplicateSlide, goToSlide } = this.props;
-    duplicateSlide(slide);
-    goToSlide(maxSlides);
+    const { slideNumber, duplicateSlide, goToSlide } = this.props;
+    duplicateSlide(slideNumber);
+    goToSlide(slideNumber + 1);
   }
 
   private handleMoveSlideDown() {
@@ -348,7 +348,7 @@ const mapStateToProps= (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   addSlide: (currentSlide: number) => dispatch(addSlide(currentSlide)),
   deleteSlide: (currentSlide: number) => dispatch(deleteSlide(currentSlide)),
-  duplicateSlide: (slideToDuplicate: Object) => dispatch(duplicateSlide(slideToDuplicate)),
+  duplicateSlide: (slideToDuplicate: number) => dispatch(duplicateSlide(slideToDuplicate)),
   goToSlide: (slideNumber: number, maxSlides: number) => dispatch(goToSlide(slideNumber, maxSlides)),
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
