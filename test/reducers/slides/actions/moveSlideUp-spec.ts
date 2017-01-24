@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MOVE_SLIDE_DOWN } from '../../../../app/constants/slides.constants';
+import { MOVE_SLIDE_UP } from '../../../../app/constants/slides.constants';
 
 export default function(initialState: any, reducer: any, slide: any) {
   const dummySlide1 = {
@@ -13,22 +13,22 @@ export default function(initialState: any, reducer: any, slide: any) {
     }
   };
 
-  describe('MOVE_SLIDE_DOWN', () => {
+  describe('MOVE_SLIDE_UP', () => {
     const _initialState = [slide, dummySlide1];
-    it('should not move the slide when the first slide is selected', () => {
+    it('should not move the slide when the last slide is selected', () => {
       expect(
         reducer(_initialState, {
-          type: MOVE_SLIDE_DOWN,
-          slideNumber: 0
+          type: MOVE_SLIDE_UP,
+          slideNumber: 1
         })
       ).to.deep.equal(_initialState);
     });
 
-    it('should swap slide 1 and slide 0 when slide 1 is active', () => {
+    it('should swap slide 0 and slide 1 when slide 0 is active', () => {
       expect(
         reducer(_initialState, {
-          type: MOVE_SLIDE_DOWN,
-          slideNumber: 1
+          type: MOVE_SLIDE_UP,
+          slideNumber: 0
         })
       ).to.deep.equal([dummySlide1, slide]);
     });
