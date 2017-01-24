@@ -14,17 +14,17 @@ export default function(initialState: any, reducer: any, slide: any) {
   };
 
   describe('MOVE_SLIDE_DOWN', () => {
-    it('should not move the slide when current selected slide is 0', () => {
+    const _initialState = [slide, dummySlide1];
+    it('should not move the slide when the first slide is selected', () => {
       expect(
-        reducer(initialState, {
+        reducer(_initialState, {
           type: MOVE_SLIDE_DOWN,
           slideNumber: 0
         })
-      ).to.deep.equal(initialState);
+      ).to.deep.equal(_initialState);
     });
 
     it('should swap slide 1 and slide 0 when slide 1 is active', () => {
-      const _initialState = [slide, dummySlide1];
       expect(
         reducer(_initialState, {
           type: MOVE_SLIDE_DOWN,
