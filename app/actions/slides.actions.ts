@@ -30,7 +30,7 @@ export function deleteSlide(slideToDelete: number) {
   };
 }
 
-export function duplicateSlide(slideToDuplicate: any) {
+export function duplicateSlide(slideToDuplicate: number) {
   return {
     type: constants.DUPLICATE_SLIDE,
     slideToDuplicate,
