@@ -28,7 +28,7 @@ interface SmartSlideProps {
   updateCurrentPlugin?: Function;
 }
 
-class SmartSlide extends React.Component<SmartSlideProps, {}> {
+export class SmartSlideComponent extends React.Component<SmartSlideProps, {}> {
   rnd: any = {};
 
   // This is to update the position via Rnd updatePosition API
@@ -188,6 +188,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   toggleGuidelines: () => dispatch(toggleGuidelines()),
 });
 
-const SmartSlideConnect = connect(mapStateToProps, mapDispatchToProps)(SmartSlide as any);
+const SmartSlideConnect = connect(mapStateToProps, mapDispatchToProps)(SmartSlideComponent as any);
 
 export { SmartSlideConnect as SmartSlide };
