@@ -51,10 +51,10 @@ export function moveSlideUp(slideNumber: number) {
   };
 }
 
-export function openFile(newStateFromFile: Object) {
+export function openFile(buffer_data: Buffer) {
   return {
     type: constants.OPEN_FILE,
-    newStateFromFile,
+    buffer_data,
   };
 }
 
