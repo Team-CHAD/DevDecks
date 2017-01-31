@@ -184,15 +184,14 @@ class AppComponent extends React.Component<AppComponentProps, AppComponentStates
     };
     remote.dialog.showOpenDialog(options, (filePaths: string[]) => {
       if (!filePaths) return;
-      fs.readFile(filePaths[0], (err: any, data: any) => {
+      fs.readFile(filePaths[0], (err: Error, data: Buffer) => {
         if (err) return;
-        const devdecksBufferString: string = JSON.parse(new Buffer(data).toString());
 
         // Ensures that slide 0 is active before rendering new slides
         // This prevents an error when previous active slide does not exist
         goToSlide(0);
 
-        openFile(devdecksBufferString);
+        openFile(data);
         this.setState({ representedFilename: filePaths[0] });
         remote.getCurrentWindow().setTitle(`${filePaths[0]} - ${TITLE}`);
         clearHist();
@@ -353,7 +352,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   moveSlideDown: (slideNumber: number) => dispatch(moveSlideDown(slideNumber)),
   moveSlideUp: (slideNumber: number) => dispatch(moveSlideUp(slideNumber)),
   leftArrowPrev: () => dispatch(leftArrowPrev()),
-  openFile: (newStateFromFile: Object) => dispatch(openFile(newStateFromFile)),
+  openFile: (newStateFromFile: Buffer) => dispatch(openFile(newStateFromFile)),
   openNewDeck: () => dispatch(openNewDeck()),
   rightArrowNext: () => dispatch(rightArrowNext()),
   setActivePlugin: () => dispatch(setActivePlugin()),

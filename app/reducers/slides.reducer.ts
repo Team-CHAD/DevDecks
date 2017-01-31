@@ -93,7 +93,9 @@ export const slidesReducer = (state: any = initialSlidesState, action: any) => {
     }
 
     case constants.OPEN_FILE: {
-      return action.newStateFromFile;
+      const { buffer_data } = action;
+      const slidesFromFile = JSON.parse(buffer_data.toString());
+      return slidesFromFile;
     }
 
     case constants.OPEN_NEW_DECK: {
