@@ -34,14 +34,14 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
   public render() {
     const { addPluginToCurrentSlide, slidesDimension, slideNumber } = this.props;
     return (
-      <div id="toolbar">
+      <div id="toolbar" className="s-m-right">
         <ToolBarMenu className='pt-large'>
           {
             installedPlugins.map((installedPlugin: string, key: number) => {
               const plugin = req(installedPlugin);
               const { icon, state, text, tooltip } = plugin;
               return (
-                <Popover 
+                <Popover
                   key={ key }
                   content={ tooltip }
                   interactionKind={ PopoverInteractionKind.HOVER }
@@ -49,7 +49,7 @@ class ToolBarComponent extends React.Component<ToolBarComponentProps, {}> {
                   useSmartPositioning={ false }>
                   <ToolBarItem
                     iconName = { icon }
-                    onClick = { 
+                    onClick = {
                       addPluginToCurrentSlide.bind(this, {
                         ...plugin,
                         // App default states
