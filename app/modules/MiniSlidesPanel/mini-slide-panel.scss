@@ -2,10 +2,8 @@ $mini-slides-padding: 10px 0px;
 $mini-slide-border: 2px solid #106BA3;
 
 #mini-slide-panel {
-  background-color: #8A9BA8;
   list-style-type: none;
-  height: 100vh;
-  overflow-y: auto; 
+  overflow-y: auto;
 
   .mini-slide-item {
     padding: $mini-slides-padding;

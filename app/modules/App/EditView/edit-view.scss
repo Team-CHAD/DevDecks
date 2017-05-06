@@ -1,9 +1,8 @@
 /* NOTE: Variables do not work within calc function */
 
 #container {
-  display: flex;
-  background-color: #fff;
-  width: 100%;
+  background-color: rgba(0, 0, 0, 1);
+  height: 100vh;
 }
 
 #main-content-wrapper {
@@ -11,8 +10,6 @@
 }
 
 #menu-bar-wrapper {
-  display: flex;
-  align-items: center;
   margin: 5px 0;
 }
 
@@ -21,15 +18,15 @@
   border: 2px dashed rgba(100, 100, 100, .5);
 }
 
-.vertical-guideline { 
+.vertical-guideline {
   border-left: 2px dotted rgba(255, 128, 128, .3);
   position: relative;
-  float: left;  
+  float: left;
   right: -50%;
 }
 
-.horizontal-guideline { 
-  border-top: 2px dotted rgba(255, 128, 128, .3); 
+.horizontal-guideline {
+  border-top: 2px dotted rgba(255, 128, 128, .3);
   position: absolute;
   top: 50%;
   bottom: 50%;

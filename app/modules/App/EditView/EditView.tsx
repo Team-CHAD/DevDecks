@@ -37,39 +37,42 @@ const EditView = ({
 }: EditViewProps) => {
   const EDIT_VIEW_WIDTH = '100vw';
   const UTILITIES_MENU_WIDTH = 295;
-  
+
   const scale = Math.min( slidesDimension.width / deviceDimension.width, slidesDimension.height / deviceDimension.height);
   const { r, g, b, a } = slide.state.backgroundColor;
 
   return (
-    <div id="container">
+    <div id="container" className="flex">
 
       <MiniSlidesPanel />
-      <div id="main-content-wrapper">
 
-        <div id="menu-bar-wrapper">
+      <div id="main-content-wrapper" className="vertical">
+
+        <div id="menu-bar-wrapper" className="flex flex-grow">
           <ToolBar />
           <SettingsMenu
             deviceDimension={ deviceDimension }
             updateDeviceDimension={ updateDeviceDimension }/>
         </div>
 
-        <div
-          id="edit-slide-view"
-          style={{
-            backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
-            width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
-            paddingBottom: `${(deviceDimension.height / deviceDimension.width) * 100}%`
-          }}>
-          <Scale isFullScreen={ false } scale={ scale }>
-            <SmartSlide scale={ scale } />
-          </Scale>
+        <div className="middle flex-grow">
           <div
-            className={ isDragging ? 'vertical-guideline' : null }
-            style={ isDragging ? { height: slidesDimension.height } : null }></div>
-          <div
-            className={ isDragging ? 'horizontal-guideline' : null }
-            style={ isDragging ? { width: '100%' } : null }></div>
+            id="edit-slide-view"
+            style={{
+              backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+              width: `calc(${EDIT_VIEW_WIDTH} - ${UTILITIES_MENU_WIDTH}px - ${thumbnailsDimension.width}px)`,
+              paddingBottom: `${(deviceDimension.height / deviceDimension.width) * 100}%`
+            }}>
+            <Scale isFullScreen={ false } scale={ scale }>
+              <SmartSlide scale={ scale } />
+            </Scale>
+            <div
+              className={ isDragging ? 'vertical-guideline' : null }
+              style={ isDragging ? { height: slidesDimension.height } : null }></div>
+            <div
+              className={ isDragging ? 'horizontal-guideline' : null }
+              style={ isDragging ? { width: '100%' } : null }></div>
+          </div>
         </div>
 
       </div>
