@@ -1,0 +1,47 @@
+ .flex {
+   display: flex;
+ }
+
+ .flex-grow {
+  flex-grow: 1;
+ }
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-center {
+  align-items: center;
+}
+
+.middle {
+  align-self: center;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+// margins and paddings
+$directions: top, right, bottom, left;
+$sizes: 's', 'm', 'l';
+$baseSize: 8px;
+
+@each $size in $sizes {
+  @each $direction in $directions {
+    .#{$size}-m-#{$direction} {
+      margin-#{$direction}: $baseSize;
+    }
+  }
+  $baseSize: $baseSize + 4px;
+}
+
+@each $size in $sizes {
+  @each $direction in $directions {
+    .#{$size}-p-#{$direction} {
+      padding-#{$direction}: $baseSize;
+    }
+  }
+  $baseSize: $baseSize + 4px;
+}
