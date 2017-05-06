@@ -7,6 +7,7 @@ ul, ol {
 .pt-menu {
   min-width: 0 !important;
   padding: 0 !important;
+  background: none !important;
 }
 
 .pt-large .pt-menu-item::before {
@@ -19,4 +20,8 @@ ul, ol {
 
 .pt-popover-content {
   padding: 5px !important;
+}
+
+.pt-menu-item::before, .pt-menu-item::after {
+  color: #ffe39f !important;
 }
